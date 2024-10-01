@@ -15,8 +15,8 @@ import { NetworkSchema } from '@/app/api/knowledge_graph/route';
 import { parseAsJson } from 'next-usequerystate';
 import InteractiveButtons from './InteractiveButtons';
 import { fetch_kg_schema } from '@/utils/initialize';
-import { sanitize } from '../SanitizedHTML';
 import TooltipComponentGroup from '../TermAndGeneSearch/tooltip';
+import { sanitize } from '../SanitizedHTML';
 
 export interface EnrichmentParams {
     libraries?: Array<{
@@ -212,6 +212,12 @@ const Enrichment = async ({
                                 elements={elements}
                                 fullscreen={searchParams.fullscreen}
                                 {...props}
+                            />
+                            <TooltipComponentGroup
+                            elements={elements}
+                                tooltip_templates_edges={tooltip_templates_edges}
+                                tooltip_templates_nodes={tooltip_templates_nodes}
+                                schema={schema}
                             />
                         </CardContent>
                     </Card>
