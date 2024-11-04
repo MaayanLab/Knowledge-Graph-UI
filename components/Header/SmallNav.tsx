@@ -4,6 +4,7 @@ import {
 	Grid, 
 	Button, 
 	Menu,
+	MenuItem,
 } from "@mui/material";
 import Counter from '../Counter';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -38,7 +39,7 @@ export const SmallNav = ({tab_component, ui_theme,  counter}:
 				}}
 				sx={{
 					"& .MuiMenu-paper": {
-						backgroundColor: "primary.main",
+						// backgroundColor: "primary.main",
 						padding: '15px'
 					},
 					width: '100%',
