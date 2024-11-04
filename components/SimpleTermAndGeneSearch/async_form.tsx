@@ -122,23 +122,28 @@ const AsyncFormComponent = ({direction,
                     value={selected}
                     loading={loading}
                     onChange={(evt, selected) => {
-                        if (selected === null) setInputTerm('')
-                        if (direction === 'Start') {
+                        if (selected === null) {
+                            setInputTerm('')
                             setSelected(selected)
-							setInputFilter({
-                                start: selected.node_type,
-                                start_field: 'label',
-                                start_term: selected.label,
-                                ...end_filter
-                            })
-                        } else {
-							setInputFilter({
-                                        ...start_filter,
-                                        end: selected.node_type,
-                                        end_field: "label",
-                                        end_term: selected.label,
-                            })
-                                
+                        }
+                        else {
+                            if (direction === 'Start') {
+                                setSelected(selected)
+                                setInputFilter({
+                                    start: selected.node_type,
+                                    start_field: 'label',
+                                    start_term: selected.label,
+                                    ...end_filter
+                                })
+                            } else {
+                                setInputFilter({
+                                            ...start_filter,
+                                            end: selected.node_type,
+                                            end_field: "label",
+                                            end_term: selected.label,
+                                })
+                                    
+                            }
                         }
                     }}
                     sx={{ width: '100%'}}
