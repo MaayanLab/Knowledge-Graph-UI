@@ -42,7 +42,7 @@ export const TooltipComponent = ({data, tooltip_templates, initial_query, schema
 	const query_parser = parseAsJson<FilterSchema>().withDefault(initial_query)
     const filter: FilterSchema = query_parser.parseServerSide(searchParams.get('filter'))
 	const elements = []
-	const field = data.kind === "Relation" ? data.label : data.kind.replace("Co-expressed Gene", "Gene")
+	const field = data.kind === "Relation" ? data.label : data.kind.replace("Co-expressed Gene", "lncRNA")
 	for (const i of tooltip_templates[field] || []) {
 		if (i.type === "link") {
 			const text = makeTemplate(i.text, data)

@@ -204,7 +204,7 @@ const checkedIcon = <CheckBoxIcon fontSize="small" />;
                                         router_push(router, pathname, query)
                                     }}
                                     min={1}
-                                    max={!end ? start === "Gene" ? 50: neighborCount : 150}
+                                    max={!end ? start === "lncRNA" ? 50: neighborCount : 150}
                                     sx={{width: 150}}
                                     aria-labelledby="continuous-slider"
                                 />
@@ -397,7 +397,7 @@ const checkedIcon = <CheckBoxIcon fontSize="small" />;
                                     </Tooltip>
                                 </Grid>
                             }
-                            { (!end && start !== "Gene" && coexpression_prediction) && 
+                            { (!end && start !== "lncRNA" && coexpression_prediction) && 
                                 <Grid item>
                                     <Tooltip title={filter.augment ? "Reset network": "Augment network using co-expressed genes"}>
                                         <IconButton color="secondary" 

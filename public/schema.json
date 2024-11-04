@@ -1728,94 +1728,6 @@
 		"subheader": [
 			{
 				"height": 100,
-				"icon": "https://s3.amazonaws.com/maayan-kg/cfde-kg/assets/LINCS.gif",
-				"label": "LINCS",
-				"props": {
-					"libraries": [
-						"LINCS_L1000_Chem_Pert_Consensus_Sigs_lncRNA",
-						"LINCS_L1000_CRISPR_KO_Consensus_Sigs_lncRNA"
-					],
-					"relation": [
-						"LINCS Chem Pert Consensus Sigs",
-						"LINCS CRISPR KO Consensus Sigs"
-					]
-				},
-				"width": 140
-			},
-			{
-				"height": 100,
-				"icon": "https://s3.amazonaws.com/maayan-kg/cfde-kg/assets/GTEx.png",
-				"label": "GTEx",
-				"props": {
-					"libraries": [
-						"GTEx_Aging_Signatures_2021_lncRNA",
-						"GTEx_Tissues_V8_2023_lncRNA"
-					],
-					"relation": [
-						"GTEx Aging",
-						"GTEx Tissues"
-					]
-				},
-				"width": 80
-			},
-			{
-				"height": 100,
-				"icon": "https://s3.amazonaws.com/maayan-kg/cfde-kg/assets/MetabolomicsWorkbench.png",
-				"label": "Metabolomics Workbench",
-				"props": {
-					"libraries": [
-						"Metabolomics_Workbench_Metabolites_2022_lncRNA"
-					],
-					"relation": [
-						"Metabolomics"
-					]
-				},
-				"width": 100
-			},
-			{
-				"height": 100,
-				"icon": "https://s3.amazonaws.com/maayan-kg/cfde-kg/assets/IDG.png",
-				"label": "IDG",
-				"props": {
-					"libraries": [
-						"IDG_Drug_Targets_2022_lncRNA"
-					],
-					"relation": [
-						"IDG"
-					]
-				},
-				"width": 100
-			},
-			{
-				"height": 100,
-				"icon": "https://s3.amazonaws.com/maayan-kg/cfde-kg/assets/glygen.png",
-				"label": "GlyGen",
-				"props": {
-					"libraries": [
-						"GlyGen_Glycosylated_Proteins_2022_lncRNA"
-					],
-					"relation": [
-						"GlyGen"
-					]
-				},
-				"width": 100
-			},
-			{
-				"height": 100,
-				"icon": "https://s3.amazonaws.com/maayan-kg/cfde-kg/assets/KOMP2.svg",
-				"label": "KOMP2",
-				"props": {
-					"libraries": [
-						"KOMP2_Mouse_Phenotypes_2022_lncRNA"
-					],
-					"relation": [
-						"KOMP2"
-					]
-				},
-				"width": 100
-			},
-			{
-				"height": 100,
 				"href": "https://hubmapconsortium.github.io/ccf-asct-reporter/",
 				"icon": "https://s3.amazonaws.com/maayan-kg/enrichr-kg/minio/HuBMAP.png",
 				"label": "HuBMAP",
@@ -2161,13 +2073,101 @@
 					]
 				},
 				"width": 40
+			},
+			{
+				"height": 100,
+				"icon": "https://s3.amazonaws.com/maayan-kg/cfde-kg/assets/LINCS.gif",
+				"label": "LINCS",
+				"props": {
+					"libraries": [
+						"LINCS_L1000_Chem_Pert_Consensus_Sigs_lncRNA",
+						"LINCS_L1000_CRISPR_KO_Consensus_Sigs_lncRNA"
+					],
+					"relation": [
+						"LINCS Chem Pert Consensus Sigs",
+						"LINCS CRISPR KO Consensus Sigs"
+					]
+				},
+				"width": 120
+			},
+			{
+				"height": 80,
+				"icon": "https://s3.amazonaws.com/maayan-kg/cfde-kg/assets/GTEx.png",
+				"label": "GTEx",
+				"props": {
+					"libraries": [
+						"GTEx_Aging_Signatures_2021_lncRNA",
+						"GTEx_Tissues_V8_2023_lncRNA"
+					],
+					"relation": [
+						"GTEx Aging",
+						"GTEx Tissues"
+					]
+				},
+				"width": 60
+			},
+			{
+				"height": 80,
+				"icon": "https://s3.amazonaws.com/maayan-kg/cfde-kg/assets/MetabolomicsWorkbench.png",
+				"label": "Metabolomics Workbench",
+				"props": {
+					"libraries": [
+						"Metabolomics_Workbench_Metabolites_2022_lncRNA"
+					],
+					"relation": [
+						"Metabolomics"
+					]
+				},
+				"width": 80
+			},
+			{
+				"height": 80,
+				"icon": "https://s3.amazonaws.com/maayan-kg/cfde-kg/assets/IDG.png",
+				"label": "IDG",
+				"props": {
+					"libraries": [
+						"IDG_Drug_Targets_2022_lncRNA"
+					],
+					"relation": [
+						"IDG"
+					]
+				},
+				"width": 80
+			},
+			{
+				"height": 80,
+				"icon": "https://s3.amazonaws.com/maayan-kg/cfde-kg/assets/glygen.png",
+				"label": "GlyGen",
+				"props": {
+					"libraries": [
+						"GlyGen_Glycosylated_Proteins_2022_lncRNA"
+					],
+					"relation": [
+						"GlyGen"
+					]
+				},
+				"width": 80
+			},
+			{
+				"height": 80,
+				"icon": "https://s3.amazonaws.com/maayan-kg/cfde-kg/assets/KOMP2.svg",
+				"label": "KOMP2",
+				"props": {
+					"libraries": [
+						"KOMP2_Mouse_Phenotypes_2022_lncRNA"
+					],
+					"relation": [
+						"KOMP2"
+					]
+				},
+				"width": 80
 			}
 		],
 		"tabs": [
 			{
 				"component": "SimpleKnowledgeGraph",
 				"endpoint": "/search",
-				"label": "Term & Gene Search",
+				"label": "Term & lncRNA Search",
 				"props": {
 					"gene_link_button": true,
 					"init_function": "initialize_kg",
@@ -2191,19 +2191,19 @@
 					"default_options": {
 						"libraries": [
 							{
-								"name": "GlyGen_Glycosylated_Proteins_2022_lncRNA",
+								"name": "MGI_Mammalian_Phenotype_Level_4_2021_lncRNA",
 								"limit": 5
 							},
 							{
-								"name": "LINCS_L1000_Chem_Pert_Consensus_Sigs_lncRNA",
+								"name": "GWAS_Catalog_2019_lncRNA",
 								"limit": 5
 							},
 							{
-								"name": "IDG_Drug_Targets_2022_lncRNA",
+								"name": "WikiPathway_2021_Human_lncRNA",
 								"limit": 5
 							},
 							{
-								"name": "Metabolomics_Workbench_Metabolites_2022_lncRNA",
+								"name": "ChEA_2022_lncRNA",
 								"limit": 5
 							},
 							{
@@ -2598,7 +2598,7 @@
 				"VPS9D1-AS1",
 				"KIFC1"
 			],
-			"node": "Gene",
+			"node": "lncRNA",
 			"relation": [
 
 			],

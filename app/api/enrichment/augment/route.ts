@@ -133,7 +133,7 @@ const enrichment = async ({
         const vars = {}
         for (const [node, lib_terms] of Object.entries(library_terms)) {
             let query_part = `
-                MATCH p = (${node})--(b:Gene) 
+                MATCH p = (${node})--(b:lncRNA) 
                 WHERE a.label IN ${JSON.stringify(lib_terms)} 
                 AND b.label IN ${JSON.stringify([...genes, ...augmented_genes])}
             `
@@ -155,7 +155,7 @@ const enrichment = async ({
                     if (geneLinksRelations.indexOf(i) === -1) throw Error("Invalid gene link")
                 }
                 let query_part = `
-                    MATCH p = (${node})--(b:Gene)-[r]-(c:Gene)--(${node})
+                    MATCH p = (${node})--(b:lncRNA)-[r]-(c:lncRNA)--(${node})
                     WHERE a.label IN ${JSON.stringify(lib_terms)}
                     AND b.label IN ${JSON.stringify([...genes, ...augmented_genes])} 
                     AND c.label IN ${JSON.stringify([...genes, ...augmented_genes])}
@@ -181,7 +181,7 @@ const enrichment = async ({
                 if (geneLinksRelations.indexOf(i) === -1) throw Error("Invalid gene link")
             }
             let query_part = `
-                MATCH p = (a:Gene)-[r]-(b:Gene)
+                MATCH p = (a:lncRNA)-[r]-(b:lncRNA)
                 WHERE a.label IN ${JSON.stringify(genes)} 
                 AND b.label IN ${JSON.stringify(genes)}
                 AND r.relation IN ${JSON.stringify(gene_links)}

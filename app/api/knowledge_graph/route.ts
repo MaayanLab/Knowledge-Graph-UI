@@ -248,7 +248,7 @@ const resolve_term_and_end_type = async (
 					RETURN q as p, n1 as n, r1 as r
 					UNION
 					WITH q, n1, r1
-					MATCH p=(c:Gene)-[r:${gl.join("|")}]-(d:Gene)
+					MATCH p=(c:lncRNA)-[r:${gl.join("|")}]-(d:lncRNA)
 					WHERE c in n1 and d in n1
 					${additional_link_tags.length > 0 ?
 						`AND r.hidden_tag IN ${JSON.stringify(additional_link_tags)}`:
@@ -401,7 +401,7 @@ const resolve_one_term = async ({
 		if (gene_links.length === 0 && additional_link_tags.length > 0) {
 			query = query + `CALL {
 				WITH q, st
-					MATCH p=(c:Gene)-[r]-(d:Gene)-[${valid_relations.length ? ":" + valid_relations.join("|"): ""}]-(st)
+					MATCH p=(c:lncRNA)-[r]-(d:lncRNA)-[${valid_relations.length ? ":" + valid_relations.join("|"): ""}]-(st)
 					WHERE r.hidden_tag IN ${JSON.stringify(additional_link_tags)}
 					AND c in NODES(q)
 					RETURN p, nodes(p) as n, relationships(p) as r
@@ -410,7 +410,7 @@ const resolve_one_term = async ({
 					RETURN q as p, nodes(q) as n, relationships(q) as r
 				UNION
 				WITH q, st
-					MATCH p=(st)-[r]->(d:Gene)
+					MATCH p=(st)-[r]->(d:lncRNA)
 					WHERE r.hidden_tag IN ${JSON.stringify(additional_link_tags)}
 					RETURN p, nodes(p) as n, relationships(p) as r				
 			}
@@ -419,7 +419,7 @@ const resolve_one_term = async ({
 		} else if (gene_links.length > 0) {
 			query = query + `CALL {
 				WITH q, st
-					MATCH p=(c:Gene)-[r:${gl.join("|")}]-(d:Gene)-[${valid_relations.length ? "r1:" + valid_relations.join("|"): "r1"}]-(st)
+					MATCH p=(c:lncRNA)-[r:${gl.join("|")}]-(d:lncRNA)-[${valid_relations.length ? "r1:" + valid_relations.join("|"): "r1"}]-(st)
 					WHERE c in NODES(q)
 					${additional_link_tags.length > 0 ?
 						`AND r.hidden_tag IN ${JSON.stringify(additional_link_tags)}
@@ -433,7 +433,7 @@ const resolve_one_term = async ({
 					RETURN q as p, nodes(q) as n, relationships(q) as r
 				UNION
 					WITH q, st
-					MATCH p=(st)-[r:${gl.join("|")}]->(d:Gene)
+					MATCH p=(st)-[r:${gl.join("|")}]->(d:lncRNA)
 					${additional_link_tags.length > 0 ?
 						`WHERE r.hidden_tag IN ${JSON.stringify(additional_link_tags)}`:
 						""
@@ -472,7 +472,7 @@ const resolve_one_term = async ({
 			if (i.data[field] === term && i.data.kind === start) {
 				start_node = i
 			}
-			if (i.data.kind === "Gene") {
+			if (i.data.kind === "lncRNA") {
 				const gene = i.data.label
 				if (gene_list.indexOf(gene) === -1) {
 					gene_list.push(gene)
@@ -485,7 +485,7 @@ const resolve_one_term = async ({
 		if (gene_links.length > 0 || additional_link_tags.length > 0) {
 			if (gene_links.length > 0){
 				q = `
-					MATCH p=(a: Gene)-[r:${gl.join("|")}]-(b: Gene)
+					MATCH p=(a: lncRNA)-[r:${gl.join("|")}]-(b: lncRNA)
 					WHERE a.label IN ${JSON.stringify(augmented_genes)} AND b.label IN ${JSON.stringify(augmented_genes)}
 					${additional_link_tags.length > 0 ?
 						`AND r.hidden_tag IN ${JSON.stringify(additional_link_tags)}`:
@@ -495,7 +495,7 @@ const resolve_one_term = async ({
 				`
 			} else if (additional_link_tags.length > 0) {
 				q = `
-					MATCH p=(a: Gene)-[r]-(b: Gene)
+					MATCH p=(a: lncRNA)-[r]-(b: lncRNA)
 					WHERE a.label IN ${JSON.stringify(augmented_genes)} AND b.label IN ${JSON.stringify(augmented_genes)}
 					${additional_link_tags.length > 0 ?
 						`AND r.hidden_tag IN ${JSON.stringify(additional_link_tags)}`:
@@ -506,7 +506,7 @@ const resolve_one_term = async ({
 			}
 		} else {
 			q = `
-				MATCH p=(a: Gene)
+				MATCH p=(a: lncRNA)
 				WHERE a.label IN ${JSON.stringify(augmented_genes)}
 				RETURN p, nodes(p) as n, relationships(p) as r
 			` 

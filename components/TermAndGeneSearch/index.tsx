@@ -126,7 +126,7 @@ const TermAndGeneSearch = async ({searchParams, props}: {
                 }
             }
             for (const i of (elements || {}).nodes || []) {
-                if (i.data.kind === "Gene" && genes.indexOf(i.data.label) === -1) {
+                if (i.data.kind === "lncRNA" && genes.indexOf(i.data.label) === -1) {
                     genes.push(i.data.label)
                 }
             }

@@ -57,7 +57,6 @@ export async function GET(req: NextRequest) {
             return NextResponse.json({ error: `Invalid field: ${field}` }, { status: 400 })
         }
         let query = `MATCH (a:\`${type}\`${filter ? " "+JSON.stringify(filter).replace(/"/g, "`"): ""})`
-        // if (enzyme && enzyme.toLowerCase() === 'true') query = `MATCH (a:Gene ${filter})`
         if (term) {
             query = query + ` WHERE a.${field} =~ $term`
 

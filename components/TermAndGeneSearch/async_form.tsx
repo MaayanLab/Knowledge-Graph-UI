@@ -365,7 +365,7 @@ const AsyncFormComponent = ({direction,
                                         ...rest,
                                         filter: {
                                             ...f,
-                                            end: nodes['Gene'] !== undefined ? 'Gene': Object.keys(nodes)[0],
+                                            end: nodes['lncRNA'] !== undefined ? 'lncRNA': Object.keys(nodes)[0],
                                             end_field: 'label',
                                         }
                                     })

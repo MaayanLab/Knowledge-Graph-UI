@@ -385,7 +385,7 @@ const InteractiveButtons = ({
                                     </IconButton>
                                 </Tooltip>
                             }
-                            <Tooltip title={parsedParams.augment ? "Reset network": "Augment network using co-expressed genes"}>
+                            {/* <Tooltip title={parsedParams.augment ? "Reset network": "Augment network using co-expressed genes"}>
                                 <IconButton
                                     disabled={!parsedParams.augment && gene_count > 100}
                                     onClick={()=>{
@@ -396,7 +396,7 @@ const InteractiveButtons = ({
                                 >
                                     <Icon path={mdiDna} size={0.8} />
                                 </IconButton>
-                            </Tooltip>
+                            </Tooltip> */}
                         </>
                     }
                     {children}

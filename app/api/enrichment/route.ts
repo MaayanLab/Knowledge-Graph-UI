@@ -118,7 +118,7 @@ const enrichment = async ({
         const vars = {}
         for (const [node, lib_terms] of Object.entries(library_terms)) {
             let query_part = `
-                MATCH p = (${node})--(b:Gene) 
+                MATCH p = (${node})--(b:lncRNA) 
                 WHERE a.label IN ${JSON.stringify(lib_terms)} 
                 AND b.label IN ${JSON.stringify(genes)}
             `
@@ -141,7 +141,7 @@ const enrichment = async ({
                 if (geneLinksRelations.indexOf(i) === -1) throw Error("Invalid gene link")
             }
             let query_part = `
-                MATCH p = (a:Gene)-[r]-(b:Gene) 
+                MATCH p = (a:lncRNA)-[r]-(b:lncRNA) 
                 WHERE a.label IN ${JSON.stringify(genes)} 
                 AND b.label IN ${JSON.stringify(genes)}
                 AND r.relation IN ${JSON.stringify(gene_links)}
@@ -172,6 +172,7 @@ const enrichment = async ({
         }
         const query = query_list.join(' UNION ')
         const query_params = {limit: expand_limit, ...vars}
+        console.log(query)
         return resolve_results({query, query_params, aggr_scores, colors, kind_properties: terms, get_node_color_and_type})
     } catch (error) {
         throw error

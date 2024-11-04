@@ -48,7 +48,7 @@ export const TooltipCard = ({node,
     const filter:FilterSchema = JSON.parse(f || '{}')
     const router = useRouter()
     const elements = []
-    const field = node.kind === "Relation" ? node.label : node.kind.replace("Co-expressed Gene", "Gene")
+    const field = node.kind === "Relation" ? node.label : node.kind.replace("Co-expressed Gene", "lncRNA")
     for (const i of tooltip_templates[field] || []) {
       if (i.type === "link") {
         const text = makeTemplate(i.text, node)

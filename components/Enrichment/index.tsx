@@ -163,7 +163,7 @@ const Enrichment = async ({
                 console.log(`fetched`)
                 elements = await res.json()
                 genes = ((elements || {}).nodes || []).reduce((acc, i)=>{
-                    if (i.data.kind === "Gene" && acc.indexOf(i.data.label) === -1) return [...acc, i.data.label]
+                    if (i.data.kind === "lncRNA" && acc.indexOf(i.data.label) === -1) return [...acc, i.data.label]
                     else return acc
                 }, [])
             }

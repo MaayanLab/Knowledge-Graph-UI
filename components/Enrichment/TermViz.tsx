@@ -24,7 +24,7 @@ const TermViz = ({elements, schema, tooltip_templates_edges, tooltip_templates_n
 		if (dt.data.pval !== undefined) {
 			const {enrichr_label} = properties
 			const id = `${properties.library}: ${enrichr_label} (${i})`
-			if (entries[id] === undefined && kind !== "Gene") {
+			if (entries[id] === undefined && kind !== "lncRNA") {
 				const {
 					pval,
 					qval,
