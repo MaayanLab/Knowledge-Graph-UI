@@ -2394,6 +2394,15 @@
 				"type": "markdown"
 			},
 			{
+				"component": "APIDoc",
+				"endpoint": "/api-docs",
+				"label": "API",
+				"props": {
+					"title": "lncRNAlyzr"
+				},
+				"type": "markdown"
+			},
+			{
 				"component": "Markdown",
 				"endpoint": "/help",
 				"label": "Help",
