@@ -154,7 +154,8 @@ const LibraryPicker = ({
 															})	
 														})
 													}    
-												}                                             
+												}
+												setAnchorEl(null)                                             
                                         }}/>
                                     </Tooltip>
 									<Popper id={id} open={open} anchorEl={anchorEl}>
