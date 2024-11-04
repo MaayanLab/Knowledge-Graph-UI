@@ -158,7 +158,8 @@ const LibraryPicker = ({
 															fullscreen
 														})
 													}    
-												}                                             
+												}
+												setAnchorEl(null)                                             
                                         }}/>
                                     </Tooltip>
 									<Popper id={id} open={open} anchorEl={anchorEl}>
