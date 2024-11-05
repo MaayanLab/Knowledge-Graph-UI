@@ -122,6 +122,7 @@ const AsyncFormComponentGroup = ({
 	tooltip_templates_nodes,
     tooltip_templates_edges,
 	schema,
+	example
 }: {
         initial_query: {[key: string]: string},
 		nodes: {[key:string]: {[key:string]: any}},
@@ -138,7 +139,12 @@ const AsyncFormComponentGroup = ({
         },
 		tooltip_templates_edges: {[key: string]: Array<{[key: string]: string}>},
         tooltip_templates_nodes: {[key: string]: Array<{[key: string]: string}>},
-		schema: UISchema
+		schema: UISchema,
+		example?: Array<{
+			node: string,
+			field?: string,
+			term: string
+		}>
 	}) => {
 	
 	const {filter: f, ...rest} = searchParams
@@ -191,6 +197,7 @@ const AsyncFormComponentGroup = ({
 				filter={inputFilter}
 				setInputFilter={setInputFilter}
 				term={filter.start_term || initial_query.start_term || ''}
+				example={example}
 			/>
 			{inputFilter.end !== undefined && 
 			<AsyncFormComponent 
@@ -200,6 +207,7 @@ const AsyncFormComponentGroup = ({
 				filter={inputFilter}
 				setInputFilter={setInputFilter}
 				term={filter.end_term || ''}
+				example={example}
 			/>}
 			{(user_input !== null && elementMapper[user_input.type][user_input.id] !== undefined) &&
 				<TooltipComponent 

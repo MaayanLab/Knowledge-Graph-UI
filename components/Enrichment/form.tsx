@@ -55,6 +55,8 @@ const GeneSetForm = ({
     disableLibraryLimit?: boolean,
     example?: {
         gene_set?: string,
+        description?: string,
+        libraries?: Array<{name: string, node: string, regex?: string}>,
     },
     libraries_list: Array<string>,
     parsedParams: EnrichmentParams
@@ -351,11 +353,15 @@ const GeneSetForm = ({
                             <Grid item xs={fullWidth? 6: 12} sx={{textAlign: "right"}}>
                                 <Button 
                                     onClick={()=>{
-                                        const {gene_set} = example
-                                        setInput({genes: gene_set.split("\n"), description: "Sample Input"})
+                                        const {gene_set, libraries, description} = example
+                                        setInput({genes: gene_set.split("\n"), description: description || "Sample Input"})
+                                        setQuery({
+                                            ...query,
+                                            libraries
+                                        })
                                     }}
                                     
-                                ><Typography color={'secondary'} variant='subtitle2'>Try an example</Typography></Button>
+                                ><Typography color={'secondary'} variant='subtitle2'>{example.description || "Try an example"}</Typography></Button>
                             </Grid>
                         }
                         <Grid item sx={{ flexGrow: 1, marginTop: 3 }}>

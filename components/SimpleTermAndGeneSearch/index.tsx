@@ -72,6 +72,11 @@ const SimpleTermAndGeneSearch = async ({searchParams, props}: {
             additional_link_button?: boolean,
             additional_link_relation_tags?: Array<string>,
             neighborCount?: number,
+            example?: Array<{
+                node: string,
+                field?: string,
+                term: string
+            }>
         }
 }) => {
     const {
@@ -173,6 +178,7 @@ const SimpleTermAndGeneSearch = async ({searchParams, props}: {
                                 tooltip_templates_edges={tooltip_templates_edges}
                                 tooltip_templates_nodes={tooltip_templates_nodes}
                                 schema={schema}
+                                example={props.example}
                             />
                         </CardContent>
                     </Card>

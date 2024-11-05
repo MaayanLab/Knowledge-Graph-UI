@@ -62,6 +62,8 @@ const Enrichment = async ({
     },
     example?: {
         gene_set?: string,
+        description?: string,
+        libraries?: Array<{name: string, node: string, regex?: string}>,
     },
     libraries?: Array<{name: string, node: string, regex?: string}>,
     sortLibraries?: boolean,
