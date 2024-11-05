@@ -1664,8 +1664,8 @@
 				{
                     "component": "github",
                     "props": {
-                        "code": "https://github.com/MaayanLab/enrichr-kg",
-                        "issues": "https://github.com/MaayanLab/enrichr-kg-issues/issues/new"
+                        "code": "https://github.com/MaayanLab/lncRNAlyzr",
+                        "issues": "https://github.com/MaayanLab/lncRNAlyzr-issues/issues/new"
                     }
                 }
 			],
@@ -2178,7 +2178,18 @@
                     "initial_query": {
                         "start": "ARCHS4 TFs Coexpression lncRNA",
                         "start_term": "22RV1 PROSTATE TenPx24"
-                    }
+                    },
+					"example": [
+						{
+							"node": "lncRNA",
+							"term": "HOTAIR"
+						},
+						{
+							"node": "Jensen Lab DISEASES lncRNA",
+							"term": "Alzheimer's disease"
+						}
+
+					]
 				},
 				"type": "page"
 			},
@@ -2217,26 +2228,23 @@
 					"description": "Enter a list of genes below to perform enrichment analysis using [Independent Enrichment Analysis](https://appyters.maayanlab.cloud/Independent_Enrichment_Analysis/).",
 					"example": {
 						"gene_degree": 3,
-						"gene_set": "ENSG00000261474\nTMEM147-AS1\nENSG00000268069\nENSG00000273248\nENSG00000288756\nOIP5-AS1\nENSG00000289194\nMOCS2-DT\nENSG00000260877\nPRKACB-DT\nHDAC4-AS1\nENSG00000276728\nSTAM-DT\nHOXA-AS2\nENSG00000248367\nENSG00000289161\nENSG00000270933\nENSG00000281468\nKTN1-AS1\nDICER1-AS1\nENSG00000273486\nLINC02043\nEMSLR\nHOTAIRM1\nENSG00000288816\nMAN1B1-DT\nKCNIP2-AS1\nENSG00000264548\nLINC01023\nENSG00000258561\nLINC01003\nENSG00000278642\nENSG00000261798\nENSG00000233230\nLINC00653\nENSG00000271993\nENSG00000271427\nEDRF1-DT\nPRRT3-AS1\nMALT1-AS1\nPRKAG2-AS1\nENSG00000287088\nENSG00000261572\nPAK6-AS1\nENSG00000275180\nENSG00000261757\nENSG00000286989",
+						"gene_set": "FTX\nNEAT1\nZNF271P\nRAB4A-AS1\nMUC20-OT1\nXIST\nRRN3P3\nCUTALP\nCCDC18-AS1\nATP6V0D1-DT",
+						"description": "CYTOR Use Case Example",
 						"libraries": [
 							{
-								"name": "GlyGen_Glycosylated_Proteins_2022_lncRNA",
+								"name": "WikiPathway_2021_Human_lncRNA",
 								"limit": 5
 							},
 							{
-								"name": "LINCS_L1000_Chem_Pert_Consensus_Sigs_lncRNA",
+								"name": "Reactome_2022_lncRNA",
 								"limit": 5
 							},
 							{
-								"name": "IDG_Drug_Targets_2022_lncRNA",
+								"name": "GO_Biological_Process_2021_lncRNA",
 								"limit": 5
 							},
 							{
-								"name": "Metabolomics_Workbench_Metabolites_2022_lncRNA",
-								"limit": 5
-							},
-							{
-								"name": "HuBMAP_ASCTplusB_augmented_2022_lncRNA",
+								"name": "ChEA_2022_lncRNA",
 								"limit": 5
 							}
 						]
