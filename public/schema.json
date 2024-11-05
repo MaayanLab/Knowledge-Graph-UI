@@ -1665,7 +1665,7 @@
                     "component": "github",
                     "props": {
                         "code": "https://github.com/MaayanLab/lncRNAlyzr",
-                        "issues": "https://github.com/MaayanLab/lncRNAlyzr-issues/issues/new"
+                        "issues": "https://github.com/MaayanLab/lncRNAlyzr/issues/new"
                     }
                 }
 			],
