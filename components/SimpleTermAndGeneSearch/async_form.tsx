@@ -27,7 +27,6 @@ const AsyncFormComponent = ({direction,
         }>
 	}) => {
 	const pathname = usePathname()
-    console.log(filter)
 	if (Object.keys(filter || {}).length === 0) filter = initial_query
     const {
         start,
@@ -221,6 +220,9 @@ const AsyncFormComponent = ({direction,
                                             filter: JSON.stringify(query)
                                         },
                                         // relation
+                                    }}
+                                    onClick={()=>{
+                                        setInputFilter(query)
                                     }}
                                     // shallow
                                 >
