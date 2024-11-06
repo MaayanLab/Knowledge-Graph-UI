@@ -147,10 +147,11 @@ export default function Cytoscape ({
 						{
 							selector: 'edge',
 							style: {
-								'curve-style': 'straight',
+								'curve-style': 'bezier',
 								// 'opacity': '0.5',
 								'line-color': 'data(lineColor)',
 								'width': '3',
+								'arrow-scale':2,
 								// 'label': 'data(label)',
 								"text-rotation": "autorotate",
 								"text-margin-x": 0,
