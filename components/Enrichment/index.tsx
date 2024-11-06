@@ -74,7 +74,7 @@ const Enrichment = async ({
     searchParams: {
         q?:string,
         fullscreen?: 'true'
-
+        view?: string
     },
     endpoint: string,
     additional_link_relation_tags?: Array<string>
@@ -236,6 +236,7 @@ const Enrichment = async ({
                                 elements={elements}
                                 short_url={short_url}
                                 additional_link_relation_tags={props.additional_link_relation_tags}
+                                searchParams={searchParams}
                             >
                                 <Summarizer elements={elements} schema={schema} augmented={parsedParams.augment}/>
                             </InteractiveButtons>
@@ -249,6 +250,7 @@ const Enrichment = async ({
                                         schema={schema}
                                         tooltip_templates_edges={tooltip_templates_edges}
                                         tooltip_templates_nodes={tooltip_templates_nodes}
+                                        view={searchParams.view}
                                     />
                                 </CardContent>
                             </Card>

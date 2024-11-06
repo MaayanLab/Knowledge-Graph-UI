@@ -29,13 +29,12 @@ import { useQueryState, parseAsJson } from 'next-usequerystate';
 import { EnrichmentParams } from '.';
 
 const GeneSetForm = ({
-    default_options,
     disableLibraryLimit,  
     example,
     libraries_list,
     parsedParams,
     fullWidth,
-    elements
+    elements,
 }: {
     fullWidth:boolean,
     elements: NetworkSchema,
@@ -59,7 +58,7 @@ const GeneSetForm = ({
         libraries?: Array<{name: string, node: string, regex?: string}>,
     },
     libraries_list: Array<string>,
-    parsedParams: EnrichmentParams
+    parsedParams: EnrichmentParams,
 }) => {
     const router = useRouter()
     const [query, setQuery] = useQueryState('query', parseAsJson<EnrichmentParams>().withDefault({}))
@@ -82,7 +81,6 @@ const GeneSetForm = ({
         gene_degree,
         term_degree,
     } = combined_query
-
     const get_controller = () => {
         if (controller) controller.abort()
         const c = new AbortController()
@@ -550,6 +548,9 @@ const GeneSetForm = ({
                         </Grid>    
                     </Grid>
                 }
+                <Grid item>
+                    <Button variant='outlined'>Collapse</Button>
+                </Grid>
             </Grid>
         </FormGroup>
     )
