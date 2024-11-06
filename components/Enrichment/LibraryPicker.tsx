@@ -1,6 +1,6 @@
 'use client'
 import { useState } from "react"
-import { useRouter, usePathname } from "next/navigation"
+import { useRouter, usePathname, useSearchParams } from "next/navigation"
 import { 
 	Autocomplete,
 	Chip,
@@ -34,8 +34,7 @@ const LibraryPicker = ({
 	parsedParams,
 	libraries_list,
 	fullWidth,
-	disableLibraryLimit,
-	fullscreen
+	disableLibraryLimit
 }: {
 	fullWidth: boolean,
     disableLibraryLimit?: boolean,
@@ -45,16 +44,22 @@ const LibraryPicker = ({
 }) => {
 	const router = useRouter()
 	const pathname = usePathname()
+	const searchParams = useSearchParams()
+	const fullscreen = searchParams.get('fullscreen')
+	
+	const view = searchParams.get('view')
 	const [error, setError] = useState<{message: string, type: string}>(null)
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 	const [query, setQuery] = useQueryState('query', parseAsJson<EnrichmentParams>().withDefault({}))
-
+	
 	const handleClick = (event: React.MouseEvent<HTMLElement>) => {
 		setAnchorEl(anchorEl ? null : event.currentTarget);
 	};
 	const open = Boolean(anchorEl);
 	const id = open ? 'simple-popper' : undefined;
 	let libraries = query.libraries || parsedParams.libraries
+	console.log(view, fullscreen)
+
 	return (
 		<Grid container spacing={1}>
 			<Grid item xs={12} md={fullWidth ? 12:5}>
@@ -114,12 +119,15 @@ const LibraryPicker = ({
 									libraries: new_libraries
 								})
 							} else {
+								const misc = {}
+								if (fullscreen) misc["fullscreen"] = fullscreen
+								if (view) misc["view"] = view
 								router_push(router, pathname, {
+									...misc,
 									q: JSON.stringify({
 										...parsedParams,
 										libraries: new_libraries
 									}),
-									fullscreen	
 								})
 							}
 							
@@ -150,12 +158,15 @@ const LibraryPicker = ({
 															libraries: new_libraries
 														})
 													} else {
+														const misc = {}
+														if (fullscreen) misc["fullscreen"] = fullscreen
+														if (view) misc["view"] = view
 														router_push(router, pathname, {
+															...misc,
 															q: JSON.stringify({
 																...parsedParams,
 																libraries: new_libraries
-															}),
-															fullscreen
+															})
 														})
 													}    
 												}
@@ -187,12 +198,15 @@ const LibraryPicker = ({
 																libraries: new_libraries
 															})
 														} else {
+															const misc = {}
+															if (fullscreen) misc["fullscreen"] = fullscreen
+															if (view) misc["view"] = view
 															router_push(router, pathname, {
+																...misc,
 																q: JSON.stringify({
 																	...parsedParams,
 																	libraries: new_libraries
 																}),
-																fullscreen	
 															})
 														}
 													}}

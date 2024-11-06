@@ -52,7 +52,6 @@ import { EnrichmentParams } from '.';
 const InteractiveButtons = ({
         hiddenLinksRelations=[], 
         shortId,
-        // searchParams,
         gene_count=0,
         elements,
         children,
@@ -62,7 +61,8 @@ const InteractiveButtons = ({
         short_url,
         fullscreen,
         additional_link_button,
-        additional_link_relation_tags
+        additional_link_relation_tags,
+        searchParams
     }: {
         short_url?: string,
         libraries_list?:Array<string>,
@@ -75,12 +75,17 @@ const InteractiveButtons = ({
         parsedParams: EnrichmentParams,
         fullscreen?: 'true',
         additional_link_button?: boolean,
-        additional_link_relation_tags?: Array<string>
+        additional_link_relation_tags?: Array<string>,
+        searchParams: {
+            q?:string,
+            fullscreen?: 'true'
+            view?: string
+        }
     }) => {
     const router = useRouter()
     const pathname = usePathname()
     const [edge_labels, setEdgeLabels] = useQueryState('edge_labels')
-    const [view, setView] = useQueryState('view')
+    // const [view, setView] = useQueryState('view')
 	const [layout, setLayout] = useQueryState('layout')
 	const [legend, setLegend] = useQueryState('legend')
     const [tooltip, setTooltip] = useQueryState('tooltip')
@@ -109,13 +114,12 @@ const InteractiveButtons = ({
 	const handleCloseMenu = (setter:Function) => {
 		setter(null);
 	};
-
+    const view = (searchParams || {}).view
 
     return (
         <Grid container>
             <Grid item xs={12}>
                 <LibraryPicker 
-                    // searchParams={searchParams}
                     parsedParams={parsedParams}
                     libraries_list={libraries_list}
                     fullWidth={false}
@@ -127,9 +131,8 @@ const InteractiveButtons = ({
                     <Tooltip title={"Network view"}>
                         <IconButton
                             onClick={()=>{
-                                // const {view, ...query} = searchParams
-                                // router_push(router, pathname, query)
-                                setView(null)
+                                const {view, ...query} = searchParams
+                                router_push(router, pathname, query)
                             }}
                             sx={{borderRadius: 5, background: (view === "network" || !view) ? "#e0e0e0": "none"}}
                         >
@@ -139,10 +142,10 @@ const InteractiveButtons = ({
                     <Tooltip title={"Table view"}>
                         <IconButton
                             onClick={()=>{
-                                // const {view, ...query} = searchParams
-                                // query["view"] = 'table'
-                                // router_push(router, pathname, query)
-                                setView('table')
+                                const {view, ...query} = searchParams
+                                query["view"] = 'table'
+                                router_push(router, pathname, query)
+                                // setView('table')
                             }}
                             sx={{borderRadius: 5, background: (view === "table") ? "#e0e0e0": "none"}}
                         >
@@ -152,10 +155,10 @@ const InteractiveButtons = ({
                     <Tooltip title={"Bar view"}>
                         <IconButton
                             onClick={()=>{
-                                // const {view, ...query} = searchParams
-                                // query["view"] = 'bar'
-                                // router_push(router, pathname, query)
-                                setView('bar')
+                                const {view, ...query} = searchParams
+                                query["view"] = 'bar'
+                                router_push(router, pathname, query)
+                                // setView('bar')
                             }}
                             sx={{borderRadius: 5, background: view === "bar" ? "#e0e0e0": "none"}}
                         >
