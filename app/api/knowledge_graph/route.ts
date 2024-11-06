@@ -361,15 +361,17 @@ const resolve_one_term = async ({
 						ORDER BY  ${color_order.field} ${color_order.aggr_type}	
 					`
 				}
-				q = q + `LIMIT ${r.limit || 5} `
+				
 				if ((remove || []).length) {
 					q = q + `
 						WHERE NOT st.id in ${JSON.stringify(remove)}
 						AND NOT en.id in ${JSON.stringify(remove)}
 					`
 				}
-				q = q + `RETURN p, nodes(p) as n, relationships(p) as r, st`
+				q = q + ` UNWIND relationships(p) as reln WITH nodes(p) as n, reln, p ORDER BY reln.z_score DESC WITH COLLECT {RETURN reln} as r, n, p RETURN n, r, p `
+				q = q + ` LIMIT ${r.limit || 5}`
 				rels.push(q)
+				
 			}
 		}
 	}
@@ -382,7 +384,7 @@ const resolve_one_term = async ({
 			AND NOT en.id in ${JSON.stringify(remove)}
 		`
 	}
-	query = query + ` RETURN p, nodes(p) as n, relationships(p) as r, st  LIMIT TOINTEGER($limit)`
+	query = query + ` UNWIND relationships(p) as reln WITH nodes(p) as n, reln, p ORDER BY reln.z_score DESC WITH COLLECT {RETURN reln} as r, n, p RETURN n, r, p LIMIT TOINTEGER($limit)` 
 	
 	if (rels.length > 0) {
 		query = rels.join("\nUNION\n")
@@ -404,15 +406,19 @@ const resolve_one_term = async ({
 					MATCH p=(c:Gene)-[r]-(d:Gene)-[${valid_relations.length ? ":" + valid_relations.join("|"): ""}]-(st)
 					WHERE r.hidden_tag IN ${JSON.stringify(additional_link_tags)}
 					AND c in NODES(q)
-					RETURN p, nodes(p) as n, relationships(p) as r
+					
+					UNWIND relationships(p) as reln WITH nodes(p) as n, reln, p ORDER BY reln.z_score DESC WITH COLLECT {RETURN reln} as r, n, p RETURN n, r, p 
 				UNION
 				WITH q
-					RETURN q as p, nodes(q) as n, relationships(q) as r
+					
+					WITH nodes(q) as n, relationships(p) as r, q as p UNWIND r as reln RETURN n, reln as r, p ORDER BY r.z_score DESC
+
 				UNION
 				WITH q, st
 					MATCH p=(st)-[r]->(d:Gene)
 					WHERE r.hidden_tag IN ${JSON.stringify(additional_link_tags)}
-					RETURN p, nodes(p) as n, relationships(p) as r				
+					WITH nodes(p) as n, relationships(p) as r, q as p UNWIND r as reln RETURN n, reln as r, p ORDER BY r.z_score DESC
+
 			}
 			RETURN p, n, r`
 
@@ -427,10 +433,11 @@ const resolve_one_term = async ({
 						`:
 						""
 					}
-					RETURN p, nodes(p) as n, relationships(p) as r
+					UNWIND relationships(p) as reln RETURN q as p, nodes(p) as n, st, COLLECT {RETURN reln ORDER BY r.z_score DESC} as r
+
 				UNION
 					WITH q
-					RETURN q as p, nodes(q) as n, relationships(q) as r
+					UNWIND relationships(p) as reln RETURN q as p, nodes(p) as n, st, COLLECT {RETURN reln ORDER BY r.z_score DESC} as r
 				UNION
 					WITH q, st
 					MATCH p=(st)-[r:${gl.join("|")}]->(d:Gene)
@@ -438,7 +445,7 @@ const resolve_one_term = async ({
 						`WHERE r.hidden_tag IN ${JSON.stringify(additional_link_tags)}`:
 						""
 					}
-					RETURN p, nodes(p) as n, relationships(p) as r				
+					WITH nodes(p) as n, relationships(p) as r, p UNWIND r as reln RETURN n, reln as r, p ORDER BY r.z_score DESC
 			}
 			RETURN p, n, r`
 		}
@@ -453,7 +460,7 @@ const resolve_one_term = async ({
 				UNION
 				MATCH p = (c)--(d)
 				WHERE c.id = $expand_${ind}
-				RETURN p, nodes(p) as n, relationships(p) as r
+				UNWIND relationships(p) as reln WITH nodes(p) as n, reln, p ORDER BY reln.z_score DESC WITH COLLECT {RETURN reln} as r, n, p RETURN n, r, p 
 				LIMIT 10
 			`   
 		}
@@ -491,7 +498,7 @@ const resolve_one_term = async ({
 						`AND r.hidden_tag IN ${JSON.stringify(additional_link_tags)}`:
 						""
 					}
-					RETURN p, nodes(p) as n, relationships(p) as r
+					UNWIND relationships(p) as reln RETURN q as p, nodes(p) as n, st, COLLECT {RETURN reln ORDER BY r.z_score DESC} as r
 				`
 			} else if (additional_link_tags.length > 0) {
 				q = `
@@ -501,7 +508,7 @@ const resolve_one_term = async ({
 						`AND r.hidden_tag IN ${JSON.stringify(additional_link_tags)}`:
 						""
 					}
-					RETURN p, nodes(p) as n, relationships(p) as r
+					UNWIND relationships(p) as reln RETURN q as p, nodes(p) as n, st, COLLECT {RETURN reln ORDER BY r.z_score DESC} as r
 				`
 			}
 		} else {

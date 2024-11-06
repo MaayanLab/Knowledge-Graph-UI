@@ -3,19 +3,24 @@
         {
             "node": "Transcription Factor",
             "example": [
-                "ZNF215",
-                "ETV7"
+                "CHCHD3",
+                "PITX3"
             ],
             "display": [
                 {
-                    "label": "Transcription Factor",
+                    "label": "Gene ID",
+                    "text": "${id}",
+                    "type": "text"
+                },
+                {
+                    "label": "Gene symbol",
                     "text": "${label}",
                     "type": "text"
                 },
                 {
-                    "label": "Gene Page",
-                    "href": "https://cfde-gene-pages.cloud/gene/${label}",
-                    "text": "GDLPA",
+                    "label": "URI",
+                    "text": "${uri}",
+                    "href": "${uri}",
                     "type": "link"
                 }
             ],
@@ -23,7 +28,8 @@
             "search": [
                 "id",
                 "label"
-            ]
+            ],
+            "color": "#80D8FF"
         }
     ],
     "edges": [
@@ -33,7 +39,6 @@
             ],
             "color": "#0ac749",
             "directed": "triangle",
-            "selected": true,
             "display": [
                 {
                     "label": "source",
@@ -48,6 +53,16 @@
                 {
                     "label": "target",
                     "text": "${target}",
+                    "type": "text"
+                },
+                {
+                    "label": "z score",
+                    "text": "${z_score}",
+                    "type": "text"
+                },
+                {
+                    "label": "p value",
+                    "text": "${p_value}",
                     "type": "text"
                 }
             ]
@@ -58,7 +73,6 @@
             ],
             "color": "#c70a2d",
             "directed": "triangle",
-            "selected": true,
             "display": [
                 {
                     "label": "source",
@@ -74,25 +88,37 @@
                     "label": "target",
                     "text": "${target}",
                     "type": "text"
+                },
+                {
+                    "label": "z score",
+                    "text": "${z_score}",
+                    "type": "text"
+                },
+                {
+                    "label": "p value",
+                    "text": "${p_value}",
+                    "type": "text"
                 }
             ]
         }
     ],
     "header": {
-        "header": "ChEA3-RummaGEO-KG",
-        "title": "ChEA3-RummaGEO-KG",
+        "divider": false,
+        "header": "TF2TF",
+        "title": "TF2TF",
         "background": {
             "backgroundColor": "#000",
             "contrastText": "#FFF"
         },
         "icon": {
-            "src": "https://minio.dev.maayanlab.cloud/enrichr-kg/enrichr-kg.png",
-            "favicon": "https://minio.dev.maayanlab.cloud/enrichr-kg/enrichr-kg.png",
-            "faviconTitle": "Demo-KG",
-            "alt": "Demo-KG",
-            "key": "Demo-KG_logo",
-            "width": 100,
-            "height": 60
+            "src": "/./tf2tf_logo.png",
+            "favicon": "/./tf2tf_logo.png",
+            "faviconTitle": "TF2TF",
+            "alt": "TF2TF",
+            "key": "tf2tf_logo",
+            "width": 200,
+            "height": 120,
+            "avatar": false
         },
         "tabs": [
             {
@@ -117,7 +143,7 @@
     },
     "footer": {
         "style": {
-            "background": "#000",
+            "background": "#1F3D5C",
             "color": "#FFF"
         },
         "layout": [
@@ -125,9 +151,9 @@
                 {
                     "component": "logo",
                     "props": {
-                        "src": "https://minio.dev.maayanlab.cloud/enrichr-kg/enrichr-kg.png",
-                        "alt": "enrichr-kg",
-                        "title": "Enrichr-KG",
+                        "src": "/./tf2tf_logo.png",
+                        "alt": "tf2tf_logo",
+                        "title": "TF2TF",
                         "color": "inherit",
                         "size": "small"
                     }
@@ -135,8 +161,8 @@
                 {
                     "component": "github",
                     "props": {
-                        "code": "https://github.com/MaayanLab/enrichr-kg",
-                        "issues": "https://github.com/MaayanLab/enrichr-kg-issues/issues/new"
+                        "code": "https://github.com/MaayanLab/TranscriptionNetwork-Demo",
+                        "issues": "https://github.com/MaayanLab/TranscriptionNetwork-Demo"
                     }
                 }
             ],
@@ -169,7 +195,7 @@
                 }
             ]
         ],
-        "footer_text": "<span style='color:white'>Please acknowledge Enrichr-KG in your publications by citing the following reference:<br><a style='color: cyan' href='https://doi.org/10.1093/nar/gkad393'>Evangelista JE, Xie Z, Marino GB, Nguyen N, Clarke DJB, Ma'ayan A. Enrichr-KG: bridging enrichment analysis across multiple libraries. Nucleic Acids Res. 2023 May 11:gkad393. doi: 10.1093/nar/gkad393. PMID: 37166973.</a></span>"
+        "footer_text": "<span style='color:white'>This website was prepared using KUGGI. KUGGI is being developed by the Ma'ayan Lab at Icahn School of Medicine and is available <a style='color: #81A1C1' href='https://github.com/MaayanLab/KnowledgeGraphUIDemo'>here.</a></span>"
     },
     "ui_theme": "cfde_theme"
 }
