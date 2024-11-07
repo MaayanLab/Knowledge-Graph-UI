@@ -48,6 +48,7 @@ const LibraryPicker = ({
 	const fullscreen = searchParams.get('fullscreen')
 	
 	const view = searchParams.get('view')
+	const collapse = searchParams.get('collapse')
 	const [error, setError] = useState<{message: string, type: string}>(null)
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 	const [query, setQuery] = useQueryState('query', parseAsJson<EnrichmentParams>().withDefault({}))
@@ -122,6 +123,7 @@ const LibraryPicker = ({
 								const misc = {}
 								if (fullscreen) misc["fullscreen"] = fullscreen
 								if (view) misc["view"] = view
+								if (collapse) misc["view"] = view
 								router_push(router, pathname, {
 									...misc,
 									q: JSON.stringify({
@@ -161,6 +163,7 @@ const LibraryPicker = ({
 														const misc = {}
 														if (fullscreen) misc["fullscreen"] = fullscreen
 														if (view) misc["view"] = view
+														if (collapse) misc["view"] = view
 														router_push(router, pathname, {
 															...misc,
 															q: JSON.stringify({
@@ -201,6 +204,7 @@ const LibraryPicker = ({
 															const misc = {}
 															if (fullscreen) misc["fullscreen"] = fullscreen
 															if (view) misc["view"] = view
+															if (collapse) misc["collapse"] = collapse
 															router_push(router, pathname, {
 																...misc,
 																q: JSON.stringify({

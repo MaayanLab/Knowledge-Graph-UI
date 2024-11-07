@@ -35,6 +35,7 @@ const GeneSetForm = ({
     parsedParams,
     fullWidth,
     elements,
+    searchParams
 }: {
     fullWidth:boolean,
     elements: NetworkSchema,
@@ -57,6 +58,12 @@ const GeneSetForm = ({
     },
     libraries_list: Array<string>,
     parsedParams: EnrichmentParams,
+    searchParams: {
+        q?:string,
+        fullscreen?: 'true'
+        view?: string,
+        collapse?: 'true'
+    },
 }) => {
     const router = useRouter()
     const [query, setQuery] = useQueryState('query', parseAsJson<EnrichmentParams>().withDefault({}))
@@ -232,6 +239,19 @@ const GeneSetForm = ({
     //         setDescription(input.description || '')
     //     }
     // }, [input.description])
+    if (!fullWidth && searchParams.collapse) {
+        return (
+            <Button variant='outlined'
+                onClick={()=>{
+                    const {collapse, ...query} = searchParams
+                    if (collapse === undefined) query['collapse'] = 'true'
+                    router_push(router, pathname, query)
+                }}
+            >
+                Expand Form
+            </Button>
+        )
+    }
     return (
         <FormGroup>
             <Snackbar open={error!==null}
@@ -542,9 +562,19 @@ const GeneSetForm = ({
                         </Grid>    
                     </Grid>
                 }
-                <Grid item>
-                    <Button variant='outlined'>Collapse</Button>
-                </Grid>
+                { !fullWidth &&
+                    <Grid item>
+                        <Button variant='outlined'
+                            onClick={()=>{
+                                const {collapse, ...query} = searchParams
+                                if (collapse === undefined) query['collapse'] = 'true'
+                                router_push(router, pathname, query)
+                            }}
+                        >
+                            Collapse Form
+                        </Button>
+                    </Grid>
+                }
             </Grid>
         </FormGroup>
     )
