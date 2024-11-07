@@ -22,7 +22,7 @@ import HubIcon from '@mui/icons-material/Hub';
 import AllOutIcon from '@mui/icons-material/AllOut';
 import { UISchema } from "@/app/api/schema/route"
 
-export const TooltipComponent = ({data, tooltip_templates, schema}: {
+export const TooltipComponent = ({data, float, tooltip_templates, schema}: {
 	data: {
 		id: string,
 		label?: string,
@@ -31,13 +31,12 @@ export const TooltipComponent = ({data, tooltip_templates, schema}: {
 		[key: string]: string | number
 	},
 	tooltip_templates: {[key: string]: Array<{[key: string]: string}>}, 
-	schema: UISchema
+	schema: UISchema,
+	float?: boolean
 }) => {
-	const [selected, setSelected] = useQueryState('selected',  parseAsJson<{id: string, type: 'nodes' | 'edges'}>().withDefault(null))
-	const [hovered, setHovered] = useQueryState('hovered',  parseAsJson<{id: string, type: 'nodes' | 'edges'}>().withDefault(null))
 	const router = useRouter()
 	const elements = []
-	const field = data.kind === "Relation" ? data.label : data.kind.replace("Co-expressed Gene", "Gene")
+	const field = data.kind === "Relation" ? data.label : data.kind.replace("Co-expressed Gene", "lncRNA")
 	for (const i of tooltip_templates[field] || []) {
 		if (i.type === "link") {
 			const text = makeTemplate(i.text, data)
@@ -66,8 +65,15 @@ export const TooltipComponent = ({data, tooltip_templates, schema}: {
 			}
 		  }
 	}
+	const extrasx = {}
+	if (float) {
+		extrasx["position"] = "absolute"
+		extrasx["top"] = 0
+		extrasx["left"] = 0
+		extrasx["zIndex"] = 100
+	}
 	return (
-		<Card sx={{marginTop: 2}}>
+		<Card sx={{marginTop: 2, ...extrasx}}>
 			<CardContent sx={{padding: 2}}>
 				{elements}
 			</CardContent>
@@ -114,11 +120,13 @@ const TooltipComponentGroup = ({
 	tooltip_templates_nodes,
     tooltip_templates_edges,
 	schema,
+	float
 }: {
 		elements: null | NetworkSchema,
 		tooltip_templates_edges: {[key: string]: Array<{[key: string]: string}>},
         tooltip_templates_nodes: {[key: string]: Array<{[key: string]: string}>},
-		schema: UISchema
+		schema: UISchema,
+		float?: boolean
 	}) => {
 	
 
@@ -148,6 +156,7 @@ const TooltipComponentGroup = ({
 					data={elementMapper[user_input.type][user_input.id]} 
 					tooltip_templates={user_input.type === 'nodes' ? tooltip_templates_nodes: tooltip_templates_edges}
 					schema={schema}
+					float={float}
 				/>
 		)
 	}
