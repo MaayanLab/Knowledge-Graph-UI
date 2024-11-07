@@ -47,6 +47,14 @@ const Subheader = ({schema}:{schema:UISchema}) => {
 	const router = useRouter()
 	const subheader = schema.header.subheader
 	const searchParams = useSearchParams()
+	const view = searchParams.get('view')
+	const fullscreen = searchParams.get('fullscreen')
+	const collapse = searchParams.get('collapse')
+	const misc = {}
+	if (view) misc["view"] = view
+	if (fullscreen) misc["fullscreen"] = fullscreen
+	if (collapse) misc["collapse"] = view
+	
 	const [error, setError] = useState<{message: string, type:string}>(null)
 	const [userQuery, setQuery] = useQueryState('query', parseAsJson<EnrichmentParams>().withDefault({}))
 	const subpaths = (pathname.split("/")).slice(1)
@@ -126,15 +134,16 @@ const Subheader = ({schema}:{schema:UISchema}) => {
 											}
 											query[query_field] = new_selected
 											router_push(router, pathname, {
-												[url_field]: JSON.stringify(query)
+												[url_field]: JSON.stringify(query),
+												...misc
 											})
 										} else { // add
-											console.log(selected)
 											if (selected.length >= 5 && !disableLibraryLimit) setError({message: `The maximum number of ${query_field} has been selected`, type: "fail"})
 											else {
 												query[query_field] = [...selected, ...i.props[query_field].map((name:string)=>({name, limit: 5}))]
 												router_push(router, pathname, {
-													[url_field]: JSON.stringify(query)
+													[url_field]: JSON.stringify(query),
+													...misc
 												})
 											}
 										}	

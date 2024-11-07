@@ -229,7 +229,7 @@ const Enrichment = async ({
                     <Grid item xs={12} md={searchParams.collapse ? 12: 9}>
                         <Grid container alignItems={"flex-start"}>
                             {searchParams.collapse && 
-                                <Grid item xs={12} md={3}>
+                                <Grid item xs={12} md={2}>
                                     <Card elevation={0} sx={{borderRadius: "8px", backgroundColor: (!schema.ui_theme || schema.ui_theme === 'cfde_theme' || elements !== null) ? "tertiary.light": "#FFF"}}>
                                         <CardContent>
                                             <GeneSetForm 
@@ -244,7 +244,7 @@ const Enrichment = async ({
                                     </Card>
                                 </Grid>
                             }
-                            <Grid item xs={12} md={searchParams.collapse? 9: 12}>
+                            <Grid item xs={12} md={searchParams.collapse? 10: 12}>
                                 <InteractiveButtons 
                                     libraries_list={libraries_list.map(l=>l.name)}
                                     disableLibraryLimit={props.disableLibraryLimit}
