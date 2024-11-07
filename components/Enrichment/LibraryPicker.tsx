@@ -163,7 +163,7 @@ const LibraryPicker = ({
 														const misc = {}
 														if (fullscreen) misc["fullscreen"] = fullscreen
 														if (view) misc["view"] = view
-														if (collapse) misc["view"] = view
+														if (collapse) misc["collapse"] = collapse
 														router_push(router, pathname, {
 															...misc,
 															q: JSON.stringify({
