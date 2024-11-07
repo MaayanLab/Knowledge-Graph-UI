@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react"
 import AsyncFormComponent from "./async_form"
 import { router_push } from "@/utils/client_side"
-import { usePathname, useRouter, useSearchParams, } from "next/navigation"
+import { useRouter, } from "next/navigation"
 import { Stack, 
 	Typography, 
 	Card, 
@@ -16,10 +16,7 @@ import { NetworkSchema } from "@/app/api/knowledge_graph/route"
 import { useQueryState, parseAsJson } from 'next-usequerystate';
 import { makeTemplate } from "@/utils/helper"
 import { precise } from "@/utils/math"
-import { FilterSchema } from "@/utils/helper"
-import DeleteIcon from '@mui/icons-material/Delete';
 import HubIcon from '@mui/icons-material/Hub';
-import AllOutIcon from '@mui/icons-material/AllOut';
 import { UISchema } from "@/app/api/schema/route"
 
 export const TooltipComponent = ({data, float, tooltip_templates, schema}: {
@@ -129,7 +126,7 @@ const TooltipComponentGroup = ({
 		float?: boolean
 	}) => {
 	
-
+	const [tooltip, setTooltip] = useQueryState('tooltip')
 	const [selected, setSelected] = useQueryState('selected',  parseAsJson<{id: string, type: 'nodes' | 'edges'}>().withDefault(null))
 	const [hovered, setHovered] = useQueryState('hovered',  parseAsJson<{id: string, type: 'nodes' | 'edges'}>().withDefault(null))
 	const [elementMapper, setElementMapper] = useState({nodes: {}, edges: {}})
@@ -150,7 +147,7 @@ const TooltipComponentGroup = ({
 		}
     }, [elements])
 	const user_input = selected || hovered
-	if (user_input !== null && elementMapper[user_input.type][user_input.id] !== undefined) {
+	if (tooltip && user_input !== null && elementMapper[user_input.type][user_input.id] !== undefined) {
 		return (
 			<TooltipComponent 
 					data={elementMapper[user_input.type][user_input.id]} 

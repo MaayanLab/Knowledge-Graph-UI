@@ -277,13 +277,13 @@ const Enrichment = async ({
                                         />
                                     </CardContent>
                                 </Card>
-                                <TooltipComponentGroup
+                                {searchParams.collapse && <TooltipComponentGroup
                                     elements={elements}
                                     tooltip_templates_edges={tooltip_templates_edges}
                                     tooltip_templates_nodes={tooltip_templates_nodes}
                                     schema={schema}
                                     float={true}
-                                />
+                                />}
                             </Grid>
                         </Grid>
                     </Grid>
