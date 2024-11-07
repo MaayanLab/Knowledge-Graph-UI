@@ -2195,7 +2195,7 @@
 					"description": "Enter a list of genes below to perform enrichment analysis using [Independent Enrichment Analysis](https://appyters.maayanlab.cloud/Independent_Enrichment_Analysis/).",
 					"example": {
 						"gene_degree": 3,
-						"gene_set": "FTX\nNEAT1\nZNF271P\nRAB4A-AS1\nMUC20-OT1\nXIST\nRRN3P3\nCUTALP\nCCDC18-AS1\nATP6V0D1-DT",
+						"gene_set": "FTX\nCHRM3-AS2\nMUC20-OT1\nCCDC18-AS1\nZNF542P\nCUTALP\nSATB2-AS1\nFGD5-AS1\nLINC00342\nLINC00470\nMCM3AP-AS1\nSLC16A1-AS1\nZNF252P\nLINC01560\nTTN-AS1\nXIST\nTHUMPD3-AS1\nMEIOB\nLINC-PINT\nSTARD7-AS1\nHCG11\nWARS2-AS1\nSDHAP1\nLINC01203\nTPT1-AS1\nFIRRE\nDHRS4-AS1\nLINC02840\nEIF2AK3-DT\nLINC01287\nSP2-AS1\nKIF9-AS1",
 						"description": "CYTOR Use Case Example",
 						"libraries": [
 							{
