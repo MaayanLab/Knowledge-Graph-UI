@@ -104,18 +104,18 @@
     ],
     "header": {
         "divider": false,
-        "header": "TF2TF",
-        "title": "TF2TF",
+        "header": "hGRN ChEAR",
+        "title": "hGRN ChEAR",
         "background": {
             "backgroundColor": "#000",
             "contrastText": "#FFF"
         },
         "icon": {
-            "src": "/./tf2tf_logo.png",
-            "favicon": "/./tf2tf_logo.png",
-            "faviconTitle": "TF2TF",
-            "alt": "TF2TF",
-            "key": "tf2tf_logo",
+            "src": "/tf2tf_logo.png",
+            "favicon": "/tf2tf_logo.png",
+            "faviconTitle": "hGRN_ChEAR_icon",
+            "alt": "hGRN ChEAR",
+            "key": "hGRN_ChEAR_icon",
             "width": 200,
             "height": 120,
             "avatar": false
@@ -151,9 +151,9 @@
                 {
                     "component": "logo",
                     "props": {
-                        "src": "/./tf2tf_logo.png",
-                        "alt": "tf2tf_logo",
-                        "title": "TF2TF",
+                        "src": "/tf2tf_logo.png",
+                        "alt": "hGRN_ChEAR_logo",
+                        "title": "hGRN_ChEAR",
                         "color": "inherit",
                         "size": "small"
                     }
@@ -195,7 +195,7 @@
                 }
             ]
         ],
-        "footer_text": "<span style='color:white'>This website was prepared using KUGGI. KUGGI is being developed by the Ma'ayan Lab at Icahn School of Medicine and is available <a style='color: #81A1C1' href='https://github.com/MaayanLab/KnowledgeGraphUIDemo'>here.</a></span>"
+        "footer_text": "<span style='color:white'>This website was prepared using KG UI. KG UI is being developed by the Ma'ayan Lab at Icahn School of Medicine and is available <a style='color: #81A1C1' href='https://github.com/MaayanLab/KnowledgeGraphUIDemo'>here.</a></span>"
     },
     "ui_theme": "cfde_theme"
 }
