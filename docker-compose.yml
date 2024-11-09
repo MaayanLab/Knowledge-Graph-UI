@@ -3,7 +3,7 @@ services:
   kg:
     build:
       context: .
-      dockerfile: ./Dockerfile
+      dockerfile: ./Dockerfile.next
     platform: linux/amd64
     image: maayanlab/demo-gene-regulatory-network:2.4.6
     x-kubernetes:
