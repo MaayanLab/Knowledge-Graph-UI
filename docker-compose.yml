@@ -5,15 +5,15 @@ services:
       context: .
       dockerfile: ./Dockerfile.next
     platform: linux/amd64
-    image: maayanlab/demo-gene-regulatory-network:2.4.6
+    image: maayanlab/hgrn-chear:2.2.9
     x-kubernetes:
       imagePullPolicy: IfNotPresent
       annotations:
-        maayanlab.cloud/ingress: http://localhost:3000
+        maayanlab.cloud/ingress: https://hgrn-chear.dev.maayanlab.cloud/
     ports:
       - 3000:3000
     environment:
-      - NEXT_PUBLIC_NEO4J_URL=bolt://neo4j:7687
+      - NEXT_PUBLIC_NEO4J_URL=bolt://dokku-neo4j-hgrn-chear:7687 
       - NEXT_PUBLIC_ENRICHR_URL=https://maayanlab.cloud/Enrichr
       - NEXT_PUBLIC_GENESHOT_URL=https://maayanlab.cloud/geneshot
       - NEXT_PUBLIC_NEO4J_USER
@@ -40,14 +40,14 @@ services:
       - 7687:7687
       - 7474:7474
     volumes:
-      - demo-gene-regulatory-network-neo4j:/data
+      - hgrn-chear-neo4j:/data
 
 volumes:
-  demo-gene-regulatory-network-neo4j:
+  hgrn-chear-neo4j:
     x-kubernetes:
       size: 25Gi
       class: gp2
 
 x-kubernetes:
-  name: demo-gene-regulatory-network
-  namespace: demo-gene-regulatory-network
+  name: hgrn-chear
+  namespace: hgrn-chear
