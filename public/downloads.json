@@ -1,0 +1,70 @@
+{
+    "network":[
+        {
+            "name":"Edge weighted",
+            "nodes": 1546,
+            "edges": 53003,
+            "zip": "https://minio.dev.maayanlab.cloud/hgrn-chear/edge_weighted_assertions.zip",
+            "size":"854.6 KiB"
+        },
+        {
+            "name":"Node weighted",
+            "nodes": 1554,
+            "edges": 130793,
+            "zip": "https://minio.dev.maayanlab.cloud/hgrn-chear/node_weighted_assertions.zip",
+            "size": "2.3 MiB"
+        },
+        {
+            "name":"Signature shuffling",
+            "nodes": 1555,
+            "edges": 108715,
+            "zip": "https://minio.dev.maayanlab.cloud/hgrn-chear/signature_shuffling_assertions.zip",
+            "size": "2.3 MiB"
+        },
+        {
+            "name":"Unfiltered network",
+            "nodes": 1556,
+            "edges": 372382,
+            "zip": "https://minio.dev.maayanlab.cloud/hgrn-chear/unfiltered_assertions.zip",
+            "size": "2.3 MiB"
+        }
+    ],
+    "rummageo":[
+        {
+            "resource":"Control vs. perturbation gene sets",
+            "url":"https://minio.dev.maayanlab.cloud/hgrn-chear/single_perturbation_gses.txt",
+            "size":"126.9 KiB"
+        }
+    ],
+    "notebooks":[
+        {
+            "title":"construct_edge_list.ipynb",
+            "description":"Build the unfiltered network edge list using RummaGEO and ChEA3",
+            "size":"18.3 KB",
+            "updated":"11-5-24",
+            "url":"https://github.com/MaayanLab/TranscriptionNetwork-Demo/blob/main/tf_knowledge_graph/construct_edge_list.ipynb"
+        },
+        {
+            "title":"filter_network_assertions.ipynb",
+            "description":"Filter the network assertions on significance using three methods of expected counts: signature shuffling, node weighted, and edge weighted",
+            "size":"20.8 KB",
+            "updated":"11-5-24",
+            "url":"https://github.com/MaayanLab/TranscriptionNetwork-Demo/blob/main/tf_knowledge_graph/filter_network_assertions.ipynb"
+        },
+        {
+            "title":"benchmark_network.ipynb",
+            "description":"Benchmark the filtered networks against TF interaction libraries from ChEA3 and Enrichr",
+            "size":"12.8 KB",
+            "updated":"11-5-24",
+            "url":"https://github.com/MaayanLab/TranscriptionNetwork-Demo/blob/main/tf_knowledge_graph/benchmark_network.ipynb"
+        },
+        {
+            "title":"format_assertions_for_ingestion.ipynb",
+            "description":"Format the assertions for ingestion into Neo4j",
+            "size":"14.6 KB",
+            "updated":"11-12-24",
+            "url":"https://github.com/MaayanLab/TranscriptionNetwork-Demo/blob/main/tf_knowledge_graph/format_assertions_for_ingestion.ipynb"
+        }
+    ]
+}
+                
