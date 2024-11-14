@@ -18,6 +18,7 @@ import { makeTemplate } from "@/utils/helper"
 import { precise } from "@/utils/math"
 import HubIcon from '@mui/icons-material/Hub';
 import { UISchema } from "@/app/api/schema/route"
+import Link from "next/link"
 
 export const TooltipComponent = ({data, float, tooltip_templates, schema}: {
 	data: {
@@ -69,6 +70,12 @@ export const TooltipComponent = ({data, float, tooltip_templates, schema}: {
 		extrasx["left"] = 0
 		extrasx["zIndex"] = 100
 	}
+	const pathname = (schema.header.tabs.filter(i=>(i.component === 'KnowledgeGraph' || i.component === 'SimpleKnowledgeGraph'))[0] || {}).endpoint || '/'
+	const filter = JSON.stringify({
+		start: data.kind,
+		start_term: data.label
+		})
+	
 	return (
 		<Card sx={{marginTop: 2, ...extrasx}}>
 			<CardContent sx={{padding: 2}}>
@@ -93,18 +100,11 @@ export const TooltipComponent = ({data, float, tooltip_templates, schema}: {
           }}><DeleteIcon/></IconButton>
               </Tooltip>} */}
               <Tooltip title="Expand Node">
-                <IconButton
-                  onClick={()=>{
-                    // setSelected(null)
-					// setHovered(null)
-					const pathname = (schema.header.tabs.filter(i=>i.component === 'KnowledgeGraph')[0] || {}).endpoint || '/'
-					const filter = JSON.stringify({
-                        start: data.kind,
-                        start_term: data.label
-                      })
-					router_push(router, pathname, {filter})
-                  }}
-                ><HubIcon sx={{transform: "scaleX(-1)"}}/></IconButton>
+				<Link href={`${process.env.NEXT_PUBLIC_HOST}/${pathname}?filter=${filter}`}>
+					<IconButton>
+						<HubIcon sx={{transform: "scaleX(-1)"}}/>
+					</IconButton>
+				</Link>
               </Tooltip>
             </CardActions>
           }
