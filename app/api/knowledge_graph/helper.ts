@@ -138,6 +138,7 @@ export const resolve_results = async ({
     arrow_shape?: {[key:string]: ArrowShape}
 }):Promise<NetworkSchema> => {
         try {
+            console.log("Resolving")
             const session = neo4jDriver.session({
                 defaultAccessMode: neo4j.session.READ
             })

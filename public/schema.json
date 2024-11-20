@@ -30,6 +30,33 @@
                 "label"
             ],
             "color": "#80D8FF"
+        },
+        {
+            "node": "Gene",
+            "display": [
+                {
+                    "label": "Gene ID",
+                    "text": "${id}",
+                    "type": "text"
+                },
+                {
+                    "label": "Gene symbol",
+                    "text": "${label}",
+                    "type": "text"
+                },
+                {
+                    "label": "URI",
+                    "text": "${uri}",
+                    "href": "${uri}",
+                    "type": "link"
+                }
+            ],
+            "relation": [],
+            "search": [
+                "id",
+                "label"
+            ],
+            "color": "#ff80c4"
         }
     ],
     "edges": [
@@ -100,12 +127,35 @@
                     "type": "text"
                 }
             ]
+        },
+        {
+            "match": [
+                "regulates"
+            ],
+            "color": "#000000",
+            "display": [
+                {
+                    "label": "source",
+                    "text": "${source}",
+                    "type": "text"
+                },
+                {
+                    "label": "relation",
+                    "text": "${relation}",
+                    "type": "text"
+                },
+                {
+                    "label": "target",
+                    "text": "${target}",
+                    "type": "text"
+                }
+            ]
         }
     ],
     "header": {
         "divider": false,
-        "header": "hGRN ChEAR",
-        "title": "hGRN ChEAR",
+        "header": "hGRN-ChEAR",
+        "title": "hGRN-ChEAR",
         "background": {
             "backgroundColor": "#000",
             "contrastText": "#FFF"
@@ -113,7 +163,7 @@
         "icon": {
             "src": "/tf2tf_logo.png",
             "favicon": "/tf2tf_logo.png",
-            "faviconTitle": "hGRN_ChEAR_icon",
+            "faviconTitle": "hGRN-ChEAR",
             "alt": "hGRN ChEAR",
             "key": "hGRN_ChEAR_icon",
             "width": 200,
@@ -123,7 +173,7 @@
         "tabs": [
             {
                 "endpoint": "/",
-                "label": "Transcription Factor Search",
+                "label": "Search",
                 "type": "page",
                 "component": "KnowledgeGraph",
                 "props": {
@@ -136,6 +186,59 @@
                     "subheader": {
                         "url_field": "filter",
                         "query_field": "relation"
+                    }
+                }
+            },
+            {
+                "endpoint": "/download_files",
+                "label": "Download",
+                "type":"page",
+                "component":"DownloadFiles",
+                "props": {
+                    "src":"https://raw.githubusercontent.com/MaayanLab/Gene-Knowledge-Graph/refs/heads/tf/public/downloads.json"
+                }
+            },
+            {
+                "endpoint":"/enrichment",
+                "label":"TF Enrichment Analysis",
+                "type":"page",
+                "component":"Chea3Enrichment",
+                "props": {
+                    "init_function": "initialize_enrichment",
+                    "title": "ChEA3 Transcription Factor Enrichment Analysis",
+                    "description": "Enter a set of Entrez gene below to perform enrichment analysis using [ChEA3](https://maayanlab.cloud/ChEA3/).",
+                    "placeholder": "Enter newline separated gene sets",
+                    "disableHeader": true,
+                    "disableLibraryLimit": true,
+                    "example": {
+                        "gene_set": "Nsun3\nPolrmt\nNlrx1\nSfxn5\nZc3h12c\nSlc25a39\nArsg\nDefb29\nNdufb6\nZfand1\nTmem77\n5730403B10Rik\nRP23-195K8.6\nTlcd1\nPsmc6\nSlc30a6\nLOC100047292\nLrrc40\nOrc5l\nMpp7\nUnc119b\nPrkaca\nTcn2\nPsmc3ip\nPcmtd2\nAcaa1a\nLrrc1\n2810432D09Rik\nSephs2\nSac3d1\nTmlhe\nLOC623451\nTsr2\nPlekha7\nGys2\nArhgef12\nHibch\nLyrm2\nZbtb44\nEntpd5\nRab11fip2\nLipt1\nIntu\nAnxa13\nKlf12\nSat2\nGal3st2\nVamp8\nFkbpl\nAqp11\nTrap1\nPmpcb\nTm7sf3\nRbm39\nBri3\nKdr\nZfp748\nNap1l1\nDhrs1\nLrrc56\nWdr20a\nStxbp2\nKlf1\nUfc1\nCcdc16\n9230114K14Rik\nRwdd3\n2610528K11Rik\nAco1\nCables1\nLOC100047214\nYars2\nLypla1\nKalrn\nGyk\nZfp787\nZfp655\nRabepk\nZfp650\n4732466D17Rik\nExosc4\nWdr42a\nGphn\n2610528J11Rik\n1110003E01Rik\nMdh1\n1200014M14Rik\nAW209491\nMut\n1700123L14Rik\n2610036D13Rik\nCox15\nTmem30a\nNsmce4a\nTm2d2\nRhbdd3\nAtxn2\nNfs1\n3110001I20Rik\nBC038156\nLOC100047782\n2410012H22Rik\nRilp\nA230062G08Rik\nPttg1ip\nRab1\nAfap1l1\nLyrm5\n2310026E23Rik\nC330002I19Rik\nZfyve20\nPoli\nTomm70a\nSlc7a6os\nMat2b\n4932438A13Rik\nLrrc8a\nSmo\nNupl2\nTrpc2\nArsk\nD630023B12Rik\nMtfr1\n5730414N17Rik\nScp2\nZrsr1\nNol7\nC330018D20Rik\nIft122\nLOC100046168\nD730039F16Rik\nScyl1\n1700023B02Rik\n1700034H14Rik\nFbxo8\nPaip1\nTmem186\nAtpaf1\nLOC100046254\nLOC100047604\nCoq10a\nFn3k\nSipa1l1\nSlc25a16\nSlc25a40\nRps6ka5\nTrim37\nLrrc61\nAbhd3\nGbe1\nParp16\nHsd3b2\nEsm1\nDnajc18\nDolpp1\nLass2\nWdr34\nRfesd\nCacnb4\n2310042D19Rik\nSrr\nBpnt1\n6530415H11Rik\nClcc1\nTfb1m\n4632404H12Rik\nD4Bwg0951e\nMed14\nAdhfe1\nThtpa\nCat\nEll3\nAkr7a5\nMtmr14\nTimm44\nSf1\nIpp\nIah1\nTrim23\nWdr89\nGstz1\nCradd\n2510006D16Rik\nFbxl6\nLOC100044400\nZfp106\nCd55\n0610013E23Rik\nAfmid\nTmem86a\nAldh6a1\nDalrd3\nSmyd4\nNme7\nFars2\nTasp1\nCldn10\nA930005H10Rik\nSlc9a6\nAdk\nRbks\n2210016F16Rik\nVwce\n4732435N03Rik\nZfp11\nVldlr\n9630013D21Rik\n4933407N01Rik\nFahd1\nMipol1\n1810019D21Rik\n1810049H13Rik\nTfam\nPaics\n1110032A03Rik\nLOC100044139\nDnajc19\nBC016495\nA930041I02Rik\nRqcd1\nUsp34\nZcchc3\nH2afj\nPhf7\n4921508D12Rik\nKmo\nPrpf18\nMcat\nTxndc4\n4921530L18Rik\nVps13b\nScrn3\nTor1a\nAI316807\nAcbd4\nFah\nApool\nCol4a4\nLrrc19\nGnmt\nNr3c1\nSip1\nAscc1\nFech\nAbhd14a\nArhgap18\n2700046G09Rik\nYme1l1\nGk5\nGlo1\nSbk1\nCisd1\n2210011C24Rik\nNxt2\nNotum\nAnkrd42\nUbe2e1\nNdufv1\nSlc33a1\nCep68\nRps6kb1\nHyi\nAldh1a3\nMynn\n3110048L19Rik\nRdh14\nProz\nGorasp1\nLOC674449\nZfp775\n5430437P03Rik\nNpy\nAdh5\nSybl1\n4930432O21Rik\nNat9\nLOC100048387\nMettl8\nEny2\n2410018G20Rik\nPgm2\nFgfr4\nMobkl2b\nAtad3a\n4932432K03Rik\nDhtkd1\nUbox5\nA530050D06Rik\nZdhhc5\nMgat1\nNudt6\nTpmt\nWbscr18\nLOC100041586\nCdk5rap1\n4833426J09Rik\nMyo6\nCpt1a\nGadd45gip1\nTmbim4\n2010309E21Rik\nAsb9\n2610019F03Rik\n7530414M10Rik\nAtp6v1b2\n2310068J16Rik\nDdt\nKlhdc4\nHpn\nLifr\nOvol1\nNudt12\nCdan1\nFbxo9\nFbxl3\nHoxa7\nAldh8a1\n3110057O12Rik\nAbhd11\nPsmb1\nENSMUSG00000074286\nChpt1\nOxsm\n2310009A05Rik\n1700001L05Rik\nZfp148\n39509\nMrpl9\nTmem80\n9030420J04Rik\nNaglu\nPlscr2\nAgbl3\nPex1\nCno\nNeo1\nAsf1a\nTnfsf5ip1\nPkig\nAI931714\nD130020L05Rik\nCntd1\nClec2h\nZkscan1\n1810044D09Rik\nMettl7a\nSiae\nFbxo3\nFzd5\nTmem166\nTmed4\nGpr155\nRnf167\nSptlc1\nRiok2\nTgds\nPms1\nPitpnc1\nPcsk7\n4933403G14Rik\nEi24\nCrebl2\nTln1\nMrpl35\n2700038C09Rik\nUbie\nOsgepl1\n2410166I05Rik\nWdr24\nAp4s1\nLrrc44\nB3bp\nItfg1\nDmxl1\nC1d",
+                        "libraries": [
+                            {
+                                "name": "Integrated--meanRank",
+                                "limit": 10
+                            }
+                        ],
+                        "gene_degree": 3
+                    },
+                    "libraries": [
+                        {
+                            "name": "Integrated--meanRank",
+                            "node": "Transcription Factor"
+                        }
+                    ],
+                    "sortLibraries": false,
+                    "default_options": {
+                        "min_lib": 1,
+                        "libraries": [
+                            {
+                                "name": "Integrated--meanRank",
+                                "limit": 10
+                            }
+                        ]
+                    },
+                    "subheader": {
+                        "url_field": "q",
+                        "query_field": "libraries"
                     }
                 }
             }

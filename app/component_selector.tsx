@@ -4,7 +4,9 @@ import SanitizedHTML from '@/components/SanitizedHTML'
 import Markdown from '@/components/MarkdownComponent'
 import DistilleryUseCase from '@/components/Distillery/DistilleryUseCase'
 import Enrichment from '@/components/Enrichment'
+import Chea3Enrichment from '@/components/Chea3Enrichment'
 import Download from '@/components/Download'
+import DownloadFiles from '@/components/DownloadFiles'
 import APIDoc from '@/components/APIDoc'
 import WholeNetwork from '@/components/WholeNetwork'
 import SimpleTermAndGeneSearch from '@/components/SimpleTermAndGeneSearch'
@@ -21,16 +23,18 @@ const AsyncComponent = async ({component, searchParams, props, endpoint,}:
 	else if (component === "Markdown") return await Markdown({...props})
 	else if (component === "DistilleryUseCase") return await DistilleryUseCase({searchParams, ...props})
 	else if (component === "Enrichment") return await Enrichment({endpoint, searchParams, ...props})
+	else if (component === "Chea3Enrichment") return await Chea3Enrichment({endpoint, searchParams, ...props})
 	else if (component === "Download") return await Download({...props})
 	else if (component === "APIDoc") return await APIDoc({...props})
 	else if (component === "Tutorial") return <Tutorial/>
 	else if (component === "WholeNetwork") return await WholeNetwork({props})
+	else if (component === "DownloadFiles") return await DownloadFiles({...props})
 	else return null
 }
 
 export const Component = (props: {component: string, endpoint: string, searchParams: {[key:string]: any}, props: {[key:string]: any}}) => {
 	return <Suspense fallback={<CircularProgress/>}>
-		{/* @ts-expect-error Server Component */}
+		{/*@ts-expect-error Server Component*/}
 		<AsyncComponent {...props}/>
 	</Suspense>
 }

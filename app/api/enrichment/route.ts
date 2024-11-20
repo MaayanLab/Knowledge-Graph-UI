@@ -23,13 +23,14 @@ const get_node_color_and_type = ({node,
     aggr_type?: string,
     fields?: Array<string>,
 }) => {
-    if (node.pval === undefined) return default_get_node_color_and_type(({node, terms, color, aggr_scores, field, aggr_field, fields}))
+    if (node.score === undefined) return default_get_node_color_and_type(({node, terms, color, aggr_scores, field, aggr_field, fields}))
     else {
-        const props = compute_colors({properties: node, aggr_scores: aggr_scores.pval, color}) 
+        const props = compute_colors({properties: node, aggr_scores: aggr_scores.score, color}) 
         for (const i in node.enrichment || []) {
             const v = node.enrichment[i]
-            node.enrichment[i] = { ...v, ...compute_colors({properties: v, aggr_scores: aggr_scores.pval, color}) }
+            node.enrichment[i] = { ...v, ...compute_colors({properties: v, aggr_scores: aggr_scores.score, color}) }
         }
+        console.log("props: ", props)
         return props
     }	
 }
@@ -65,30 +66,34 @@ const enrichment = async ({
             throw new Error(`Error fetching node_map`)
         }
         const node_mapping = await nod.json()
+        console.log("node mapping; ", node_mapping)
         const nodes = []
         const node_library = {}
         const results = await Promise.all(libraries.map(async ({library, term_limit})=> {
             if (node_mapping[library]) {
                 const node = `a:\`${node_mapping[library]}\``
+                console.log("node: ", node)
                 if (nodes.indexOf(node) === -1) {
                     nodes.push(node)
                     node_library[library] = node
                 }
             }
             return await enrichr_query({userListId, term_limit, library, term_degree})
-        }
-            
+        }  
         ))
+
         const gene_counts = {}
         let terms = {}
         const library_terms = {}
-        let max_pval = 0
-        let min_pval = 1
-        for (const {genes: lib_genes, terms: lib_terms, max_pval: lib_max_pval, min_pval: lib_min_pval, library} of results) {
+        let max_score = 0
+        let min_score = 10000
+        for (const {genes: lib_genes, terms: lib_terms, max_score: lib_max_score, min_score: lib_min_score, library} of results) {
             terms[node_mapping[library]] = lib_terms
             library_terms[node_library[library]] = Object.keys(lib_terms)
-            if (max_pval < lib_max_pval) max_pval = lib_max_pval
-            if (min_pval > lib_min_pval) min_pval = lib_min_pval
+            // keep track of min and max scores across all query libraries 
+            if (max_score < lib_max_score) max_score = lib_max_score
+            if (min_score > lib_min_score) min_score = lib_min_score
+            // calculate how many times gene appears 
             for (const gene in lib_genes) {
                 if (gene_counts[gene] === undefined) {
                     gene_counts[gene] = {
@@ -101,8 +106,9 @@ const enrichment = async ({
                 }
             }
         }
+        // filter gene list based on parameters
         let genes = Object.keys(gene_counts)
-        if (min_lib) {
+        {/* if (min_lib) {
             genes = Object.keys(gene_counts).filter(gene=>gene_counts[gene].libraries >= min_lib)
         } 
         if (gene_degree) {
@@ -110,15 +116,17 @@ const enrichment = async ({
         }
         if (gene_limit) {
             genes = genes.sort((a,b)=>gene_counts[b].count - gene_counts[a].count).slice(0,gene_limit)
-        } 
+        } */}
         const schema = await fetch_kg_schema()
         const {aggr_scores, colors} = await initialize()
-        aggr_scores["pval"] = {max: max_pval, min: min_pval}
+        aggr_scores["score"] = {max: max_score, min: min_score}
         const query_list = []
         const vars = {}
         for (const [node, lib_terms] of Object.entries(library_terms)) {
+            console.log("Line 124 enrichment node: ", node)
+            console.log("lib terms: ", lib_terms)
             let query_part = `
-                MATCH p = (${node})--(b:Gene) 
+                MATCH p = (a:\`Transcription Factor\`)--(b:\`Gene\`) 
                 WHERE a.label IN ${JSON.stringify(lib_terms)} 
                 AND b.label IN ${JSON.stringify(genes)}
             `
@@ -131,6 +139,7 @@ const enrichment = async ({
             }
             query_part = query_part + `RETURN p, nodes(p) as n, relationships(p) as r`
             query_list.push(query_part)   
+            console.log("query part: ", query_part)
         }
         if (gene_links && gene_links.length > 0) {
             const geneLinksRelations = schema.edges.reduce((acc, i)=>{
@@ -141,7 +150,7 @@ const enrichment = async ({
                 if (geneLinksRelations.indexOf(i) === -1) throw Error("Invalid gene link")
             }
             let query_part = `
-                MATCH p = (a:Gene)-[r]-(b:Gene) 
+                MATCH p = (a:\`Gene\`)-[r]-(b:\`Gene\`) 
                 WHERE a.label IN ${JSON.stringify(genes)} 
                 AND b.label IN ${JSON.stringify(genes)}
                 AND r.relation IN ${JSON.stringify(gene_links)}
@@ -172,6 +181,7 @@ const enrichment = async ({
         }
         const query = query_list.join(' UNION ')
         const query_params = {limit: expand_limit, ...vars}
+        
         return resolve_results({query, query_params, aggr_scores, colors, kind_properties: terms, get_node_color_and_type})
     } catch (error) {
         throw error

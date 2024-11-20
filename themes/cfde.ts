@@ -56,7 +56,7 @@ export const cfde_theme = createTheme({
             fontSize: "40px",
             fontStyle: "normal",
             fontWeight: 500,
-            textTransform: "uppercase"
+            //textTransform: "uppercase"
         },
         cfde_small: {
             fontSize: 24,
