@@ -127,29 +127,6 @@
                     "type": "text"
                 }
             ]
-        },
-        {
-            "match": [
-                "regulates"
-            ],
-            "color": "#000000",
-            "display": [
-                {
-                    "label": "source",
-                    "text": "${source}",
-                    "type": "text"
-                },
-                {
-                    "label": "relation",
-                    "text": "${relation}",
-                    "type": "text"
-                },
-                {
-                    "label": "target",
-                    "text": "${target}",
-                    "type": "text"
-                }
-            ]
         }
     ],
     "header": {
@@ -161,8 +138,8 @@
             "contrastText": "#FFF"
         },
         "icon": {
-            "src": "/tf2tf_logo.png",
-            "favicon": "/tf2tf_logo.png",
+            "src": "/hgrnchear_logo.png",
+            "favicon": "/hgrnchear_logo.png",
             "faviconTitle": "hGRN-ChEAR",
             "alt": "hGRN ChEAR",
             "key": "hGRN_ChEAR_icon",
@@ -254,7 +231,7 @@
                 {
                     "component": "logo",
                     "props": {
-                        "src": "/tf2tf_logo.png",
+                        "src": "/hgrnchear_logo.png",
                         "alt": "hGRN_ChEAR_logo",
                         "title": "hGRN_ChEAR",
                         "color": "inherit",

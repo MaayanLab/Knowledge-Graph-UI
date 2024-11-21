@@ -15,6 +15,7 @@ export interface NetworkSchema {
             kind: string,
             label: string,
 			pval?: number,
+			legend?: string,
             [key: string]: string | number | boolean,
         }
     }>,

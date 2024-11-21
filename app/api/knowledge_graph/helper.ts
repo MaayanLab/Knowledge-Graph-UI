@@ -110,6 +110,8 @@ export const resolve_node_types = async ({
 
 export const resolve_results = async ({
     query,
+    searched,
+    returned,
     query_params,
 	terms,
 	fields,
@@ -124,6 +126,8 @@ export const resolve_results = async ({
     arrow_shape = {}
 }: {
     query: string,
+    searched?: Array<string>, 
+    returned?: Array<string>,
     query_params?: {[key:string]: any},
     terms?: Array<string>,
     fields?: Array<string>,
@@ -138,7 +142,6 @@ export const resolve_results = async ({
     arrow_shape?: {[key:string]: ArrowShape}
 }):Promise<NetworkSchema> => {
         try {
-            console.log("Resolving")
             const session = neo4jDriver.session({
                 defaultAccessMode: neo4j.session.READ
             })
@@ -188,6 +191,20 @@ export const resolve_results = async ({
                             ...colors_func(type), 
                             ...misc_props
                         })
+                        console.log("color before: ", node_color)
+                        if (searched !== undefined && returned !== undefined) {
+                            if ((JSON.stringify(searched)).indexOf(JSON.stringify(node.properties.label)) > -1 && (JSON.stringify(returned)).indexOf(JSON.stringify(node.properties.label)) > -1) {
+                                node_color.color = "#ffe561"
+                                node.properties.legend = "Duplicate"
+
+                            } else if ((JSON.stringify(returned)).indexOf(JSON.stringify(node.properties.label)) > -1) {
+                                node_color.color = "#ff6169"
+                                node.properties.legend = "Result"
+
+                            } else {
+                                node.properties.legend = "Search Term"
+                            }
+                        }
                         if (colors[type] && colors[type].border_color && !node_color.borderColor && node_color.color !== highlight_color) {
                             node_color.borderColor = colors[type].border_color
                             node_color.borderWidth = 7

@@ -237,6 +237,7 @@ const Enrichment = async ({
                                     }
                                     <TermViz
                                         elements={elements} 
+                                        /*enrichment_results = {enrichment_results}*/
                                         schema={schema}
                                         tooltip_templates_edges={tooltip_templates_edges}
                                         tooltip_templates_nodes={tooltip_templates_node}

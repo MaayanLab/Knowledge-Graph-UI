@@ -45,7 +45,6 @@ const TermViz = ({elements, schema, tooltip_templates_edges, tooltip_templates_n
 		{/*}*/}
 	}
 	const sorted_entries = Object.values(entries)
-	console.log("here", entries)
 	if (sorted_entries.length === 0) return <Typography variant="h5">No Results Found</Typography>
 	else {
 		if (view === 'network' || !view) return (

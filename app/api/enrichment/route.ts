@@ -72,7 +72,6 @@ const enrichment = async ({
         const results = await Promise.all(libraries.map(async ({library, term_limit})=> {
             if (node_mapping[library]) {
                 const node = `a:\`${node_mapping[library]}\``
-                console.log("node: ", node)
                 if (nodes.indexOf(node) === -1) {
                     nodes.push(node)
                     node_library[library] = node
@@ -108,7 +107,7 @@ const enrichment = async ({
         }
         // filter gene list based on parameters
         let genes = Object.keys(gene_counts)
-        {/* if (min_lib) {
+        if (min_lib) {
             genes = Object.keys(gene_counts).filter(gene=>gene_counts[gene].libraries >= min_lib)
         } 
         if (gene_degree) {
@@ -116,17 +115,18 @@ const enrichment = async ({
         }
         if (gene_limit) {
             genes = genes.sort((a,b)=>gene_counts[b].count - gene_counts[a].count).slice(0,gene_limit)
-        } */}
+        }
         const schema = await fetch_kg_schema()
         const {aggr_scores, colors} = await initialize()
         aggr_scores["score"] = {max: max_score, min: min_score}
         const query_list = []
         const vars = {}
+        let searched = []
+        let returned = []
         for (const [node, lib_terms] of Object.entries(library_terms)) {
-            console.log("Line 124 enrichment node: ", node)
             console.log("lib terms: ", lib_terms)
             let query_part = `
-                MATCH p = (a:\`Transcription Factor\`)--(b:\`Gene\`) 
+                MATCH p = (a:\`Transcription Factor\`)--(b:\`Transcription Factor\`) 
                 WHERE a.label IN ${JSON.stringify(lib_terms)} 
                 AND b.label IN ${JSON.stringify(genes)}
             `
@@ -139,8 +139,10 @@ const enrichment = async ({
             }
             query_part = query_part + `RETURN p, nodes(p) as n, relationships(p) as r`
             query_list.push(query_part)   
-            console.log("query part: ", query_part)
+            searched.push(genes)
+            returned.push(lib_terms)
         }
+        
         if (gene_links && gene_links.length > 0) {
             const geneLinksRelations = schema.edges.reduce((acc, i)=>{
                 if (i.hidden) return [...acc, ...i.match]
@@ -182,7 +184,7 @@ const enrichment = async ({
         const query = query_list.join(' UNION ')
         const query_params = {limit: expand_limit, ...vars}
         
-        return resolve_results({query, query_params, aggr_scores, colors, kind_properties: terms, get_node_color_and_type})
+        return resolve_results({query, searched, returned, query_params, aggr_scores, colors, kind_properties: terms, get_node_color_and_type})
     } catch (error) {
         throw error
     }
