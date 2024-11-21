@@ -1,5 +1,5 @@
 import { resolve_results, default_get_node_color_and_type } from "../knowledge_graph/helper";
-import { compute_colors } from "@/utils/helper";
+import { compute_colors, kind_mapper } from "@/utils/helper";
 import { NextResponse } from "next/server";
 import { NextRequest } from 'next/server'
 import { z } from 'zod';
@@ -86,6 +86,8 @@ const enrichment = async ({
         const library_terms = {}
         let max_score = 0
         let min_score = 10000
+        let searched = []
+        let returned = []
         for (const {genes: lib_genes, terms: lib_terms, max_score: lib_max_score, min_score: lib_min_score, library} of results) {
             terms[node_mapping[library]] = lib_terms
             library_terms[node_library[library]] = Object.keys(lib_terms)
@@ -121,8 +123,7 @@ const enrichment = async ({
         aggr_scores["score"] = {max: max_score, min: min_score}
         const query_list = []
         const vars = {}
-        let searched = []
-        let returned = []
+        
         for (const [node, lib_terms] of Object.entries(library_terms)) {
             console.log("lib terms: ", lib_terms)
             let query_part = `
@@ -183,8 +184,9 @@ const enrichment = async ({
         }
         const query = query_list.join(' UNION ')
         const query_params = {limit: expand_limit, ...vars}
-        
-        return resolve_results({query, searched, returned, query_params, aggr_scores, colors, kind_properties: terms, get_node_color_and_type})
+        console.log("terms: ", terms)
+        const enrichment_subtypes = {query_terms: searched, result_terms: returned}
+        return resolve_results({query, kind_mapper, enrichment_subtypes, query_params, aggr_scores, colors, kind_properties: terms, get_node_color_and_type})
     } catch (error) {
         throw error
     }

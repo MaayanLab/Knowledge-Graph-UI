@@ -110,8 +110,7 @@ export const resolve_node_types = async ({
 
 export const resolve_results = async ({
     query,
-    searched,
-    returned,
+    enrichment_subtypes,
     query_params,
 	terms,
 	fields,
@@ -126,8 +125,7 @@ export const resolve_results = async ({
     arrow_shape = {}
 }: {
     query: string,
-    searched?: Array<string>, 
-    returned?: Array<string>,
+    enrichment_subtypes?: {query_terms: any, result_terms: any},
     query_params?: {[key:string]: any},
     terms?: Array<string>,
     fields?: Array<string>,
@@ -170,12 +168,15 @@ export const resolve_results = async ({
             }
             const nodes = {}
             const edges = {}
+            console.log("kind props before: ", kind_properties)
             for (const record of results.records) {
                 const node_list = record.get('n')
                 for (const node of node_list) {
                     if (nodes[node.identity] === undefined) {
                         const type = node.labels.filter(i=>i!=="id")[0]
-                        const kind = kind_mapper ? kind_mapper({node, type, ...misc_props})  : type
+                           
+                        const kind = kind_mapper ? kind_mapper({node, type, enrichment_subtypes, ...misc_props})  : type
+                        console.log("kind: ", kind)
                         const node_properties = {
                             id: node.properties.id,
                             kind,
@@ -188,23 +189,11 @@ export const resolve_results = async ({
                             terms,
                             fields,
                             aggr_scores,
-                            ...colors_func(type), 
+                            ...colors_func(kind), 
                             ...misc_props
                         })
                         console.log("color before: ", node_color)
-                        if (searched !== undefined && returned !== undefined) {
-                            if ((JSON.stringify(searched)).indexOf(JSON.stringify(node.properties.label)) > -1 && (JSON.stringify(returned)).indexOf(JSON.stringify(node.properties.label)) > -1) {
-                                node_color.color = "#ffe561"
-                                node.properties.legend = "Duplicate"
-
-                            } else if ((JSON.stringify(returned)).indexOf(JSON.stringify(node.properties.label)) > -1) {
-                                node_color.color = "#ff6169"
-                                node.properties.legend = "Result"
-
-                            } else {
-                                node.properties.legend = "Search Term"
-                            }
-                        }
+                        
                         if (colors[type] && colors[type].border_color && !node_color.borderColor && node_color.color !== highlight_color) {
                             node_color.borderColor = colors[type].border_color
                             node_color.borderWidth = 7
@@ -220,6 +209,7 @@ export const resolve_results = async ({
                         }
                     }	
                 }
+
                 const relations = record.get('r')
                 for (const relation of relations) {
                     const relation_id = `${nodes[relation.start].data.id}_${nodes[relation.end].data.id}`
@@ -228,6 +218,7 @@ export const resolve_results = async ({
                         if (colors[relation_type] === undefined) {
                             console.log(`${relation_type} is undefined`)
                         }
+                        console.log(`${relation_type}`)
                         edges[relation_id] = {
                             data: {
                                 source: nodes[relation.start].data.id,
@@ -243,7 +234,10 @@ export const resolve_results = async ({
                                 directed: arrow_shape[relation_type] || 'none'
                             }
                         }
+                        console.log("directed? ", edges[relation_id].data.directed)
+
                     }
+                    console.log("kind props after: ", kind_properties)
                 }
             }
             return {
