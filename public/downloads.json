@@ -36,7 +36,7 @@
             "size":"126.9 KiB"
         }
     ],
-    "notebooks":[
+    "notebook":[
         {
             "title":"construct_edge_list.ipynb",
             "description":"Build the unfiltered network edge list using RummaGEO and ChEA3",
