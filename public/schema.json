@@ -8,12 +8,12 @@
             ],
             "display": [
                 {
-                    "label": "Gene ID",
+                    "label": "Transcription factor ID",
                     "text": "${id}",
-                    "type": "text"
+                    "type": "string"
                 },
                 {
-                    "label": "Gene symbol",
+                    "label": "Transcription factor symbol",
                     "text": "${label}",
                     "type": "text"
                 },
@@ -30,33 +30,6 @@
                 "label"
             ],
             "color": "#80D8FF"
-        },
-        {
-            "node": "Gene",
-            "display": [
-                {
-                    "label": "Gene ID",
-                    "text": "${id}",
-                    "type": "text"
-                },
-                {
-                    "label": "Gene symbol",
-                    "text": "${label}",
-                    "type": "text"
-                },
-                {
-                    "label": "URI",
-                    "text": "${uri}",
-                    "href": "${uri}",
-                    "type": "link"
-                }
-            ],
-            "relation": [],
-            "search": [
-                "id",
-                "label"
-            ],
-            "color": "#ff80c4"
         }
     ],
     "edges": [
@@ -99,7 +72,7 @@
                 "downregulates"
             ],
             "color": "#c70a2d",
-            "directed": "triangle",
+            "directed": "tee",
             "display": [
                 {
                     "label": "source",
@@ -167,17 +140,8 @@
                 }
             },
             {
-                "endpoint": "/download_files",
-                "label": "Download",
-                "type":"page",
-                "component":"DownloadFiles",
-                "props": {
-                    "src":"https://raw.githubusercontent.com/MaayanLab/Gene-Knowledge-Graph/refs/heads/tf/public/downloads.json"
-                }
-            },
-            {
                 "endpoint":"/enrichment",
-                "label":"TF Enrichment Analysis",
+                "label":"Enrichment",
                 "type":"page",
                 "component":"Chea3Enrichment",
                 "props": {
@@ -218,6 +182,15 @@
                         "query_field": "libraries"
                     }
                 }
+            },
+            {
+                "endpoint": "/download_files",
+                "label": "Download",
+                "type":"page",
+                "component":"DownloadFiles",
+                "props": {
+                    "src":"https://raw.githubusercontent.com/MaayanLab/Gene-Knowledge-Graph/refs/heads/tf/public/downloads.json"
+                }
             }
         ]
     },
@@ -231,11 +204,11 @@
                 {
                     "component": "logo",
                     "props": {
-                        "src": "/hgrnchear_logo.png",
+                        "src": "/hgrnchear_white.png",
                         "alt": "hGRN_ChEAR_logo",
-                        "title": "hGRN_ChEAR",
+                        "title": "hGRN-ChEAR",
                         "color": "inherit",
-                        "size": "small"
+                        "size": "medium"
                     }
                 },
                 {

@@ -32,7 +32,7 @@ const AllFiles = ({download}: {download: {
 			<Grid item xs={12}>
 				<Typography variant={"h3"}>Network Files</Typography>
 				<Typography variant={"body1"}>
-					Each entry below contains a link to a compressed set of asserion files. For each network this includes the three `Transcription Factor.nodes.csv`, `Transcription Factor.upregulates.Transcription Factor.edges.csv`, and `Transcription Factor.downregulates.Transcription Factor.edges.csv` files. 
+					Each entry below contains a link to a compressed set of assertion files. For each network this includes the three "Transcription Factor.nodes.csv", "Transcription Factor.upregulates.Transcription Factor.edges.csv", and "Transcription Factor.downregulates.Transcription Factor.edges.csv" files. 
 					The node files contain information about each node, formatted. Edge files contain the source, relation, target, and significance for each edge.  
 				</Typography>
 			</Grid>
