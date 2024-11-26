@@ -45,7 +45,7 @@ const GeneSetForm = ({
         min_lib?: number,
         gene_degree?: number,
         term_degree?: number,
-        libraries: Array<{
+        libraries?: Array<{
             name?: string,
             limit?: number,
             library?: string,
