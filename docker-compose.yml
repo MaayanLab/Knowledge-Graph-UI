@@ -5,7 +5,7 @@ services:
       context: .
       dockerfile: ./Dockerfile.next
     platform: linux/amd64
-    image: abird19/hgrn-chear:2.4.20
+    image: abird19/hgrn-chear:2.4.22
     x-kubernetes:
       strategy:
         type: Recreate
@@ -18,7 +18,6 @@ services:
       - NEXT_PUBLIC_NEO4J_URL=bolt://neo4j-v5:7687
       - NEXT_PUBLIC_ENRICHR_URL=https://maayanlab.cloud/Enrichr
       - NEXT_PUBLIC_GENESHOT_URL=https://maayanlab.cloud/geneshot
-      - NEXT_PUBLIC_CHEA3_URL=https://maayanlab.cloud/chea3
       - NEXT_PUBLIC_NEO4J_USER
       - NEXT_PUBLIC_NEO4J_NAME
       - NEXT_PUBLIC_NEO4J_PASSWORD
