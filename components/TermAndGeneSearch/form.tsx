@@ -149,7 +149,7 @@ const checkedIcon = <CheckBoxIcon fontSize="small" />;
         <Grid container justifyContent="space-around" spacing={1}>
             <Grid item xs={12}>
                 <Grid container spacing={1} alignItems="flex-start" justifyContent="flex-start">
-                    {edges.length && 
+                    {/* {edges.length && 
                         <Grid item xs={12} md={4} lg={5}>
                             <Autocomplete
                                 multiple
@@ -178,6 +178,7 @@ const checkedIcon = <CheckBoxIcon fontSize="small" />;
                                         const {filter: f, ...rest} = searchParams
                                         let filter = JSON.parse(f || '{}')
                                         if (Object.keys(filter).length === 0) filter = initial_query
+                                        console.log("filter: ", filter)
                                         filter.relation = r.map((name:string)=>({name, limit: limit || 5}))
                                         const query = {
                                             ...rest,
@@ -191,7 +192,7 @@ const checkedIcon = <CheckBoxIcon fontSize="small" />;
                                 renderTags={()=>null}
                             />
                         </Grid>
-                        }
+                        } */}
                     <Grid item xs={12} md={8} lg={7}>
                         <Grid container spacing={1} alignItems="center">
                             {relation.map((value) => (
@@ -254,10 +255,10 @@ const checkedIcon = <CheckBoxIcon fontSize="small" />;
                             </Tooltip>
                             <Icon path={mdiPlusCircleOutline} size={0.8} />
                             {/* <Typography variant="subtitle2">{limit ? limit: !end ? relation.length === 1? ((elements || {}).edges || []).length: 5: 25}</Typography> */}
-                        </Stack>
+                        {/*</Stack>
                     </Grid>
                     <Grid item>
-                        <Stack direction={"row"} alignItems={"center"} spacing={1}>
+                        <Stack direction={"row"} alignItems={"center"} spacing={1}> */}
                             <Tooltip title={fullscreen ? "Exit full screen": "Full screen"}>
                                 <IconButton color="secondary"
                                     onClick={()=>{

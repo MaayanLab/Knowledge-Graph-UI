@@ -1,5 +1,5 @@
 import { Grid, Typography, } from "@mui/material"
-
+import Link from 'next/link';
 import ClientSide from "./client_side";
 
 const AllFiles = ({download}: {download: {
@@ -26,14 +26,13 @@ const AllFiles = ({download}: {download: {
 }}) => {
 	return (
 		<Grid container spacing={2}>
-			<Grid item xs={12}>
+			{/*<Grid item xs={12}>
 				<Typography variant={"h2"}>Download Page</Typography>
-			</Grid>
+			</Grid>*/}
 			<Grid item xs={12}>
-				<Typography variant={"h3"}>Network Files</Typography>
+				<Typography variant={"h3"}>Networks</Typography>
 				<Typography variant={"body1"}>
-					Each entry below contains a link to a compressed set of assertion files. For each network this includes the three "Transcription Factor.nodes.csv", "Transcription Factor.upregulates.Transcription Factor.edges.csv", and "Transcription Factor.downregulates.Transcription Factor.edges.csv" files. 
-					The node files contain information about each node, formatted. Edge files contain the source, relation, target, and significance for each edge.  
+				Each entry below contains a link to zipped archives each containing three files. The first file in each archive lists the nodes of each network, and the other two files list the edges of each network.  
 				</Typography>
 			</Grid>
 			<Grid item xs={12}>
@@ -42,7 +41,14 @@ const AllFiles = ({download}: {download: {
 			<Grid item xs={12}>
 				<Typography variant={"h3"}>Gene Set Files</Typography>
 				<Typography variant={"body1"}>
-					This file contains a list of control vs. perturbation gene sets. 
+					This file contains a list of control vs. perturbation gene sets from&nbsp;
+                            <Link href={"https://rummageo.com"} 
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                style={{color: "black", textDecoration: "underline"}}
+                            >
+                                <span style={{fontSize: 16, fontWeight: 700, fontFamily: 'Open-sans, sans-serif'}}>RummaGEO</span>
+                            </Link>
 				</Typography>
 			</Grid>
 			<Grid item xs={12}>
@@ -51,7 +57,7 @@ const AllFiles = ({download}: {download: {
 			<Grid item xs={12}>
 				<Typography variant={"h3"}>Network-Building Notebooks</Typography>
 				<Typography variant={"body1"}>
-					Links to each notebook used to construct, filter, benchmark, and format the network assertions are provided below. 
+				Links to notebooks used to construct, filter, benchmark, and format the GRNs. 
 				</Typography>
 			</Grid>
 			<Grid item xs={12}>

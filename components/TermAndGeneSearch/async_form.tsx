@@ -142,7 +142,7 @@ const AsyncFormComponent = ({direction,
         }
     }, [field])
     return (
-        <Grid container spacing={2} justifyContent="flex-start" alignItems="center">
+        <Grid container spacing={1} justifyContent="flex-start" alignItems="center">
             <Grid item xs={12}>
                 <Typography variant="body1" color="secondary"><b>{direction} with</b></Typography>
             </Grid>

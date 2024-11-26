@@ -21,10 +21,10 @@ const TermViz = ({elements, schema, tooltip_templates_edges, tooltip_templates_n
 	const columns:{[key:string]: boolean} = {}
 	for (const dt of [...elements.nodes, ...elements.edges]) {
 		const {label, id: i, kind, color, gradient_color, ...properties} = dt.data
-		{/*if (dt.data.score !== undefined) {*/}
+		if (dt.data.kind !== "Relation") {
 			const {enrichr_label} = properties
 			const id = `${properties.library}: ${enrichr_label} (${i})`
-			if (entries[id] === undefined && kind !== "Gene") {
+			if (entries[id] === undefined && kind !== "Search TFs") {
 				const {
 					library,
 					score
@@ -32,17 +32,19 @@ const TermViz = ({elements, schema, tooltip_templates_edges, tooltip_templates_n
 				entries[id] = {
 					id,
 					label,
-					enrichr_label,
+					kind,
+					// enrichr_label,
 					...properties,
 					library: `${library}`,
 					score: typeof score === 'number' ? parseFloat(`${precise(score)}`): undefined,
+					color: `${color}`
 				}
 				for (const [k,v] of Object.entries(entries[id])) {
 					if (v !== undefined) columns[k] = true
 				}
 			}
 			
-		{/*}*/}
+		}
 	}
 	const sorted_entries = Object.values(entries)
 	if (sorted_entries.length === 0) return <Typography variant="h5">No Results Found</Typography>

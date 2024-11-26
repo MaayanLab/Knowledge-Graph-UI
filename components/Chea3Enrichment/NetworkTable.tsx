@@ -9,37 +9,32 @@ import {
 } from "@mui/x-data-grid";
 const header: GridColDef[] = [
     {
-        field: 'enrichr_label',
+        field: 'label',
         headerName: "Term",
-        flex: 1,
-        // style: {flexDirection: "row"},
-        align: "left"
-    },
-	{
-        field: 'library',
-        headerName: "Library",
-        flex: 1,
+        //flex: 1,
         // style: {flexDirection: "row"},
         align: "left"
     },
     {
-        field: 'pval',
-        headerName: "p-value",
+        field: 'kind',
+        flex: 1,
+        headerName: "Kind",
         align: "left"
     },
     {
-        field: 'qval',
-        headerName: "q-value",
+        field: 'uri',
+        headerName: "uri",
+        flex: 1,
         align: "left"
     },
     {
-        field: 'zscore',
-        headerName: "z-score",
+        field: 'score',
+        headerName: "score",
         align: "left"
     },
     {
-        field: 'combined_score',
-        headerName: "combined score",
+        field: 'overlap',
+        headerName: "overlapping genes",
         align: "left"
     }
 ]
@@ -58,7 +53,7 @@ const NetworkTable = ({sorted_entries, columns}:{sorted_entries:Array<{[key:stri
 	<DataGrid
 		components={{ Toolbar: CustomToolbar }}
 		sortingOrder={['desc', 'asc']}
-		rows={sorted_entries}
+		rows={sorted_entries} 
 		columns={header.filter(i=>columns[i.field])}
 		autoPageSize
 		disableColumnMenu
