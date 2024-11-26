@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react"
 import AsyncFormComponent from "./async_form"
 import { router_push } from "@/utils/client_side"
-import { usePathname, useRouter, useSearchParams, } from "next/navigation"
+import { useRouter, } from "next/navigation"
 import { Stack, 
 	Typography, 
 	Card, 
@@ -16,13 +16,10 @@ import { NetworkSchema } from "@/app/api/knowledge_graph/route"
 import { useQueryState, parseAsJson } from 'next-usequerystate';
 import { makeTemplate } from "@/utils/helper"
 import { precise } from "@/utils/math"
-import { FilterSchema } from "@/utils/helper"
-import DeleteIcon from '@mui/icons-material/Delete';
 import HubIcon from '@mui/icons-material/Hub';
-import AllOutIcon from '@mui/icons-material/AllOut';
 import { UISchema } from "@/app/api/schema/route"
 
-export const TooltipComponent = ({data, tooltip_templates, initial_query, schema}: {
+export const TooltipComponent = ({data, float, tooltip_templates, schema}: {
 	data: {
 		id: string,
 		label?: string,
@@ -31,18 +28,12 @@ export const TooltipComponent = ({data, tooltip_templates, initial_query, schema
 		[key: string]: string | number
 	},
 	tooltip_templates: {[key: string]: Array<{[key: string]: string}>}, 
-	initial_query: {[key: string]: string},
-	schema: UISchema
+	schema: UISchema,
+	float?: boolean
 }) => {
-	const [selected, setSelected] = useQueryState('selected',  parseAsJson<{id: string, type: 'nodes' | 'edges'}>().withDefault(null))
-	const [hovered, setHovered] = useQueryState('hovered',  parseAsJson<{id: string, type: 'nodes' | 'edges'}>().withDefault(null))
-	const pathname = usePathname()
-	const searchParams = useSearchParams()
 	const router = useRouter()
-	const query_parser = parseAsJson<FilterSchema>().withDefault(initial_query)
-    const filter: FilterSchema = query_parser.parseServerSide(searchParams.get('filter'))
 	const elements = []
-	const field = data.kind === "Relation" ? data.label : data.kind.replace("Co-expressed Gene", "Gene")
+	const field = data.kind === "Relation" ? data.label : data.kind.replace(/Search TFs that are also ranked|Top 10 Ranked TFs|Search TFs/g, "Transcription Factor")
 	for (const i of tooltip_templates[field] || []) {
 		if (i.type === "link") {
 			const text = makeTemplate(i.text, data)
@@ -71,14 +62,22 @@ export const TooltipComponent = ({data, tooltip_templates, initial_query, schema
 			}
 		  }
 	}
+	const extrasx = {}
+	if (float) {
+		extrasx["position"] = "absolute"
+		extrasx["top"] = 0
+		extrasx["left"] = 0
+		extrasx["zIndex"] = 100
+	}
 	return (
-		<Card sx={{marginTop: 2}}>
+		<Card sx={{marginTop: 2, ...extrasx}}>
 			<CardContent sx={{padding: 2}}>
 				{elements}
 			</CardContent>
 			{data.kind !== "Relation" &&
             <CardActions>
-              {/* {!filter.end_term && <Tooltip title="Delete Node">
+              {/* {!filter.end_term 
+			  && <Tooltip title="Delete Node">
                 <IconButton
                   onClick={()=>{
                     setSelected(null)
@@ -115,20 +114,20 @@ export const TooltipComponent = ({data, tooltip_templates, initial_query, schema
 }
 
 const TooltipComponentGroup = ({
-    initial_query,
 	elements,
 	tooltip_templates_nodes,
     tooltip_templates_edges,
 	schema,
+	float
 }: {
-        initial_query: {[key: string]: string},
 		elements: null | NetworkSchema,
 		tooltip_templates_edges: {[key: string]: Array<{[key: string]: string}>},
         tooltip_templates_nodes: {[key: string]: Array<{[key: string]: string}>},
-		schema: UISchema
+		schema: UISchema,
+		float?: boolean
 	}) => {
 	
-
+	const [tooltip, setTooltip] = useQueryState('tooltip')
 	const [selected, setSelected] = useQueryState('selected',  parseAsJson<{id: string, type: 'nodes' | 'edges'}>().withDefault(null))
 	const [hovered, setHovered] = useQueryState('hovered',  parseAsJson<{id: string, type: 'nodes' | 'edges'}>().withDefault(null))
 	const [elementMapper, setElementMapper] = useState({nodes: {}, edges: {}})
@@ -149,13 +148,14 @@ const TooltipComponentGroup = ({
 		}
     }, [elements])
 	const user_input = selected || hovered
-	if (user_input !== null && elementMapper[user_input.type][user_input.id] !== undefined) {
+	const tooltip_on = 'true' ? (tooltip === (undefined || null )) : tooltip
+	if (tooltip_on && user_input !== null && elementMapper[user_input.type][user_input.id] !== undefined) {
 		return (
 			<TooltipComponent 
 					data={elementMapper[user_input.type][user_input.id]} 
 					tooltip_templates={user_input.type === 'nodes' ? tooltip_templates_nodes: tooltip_templates_edges}
-					initial_query={initial_query}
 					schema={schema}
+					float={float}
 				/>
 		)
 	}

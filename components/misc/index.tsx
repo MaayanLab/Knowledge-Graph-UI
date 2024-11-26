@@ -79,10 +79,12 @@ export const Legend = ({
     const color_sum = {}
     const relations = []
     for (const i of [...elements.nodes, ...elements.edges]) {
-      const {kind, color, legend, borderColor, lineColor, relation, pval, ring_label}: {
+      const {kind, color, borderColor, lineColor, relation, pval, ring_label}: {
+
+      //const {kind, color, legend, borderColor, lineColor, relation, pval, ring_label}: {
         kind?:string,
         color?:string,
-        legend?:string
+        // legend?:string
         borderColor?: string,
         lineColor?: string,
         relation?: string,
@@ -91,51 +93,28 @@ export const Legend = ({
       } = i.data
       if (pval && pval > 0.05) not_significant = true
       if (kind === "Relation" && lineColor !== "#e0e0e0" && relation_colors[relation]===undefined) {
-        relation_colors[relation] = <Grid item xs={12} key={kind}>
+        relation_colors[relation] = <Grid item xs={12} key={relation}>
           <Grid container alignItems={"center"} spacing={1}>
             <Grid item><hr style={{color: lineColor, height: lineHeight[legendSize], backgroundColor: lineColor, width: lineWidth[legendSize], borderStyle: i.data.hidden ? 'dotted': 'solid'}}/></Grid>
             <Grid item><Typography variant="subtitle1">{relation}</Typography></Grid>   
           </Grid></Grid>
       }
-      if (legend !== undefined) {
-        // console.log("legend: ", legend)
-          if (colors[legend]===undefined && color !== "#ff8a80" && kind !== "Relation") {
-            color_sum[legend] = color
-            colors[legend] = <Grid item xs={12} key={kind}>
-              <Grid container alignItems={"center"} spacing={1}>
-                <Grid item><Avatar sx={{background: color, width: sizes[legendSize], height: sizes[legendSize], borderColor, borderStyle: borderColor ? "solid": "none", borderWidth: borders[legendSize]}}> </Avatar></Grid>
-                <Grid item><Typography variant="subtitle1">{legend}</Typography></Grid>   
-              </Grid></Grid> 
-          }
-          if (colors[legend]!==undefined && color_sum[legend] === "#bdbdbd" && color !== "#ff8a80" && kind !== "Relation" ) {
-            console.log("color, ", color)
-            console.log("legend: ", legend)
-            color_sum[legend] = color
-            colors[legend] = <Grid item xs={12} key={kind}>
-              <Grid container alignItems={"center"} spacing={1}>
-                <Grid item><Avatar sx={{background: color, width: sizes[legendSize], height: sizes[legendSize], borderColor, borderWidth: borders[legendSize]}}> </Avatar></Grid>
-                <Grid item><Typography variant="subtitle1">{legend}</Typography></Grid>   
-              </Grid></Grid> 
-          }
-      } else {
-        if (colors[kind]===undefined && color !== "#ff8a80" && kind !== "Relation") {
-          color_sum[kind] = color
-          colors[kind] = <Grid item xs={12} key={kind}>
-            <Grid container alignItems={"center"} spacing={1}>
-              <Grid item><Avatar sx={{background: color, width: sizes[legendSize], height: sizes[legendSize], borderColor, borderStyle: borderColor ? "solid": "none", borderWidth: borders[legendSize]}}> </Avatar></Grid>
-              <Grid item><Typography variant="subtitle1">{kind}</Typography></Grid>   
-            </Grid></Grid> 
-        }
-        if (colors[kind]!==undefined && color_sum[kind] === "#bdbdbd" && color !== "#ff8a80" && kind !== "Relation" ) {
-          color_sum[kind] = color
-          colors[kind] = <Grid item xs={12} key={kind}>
-            <Grid container alignItems={"center"} spacing={1}>
-              <Grid item><Avatar sx={{background: color, width: sizes[legendSize], height: sizes[legendSize], borderColor, borderWidth: borders[legendSize]}}> </Avatar></Grid>
-              <Grid item><Typography variant="subtitle1">{kind}</Typography></Grid>   
-            </Grid></Grid> 
-        }
+      if (colors[kind]===undefined && color !== "#ff8a80" && kind !== "Relation") {
+        color_sum[kind] = color
+        colors[kind] = <Grid item xs={12} key={kind}>
+          <Grid container alignItems={"center"} spacing={1}>
+            <Grid item><Avatar sx={{background: color, width: sizes[legendSize], height: sizes[legendSize], borderColor, borderStyle: borderColor ? "solid": "none", borderWidth: borders[legendSize]}}> </Avatar></Grid>
+            <Grid item><Typography variant="subtitle1">{kind}</Typography></Grid>   
+          </Grid></Grid> 
       }
-      
+      if (colors[kind]!==undefined && color_sum[kind] === "#bdbdbd" && color !== "#ff8a80" && kind !== "Relation" ) {
+        color_sum[kind] = color
+        colors[kind] = <Grid item xs={12} key={kind}>
+          <Grid container alignItems={"center"} spacing={1}>
+            <Grid item><Avatar sx={{background: color, width: sizes[legendSize], height: sizes[legendSize], borderColor, borderWidth: borders[legendSize]}}> </Avatar></Grid>
+            <Grid item><Typography variant="subtitle1">{kind}</Typography></Grid>   
+          </Grid></Grid> 
+      }
       if (ring_label && !colors[ring_label] && borderColor && !not_significant) {
         colors[ring_label] = <Grid item xs={12} key={ring_label}>
         <Grid container alignItems={"center"} spacing={1} key={ring_label}>
@@ -146,7 +125,6 @@ export const Legend = ({
         </Grid></Grid>   
       }
     }
-  
     if (!search && not_significant) {
       colors["Not significant"] = <Grid item xs={12} key={"significant"}>
       <Grid container alignItems={"center"} spacing={1} key="significant">

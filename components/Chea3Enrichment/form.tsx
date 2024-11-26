@@ -34,7 +34,8 @@ const GeneSetForm = ({
     libraries_list,
     parsedParams,
     fullWidth,
-    elements
+    elements, 
+    searchParams
 }: {
     fullWidth:boolean,
     elements: NetworkSchema,
@@ -56,7 +57,13 @@ const GeneSetForm = ({
         gene_set?: string,
     },
     libraries_list: Array<string>,
-    parsedParams: EnrichmentParams
+    parsedParams: EnrichmentParams,
+    searchParams: {
+        q?:string,
+        fullscreen?: 'true'
+        view?: string,
+        collapse?: 'true'
+    }
 }) => {
     const router = useRouter()
     const [query, setQuery] = useQueryState('query', parseAsJson<EnrichmentParams>().withDefault({}))
@@ -127,7 +134,7 @@ const GeneSetForm = ({
             formData.append('description', description)
             const controller = get_controller()
             const userListId = await (
-                await fetch(`${process.env.NODE_ENV==="development" ? process.env.NEXT_PUBLIC_HOST_DEV : process.env.NEXT_PUBLIC_HOST}/api/enrichment/addList`, {
+                await fetch(`${process.env.NEXT_PUBLIC_PREFIX ? process.env.NEXT_PUBLIC_PREFIX:''}/api/enrichment/addList`, {
                     method: 'POST',
                     body: formData,
                     signal: controller.signal
@@ -270,8 +277,8 @@ const GeneSetForm = ({
                         <Typography>{( error || {}).message || ""}</Typography>
                     </Alert>
                 </Snackbar>
-            <Grid container spacing={2}>
-                <Grid item xs={12} md={fullWidth ?6: 12}>
+            {/*<Grid container spacing={1}>
+                <Grid item xs={12} md={fullWidth ?6: 12}> */}
                     <Grid container alignItems={"center"} spacing={1}>
                         <Grid item xs={12}>
                             <div tabIndex={0}>
@@ -528,14 +535,14 @@ const GeneSetForm = ({
                         </Grid>
                     </>
                 }
-                </Grid>
+                {/*</Grid>
                 { fullWidth &&
                     <Grid item xs={12} md={6}>
                         <Grid container spacing={1} justifyContent="flex-end">
-                            {/* <Grid item xs={12}>
+                             <Grid item xs={12}>
                                 <EnrichrTermSearch setInput={setInput}/>
                             </Grid> */}
-                            <Grid item xs={12}>
+                            {/* <Grid item xs={12}>
                                 <Typography variant={'subtitle2'}>
                                     Select libraries to include
                                 </Typography>
@@ -544,11 +551,11 @@ const GeneSetForm = ({
                                     fullWidth={fullWidth}
                                     disableLibraryLimit={disableLibraryLimit || true}
                                 />
-                            </Grid>
+                            </Grid> 
                         </Grid>    
                     </Grid>
                 }
-            </Grid>
+            </Grid>*/}
         </FormGroup>
     )
 }

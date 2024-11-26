@@ -15,6 +15,7 @@ import { NetworkSchema } from '@/app/api/knowledge_graph/route';
 import { parseAsJson } from 'next-usequerystate';
 import InteractiveButtons from './InteractiveButtons';
 import { fetch_kg_schema } from '@/utils/initialize';
+import TooltipComponentGroup from '../TermAndGeneSearch/tooltip';
 
 export interface EnrichmentParams {
     libraries?: Array<{
@@ -70,8 +71,9 @@ const Enrichment = async ({
     description?: string,
     searchParams: {
         q?:string,
-        fullscreen?: 'true'
-
+        fullscreen?: 'true',
+        view?: string,
+        collapse?: 'true'
     },
     endpoint: string,
     additional_link_relation_tags?: Array<string>
@@ -187,7 +189,14 @@ const Enrichment = async ({
             <Grid container spacing={1} alignItems={"flex-start"}>
                 <Grid item xs={12}>
                     <Typography variant={"h2"}>{props.title || 'Enrichment Analysis'}</Typography>
-                    { props.disableHeader ? <Typography variant={"subtitle1"}>Enter a set of Entrez gene below to perform enrichment analysis.</Typography>:
+                    { props.disableHeader ? <Typography variant={"subtitle1"}>Enter a set of Entrez gene symbols below to perform transcription factor enrichment analysis using&nbsp;
+                            <Link href={"https://maayanlab.cloud/chea3/"} 
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                style={{color: "black", textDecoration: "underline"}}
+                            >
+                                <span style={{fontSize: 16, fontWeight: 700, fontFamily: 'Rubik, sans-serif'}}>ChEA3</span>
+                            </Link>. The result is a subnetwork of made of the top 10 mean-ranked transcription factors enriched for the query set.</Typography>:
                         <Typography variant="subtitle1" sx={{marginBottom: 3}}>Submit your gene set for enrichment analysis with &nbsp;
                             <Link href={shortId ? `https://maayanlab.cloud/Enrichr/enrich?dataset=${shortId}` : "https://maayanlab.cloud/Enrichr/"} 
                                 target="_blank"
@@ -207,11 +216,19 @@ const Enrichment = async ({
                                 parsedParams={parsedParams}
                                 fullWidth={elements===null}
                                 elements={elements}
+                                searchParams={searchParams}
                                 {...props}
+                            /> 
+                            <TooltipComponentGroup
+                                elements={elements}
+                                tooltip_templates_edges={tooltip_templates_edges}
+                                tooltip_templates_nodes={tooltip_templates_node}
+                                schema={schema}
                             />
                         </CardContent>
                     </Card>
                 </Grid>
+                
                 { elements!==null && 
                     <Grid item xs={12} md={9}>
                         <Stack direction={"column"} alignItems={"flex-start"} spacing={1}>
@@ -227,6 +244,7 @@ const Enrichment = async ({
                                 elements={elements}
                                 short_url={short_url}
                                 additional_link_relation_tags={props.additional_link_relation_tags}
+                                searchParams={searchParams}
                             >
                                 {/* <Summarizer elements={elements} schema={schema} augmented={parsedParams.augment}/> */}
                             </InteractiveButtons>
@@ -247,6 +265,18 @@ const Enrichment = async ({
                         </Stack>
                     </Grid>
                 }
+                <Grid item xs={12} spacing={2}>
+                    <Typography variant={"subtitle1"} style={{fontSize:12, fontWeight:'bolder'}}> Please acknowledge ChEA3 in your publications using the following reference: </Typography>
+                    <Typography variant={'body1'} style={{fontSize:12}}> Keenan AB, Torre D, Lachmann A, Leong AK, Wojciechowicz M, Utti V, Jagodnik K, Kropiwnicki E, Wang Z, Ma'ayan A (2019) ChEA3: transcription factor enrichment analysis by orthogonal omics integration. Nucleic Acids Research. doi:&nbsp;
+                            <Link href={"https://doi.org/10.1093/nar/gkz446"} 
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                <span>10.1093/nar/gkz446</span>
+                            </Link>
+                    
+                    </Typography>
+                </Grid>
             </Grid>
         )
     } catch (error) {

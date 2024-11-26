@@ -3,12 +3,13 @@ import { FilterSchema } from "@/utils/helper"
 import { process_relation } from "@/utils/helper"
 // import ClientTermAndGeneSearch from './client_side'
 import { Grid, Typography, CircularProgress, Card, CardContent, Stack } from "@mui/material"
-import { parseAsJson } from "next-usequerystate"
+import { parseAsJson} from "next-usequerystate"
 import AsyncFormComponent from "./async_form"
 import TooltipComponentGroup from "./tooltip"
 import Form from "./form"
 import NetworkTable from "./network_table"
 import { fetch_kg_schema } from "@/utils/initialize"
+
 const Cytoscape = dynamic(()=>import('../Cytoscape'),
     {
         ssr: false,
@@ -24,9 +25,9 @@ export const initialize_kg = async () => {
     const default_relations = []
     const hiddenLinksRelations = []
 	for (const i of schema.nodes) {
-		tooltip_templates_nodes[i.node] = i.display
-		const {node} = i
-		nodes[node] = i
+        tooltip_templates_nodes[i.node] = i.display
+        const {node} = i
+        nodes[node] = i
 	}
     for (const i of schema.edges) {
         for (const e of i.match) {
@@ -89,23 +90,6 @@ const TermAndGeneSearch = async ({searchParams, props}: {
     try {
         if (filter.relation) {
             filter.relation = process_relation(filter.relation)
-            // if (!filter.end) {
-            //     if (typeof filter.relation[0] === 'string') {
-            //         filter.relation = process_relation(filter.relation).map((name)=>({name, limit: filter.limit || 5}))
-            //     } else {
-            //         filter.relation = process_relation(filter.relation).map(({name, limit})=>({name, limit: limit || filter.limit || 5}))
-            //     }
-            //     delete filter.limit
-            // } else {
-            //     if (typeof filter.relation[0] === 'string') {
-            //         filter.relation = process_relation(filter.relation).map((name)=>({name}))
-            //     } else {
-            //         filter.relation = process_relation(filter.relation).map(({name, limit})=>({name, limit}))
-            //     }
-            //     // filter.relation = process_relation(filter.relation).map(({name})=>({name}))
-            //     delete filter.augment
-            //     delete filter.augment_limit
-            // }
         }
         let elements = null
         const selected_edges = []
@@ -126,7 +110,7 @@ const TermAndGeneSearch = async ({searchParams, props}: {
                 }
             }
             for (const i of (elements || {}).nodes || []) {
-                if (i.data.kind === "Gene" && genes.indexOf(i.data.label) === -1) {
+                if ((i.data.kind === "Transcription Factor") && genes.indexOf(i.data.label) === -1) {
                     genes.push(i.data.label)
                 }
             }
@@ -178,7 +162,7 @@ const TermAndGeneSearch = async ({searchParams, props}: {
                         </CardContent>
                     </Card>
                     <TooltipComponentGroup
-                            initial_query={props.initial_query}
+                            // initial_query={props.initial_query}
                             elements={elements}
                             tooltip_templates_edges={tooltip_templates_edges}
                             tooltip_templates_nodes={tooltip_templates_nodes}
