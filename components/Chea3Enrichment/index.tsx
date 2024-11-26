@@ -267,7 +267,7 @@ const Enrichment = async ({
                 }
                 <Grid item xs={12} spacing={2}>
                     <Typography variant={"subtitle1"} style={{fontSize:12, fontWeight:"bolder"}}> Please acknowledge ChEA3 in your publications using the following reference: </Typography>
-                    <Typography variant={"body1"} style={{fontSize:12}}> Keenan AB, Torre D, Lachmann A, Leong AK, Wojciechowicz M, Utti V, Jagodnik K, Kropiwnicki E, Wang Z, Ma"ayan A (2019) ChEA3: transcription factor enrichment analysis by orthogonal omics integration. Nucleic Acids Research. doi:&nbsp;
+                    <Typography variant={"body1"} style={{fontSize:12}}> Keenan AB, Torre D, Lachmann A, Leong AK, Wojciechowicz M, Utti V, Jagodnik K, Kropiwnicki E, Wang Z, Ma&apos;ayan A (2019) ChEA3: transcription factor enrichment analysis by orthogonal omics integration. Nucleic Acids Research. doi:&nbsp;
                             <Link href={"https://doi.org/10.1093/nar/gkz446"} 
                                 target="_blank"
                                 rel="noopener noreferrer"
