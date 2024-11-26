@@ -35,9 +35,7 @@ export const enrichr_query = async ({
     if (res.ok !== true) {
         console.log(`${process.env.NODE_ENV==="development" ? process.env.NEXT_PUBLIC_HOST_DEV : process.env.NEXT_PUBLIC_HOST}${process.env.NEXT_PUBLIC_PREFIX ? process.env.NEXT_PUBLIC_PREFIX: ''}/api/enrichment/view`)
         throw new Error(`Error communicating with ChEA3`)
-    } else {
-        console.log(`success`)
-    }
+    } 
     const regex = {}
     const reg:{[key:string]: string} = await get_regex()
     for (const [k,v] of Object.entries(reg)) {

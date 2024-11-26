@@ -6,7 +6,7 @@ export async function GET() {
     const nodes = {}
     for (const i of schema.nodes) {
         nodes[i.node] = i.search
-    }
+    }    
     
     return NextResponse.json(nodes, {status: 200})
 }

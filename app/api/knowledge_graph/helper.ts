@@ -127,7 +127,7 @@ export const resolve_results = async ({
     query: string,
     enrichment_subtypes?: {query_terms: any, result_terms: any},
     query_params?: {[key:string]: any},
-    terms?: Array<string>,
+    terms?: Array<string | number>,
     fields?: Array<string>,
     colors?: {[key: string]: {color?: string, field?: string, aggr_type?: string, border_color?: string, ring_label?: string, edge_suffix?: string }},
     aggr_scores?: {[key:string]: {max: number, min: number}},
@@ -168,15 +168,12 @@ export const resolve_results = async ({
             }
             const nodes = {}
             const edges = {}
-            console.log("kind props before: ", kind_properties)
             for (const record of results.records) {
                 const node_list = record.get('n')
                 for (const node of node_list) {
                     if (nodes[node.identity] === undefined) {
                         const type = node.labels.filter(i=>i!=="id")[0]
-                           
                         const kind = kind_mapper ? kind_mapper({node, type, enrichment_subtypes, ...misc_props})  : type
-                        console.log("kind: ", kind)
                         const node_properties = {
                             id: node.properties.id,
                             kind,
@@ -191,9 +188,7 @@ export const resolve_results = async ({
                             aggr_scores,
                             ...colors_func(kind), 
                             ...misc_props
-                        })
-                        console.log("color before: ", node_color)
-                        
+                        })                        
                         if (colors[type] && colors[type].border_color && !node_color.borderColor && node_color.color !== highlight_color) {
                             node_color.borderColor = colors[type].border_color
                             node_color.borderWidth = 7
@@ -218,7 +213,6 @@ export const resolve_results = async ({
                         if (colors[relation_type] === undefined) {
                             console.log(`${relation_type} is undefined`)
                         }
-                        console.log(`${relation_type}`)
                         edges[relation_id] = {
                             data: {
                                 source: nodes[relation.start].data.id,
@@ -234,10 +228,8 @@ export const resolve_results = async ({
                                 directed: arrow_shape[relation_type] || 'none'
                             }
                         }
-                        console.log("directed? ", edges[relation_id].data.directed)
 
                     }
-                    console.log("kind props after: ", kind_properties)
                 }
             }
             return {

@@ -30,7 +30,6 @@ const get_node_color_and_type = ({node,
             const v = node.enrichment[i]
             node.enrichment[i] = { ...v, ...compute_colors({properties: v, aggr_scores: aggr_scores.score, color}) }
         }
-        console.log("props: ", props)
         return props
     }	
 }
@@ -119,13 +118,12 @@ const enrichment = async ({
             genes = genes.sort((a,b)=>gene_counts[b].count - gene_counts[a].count).slice(0,gene_limit)
         }
         const schema = await fetch_kg_schema()
-        const {aggr_scores, colors} = await initialize()
+        const {aggr_scores, colors, arrow_shape} = await initialize()
         aggr_scores["score"] = {max: max_score, min: min_score}
         const query_list = []
         const vars = {}
         
         for (const [node, lib_terms] of Object.entries(library_terms)) {
-            console.log("lib terms: ", lib_terms)
             let query_part = `
                 MATCH p = (a:\`Transcription Factor\`)--(b:\`Transcription Factor\`) 
                 WHERE a.label IN ${JSON.stringify(lib_terms)} 
@@ -184,9 +182,8 @@ const enrichment = async ({
         }
         const query = query_list.join(' UNION ')
         const query_params = {limit: expand_limit, ...vars}
-        console.log("terms: ", terms)
         const enrichment_subtypes = {query_terms: searched, result_terms: returned}
-        return resolve_results({query, kind_mapper, enrichment_subtypes, query_params, aggr_scores, colors, kind_properties: terms, get_node_color_and_type})
+        return resolve_results({query, kind_mapper, enrichment_subtypes, query_params, aggr_scores, colors, kind_properties: terms, get_node_color_and_type, arrow_shape})
     } catch (error) {
         throw error
     }
