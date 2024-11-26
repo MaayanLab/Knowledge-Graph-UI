@@ -1,21 +1,21 @@
-import React from 'react';
-import Link from 'next/link';
+import React from "react";
+import Link from "next/link";
 import {
     Grid,
     Stack,
     Typography,
     Card,
     CardContent
-} from '@mui/material';
-import GeneSetForm from './form';
-import TermViz from './TermViz';
-import { Summarizer } from './Summarizer';
-import { UISchema } from '@/app/api/schema/route';
-import { NetworkSchema } from '@/app/api/knowledge_graph/route';
-import { parseAsJson } from 'next-usequerystate';
-import InteractiveButtons from './InteractiveButtons';
-import { fetch_kg_schema } from '@/utils/initialize';
-import TooltipComponentGroup from '../TermAndGeneSearch/tooltip';
+} from "@mui/material";
+import GeneSetForm from "./form";
+import TermViz from "./TermViz";
+import { Summarizer } from "./Summarizer";
+import { UISchema } from "@/app/api/schema/route";
+import { NetworkSchema } from "@/app/api/knowledge_graph/route";
+import { parseAsJson } from "next-usequerystate";
+import InteractiveButtons from "./InteractiveButtons";
+import { fetch_kg_schema } from "@/utils/initialize";
+import TooltipComponentGroup from "../TermAndGeneSearch/tooltip";
 
 export interface EnrichmentParams {
     libraries?: Array<{
@@ -71,9 +71,9 @@ const Enrichment = async ({
     description?: string,
     searchParams: {
         q?:string,
-        fullscreen?: 'true',
+        fullscreen?: "true",
         view?: string,
-        collapse?: 'true'
+        collapse?: "true"
     },
     endpoint: string,
     additional_link_relation_tags?: Array<string>
@@ -123,21 +123,21 @@ const Enrichment = async ({
         } = parsedParams
         const libraries = parsedParams.libraries || []
         let elements:NetworkSchema = null
-        let shortId = ''
+        let shortId = ""
         let genes = []
         let input_desc
         if (userListId !==undefined && libraries.length > 0) {
             console.log("Getting description...")
-            const desc_request = await fetch(`${process.env.NODE_ENV==="development" ? process.env.NEXT_PUBLIC_HOST_DEV : process.env.NEXT_PUBLIC_HOST}${process.env.NEXT_PUBLIC_PREFIX ? process.env.NEXT_PUBLIC_PREFIX: ''}/api/enrichment/view?userListId=${userListId}`)
+            const desc_request = await fetch(`${process.env.NODE_ENV==="development" ? process.env.NEXT_PUBLIC_HOST_DEV : process.env.NEXT_PUBLIC_HOST}${process.env.NEXT_PUBLIC_PREFIX ? process.env.NEXT_PUBLIC_PREFIX: ""}/api/enrichment/view?userListId=${userListId}`)
             if (desc_request.ok) input_desc = (await (desc_request.json())).description
             console.log("Getting shortID...")
-            console.log(`${process.env.NODE_ENV==="development" ? process.env.NEXT_PUBLIC_HOST_DEV : process.env.NEXT_PUBLIC_HOST}${process.env.NEXT_PUBLIC_PREFIX ? process.env.NEXT_PUBLIC_PREFIX: ''}/api/enrichment/view?userListId=${userListId}`)
+            console.log(`${process.env.NODE_ENV==="development" ? process.env.NEXT_PUBLIC_HOST_DEV : process.env.NEXT_PUBLIC_HOST}${process.env.NEXT_PUBLIC_PREFIX ? process.env.NEXT_PUBLIC_PREFIX: ""}/api/enrichment/view?userListId=${userListId}`)
             //const request = await fetch(`${process.env.NEXT_PUBLIC_ENRICHR_URL}/share?userListId=${userListId}`)
             //if (request.ok) shortId = (await (request.json())).link_id
-            //else console.log(`${process.env.NODE_ENV==="development" ? process.env.NEXT_PUBLIC_HOST_DEV : process.env.NEXT_PUBLIC_HOST}${process.env.NEXT_PUBLIC_PREFIX ? process.env.NEXT_PUBLIC_PREFIX: ''}/api/enrichment/view?userListId=${userListId}`)
+            //else console.log(`${process.env.NODE_ENV==="development" ? process.env.NEXT_PUBLIC_HOST_DEV : process.env.NEXT_PUBLIC_HOST}${process.env.NEXT_PUBLIC_PREFIX ? process.env.NEXT_PUBLIC_PREFIX: ""}/api/enrichment/view?userListId=${userListId}`)
             shortId = userListId
-            console.log(`Enrichment ${process.env.NODE_ENV==="development" ? process.env.NEXT_PUBLIC_HOST_DEV : process.env.NEXT_PUBLIC_HOST}${process.env.NEXT_PUBLIC_PREFIX ? process.env.NEXT_PUBLIC_PREFIX: ''}/api/enrichment${parsedParams.augment===true ? '/augment': ''}`)
-            const res = await fetch(`${process.env.NODE_ENV==="development" ? process.env.NEXT_PUBLIC_HOST_DEV : process.env.NEXT_PUBLIC_HOST}${process.env.NEXT_PUBLIC_PREFIX ? process.env.NEXT_PUBLIC_PREFIX: ''}/api/enrichment${parsedParams.augment===true ? '/augment': ''}`,
+            console.log(`Enrichment ${process.env.NODE_ENV==="development" ? process.env.NEXT_PUBLIC_HOST_DEV : process.env.NEXT_PUBLIC_HOST}${process.env.NEXT_PUBLIC_PREFIX ? process.env.NEXT_PUBLIC_PREFIX: ""}/api/enrichment${parsedParams.augment===true ? "/augment": ""}`)
+            const res = await fetch(`${process.env.NODE_ENV==="development" ? process.env.NEXT_PUBLIC_HOST_DEV : process.env.NEXT_PUBLIC_HOST}${process.env.NEXT_PUBLIC_PREFIX ? process.env.NEXT_PUBLIC_PREFIX: ""}/api/enrichment${parsedParams.augment===true ? "/augment": ""}`,
                 {
                     method: "POST",
                     body: JSON.stringify({
@@ -157,7 +157,7 @@ const Enrichment = async ({
                     }),
                 })
             if (!res.ok) {
-                console.log(`failed connecting to ${process.env.NODE_ENV==="development" ? process.env.NEXT_PUBLIC_HOST_DEV : process.env.NEXT_PUBLIC_HOST}${process.env.NEXT_PUBLIC_PREFIX ? process.env.NEXT_PUBLIC_PREFIX: ''}/api/enrichment${parsedParams.augment===true ? '/augment': ''}`)
+                console.log(`failed connecting to ${process.env.NODE_ENV==="development" ? process.env.NEXT_PUBLIC_HOST_DEV : process.env.NEXT_PUBLIC_HOST}${process.env.NEXT_PUBLIC_PREFIX ? process.env.NEXT_PUBLIC_PREFIX: ""}/api/enrichment${parsedParams.augment===true ? "/augment": ""}`)
                 console.log(await res.text())
             }
             else{
@@ -170,19 +170,19 @@ const Enrichment = async ({
             }
         }
         const payload = {
-            'url': `${process.env.NODE_ENV==="development" ? process.env.NEXT_PUBLIC_HOST_DEV : process.env.NEXT_PUBLIC_HOST}${process.env.NEXT_PUBLIC_PREFIX ? process.env.NEXT_PUBLIC_PREFIX: ''}${endpoint}?q=${searchParams.q}`,
-            'apikey': process.env.NEXT_PUBLIC_TURL  
+            "url": `${process.env.NODE_ENV==="development" ? process.env.NEXT_PUBLIC_HOST_DEV : process.env.NEXT_PUBLIC_HOST}${process.env.NEXT_PUBLIC_PREFIX ? process.env.NEXT_PUBLIC_PREFIX: ""}${endpoint}?q=${searchParams.q}`,
+            "apikey": process.env.NEXT_PUBLIC_TURL  
         }
         console.log("Getting short url")
         const request = await fetch(process.env.NEXT_PUBLIC_TURL_URL, {
-            method: 'POST',
+            method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify(payload),
         })
         let short_url=null
-        if (request.ok) short_url = (await request.json())['shorturl']
+        if (request.ok) short_url = (await request.json())["shorturl"]
         else console.log("failed turl")
         console.log("Got url")
         return (
@@ -195,7 +195,7 @@ const Enrichment = async ({
                                 rel="noopener noreferrer"
                                 style={{color: "black", textDecoration: "underline"}}
                             >
-                                <span style={{fontSize: 16, fontWeight: 700, fontFamily: 'Rubik, sans-serif'}}>ChEA3</span>
+                                <span style={{fontSize: 16, fontWeight: 700, fontFamily: "Rubik, sans-serif"}}>ChEA3</span>
                             </Link>. The result is a subnetwork of made of the top 10 mean-ranked transcription factors enriched for the query set.</Typography>:
                         <Typography variant="subtitle1" sx={{marginBottom: 3}}>Submit your gene set for enrichment analysis with &nbsp;
                             <Link href={shortId ? `https://maayanlab.cloud/Enrichr/enrich?dataset=${shortId}` : "https://maayanlab.cloud/Enrichr/"} 
@@ -203,13 +203,13 @@ const Enrichment = async ({
                                 rel="noopener noreferrer"
                                 style={{color: "black", textDecoration: "none"}}
                             >
-                                <span style={{fontSize: 20, fontWeight: 500, letterSpacing: '0.1em'}}>En</span><span style={{color: 'red', fontSize: 20, fontWeight: 500, letterSpacing: '0.1em'}}>rich</span><span style={{fontSize: 20, fontWeight: 500, letterSpacing: '0.1em'}}>r</span>
+                                <span style={{fontSize: 20, fontWeight: 500, letterSpacing: "0.1em"}}>En</span><span style={{color: "red", fontSize: 20, fontWeight: 500, letterSpacing: "0.1em"}}>rich</span><span style={{fontSize: 20, fontWeight: 500, letterSpacing: "0.1em"}}>r</span>
                             </Link>
                         </Typography>
                     }
                 </Grid>
                 <Grid item xs={12} md={elements===null?12:3}>
-                    <Card elevation={0} sx={{borderRadius: "8px", backgroundColor: (!schema.ui_theme || schema.ui_theme === 'cfde_theme' || elements !== null) ? "tertiary.light": "#FFF"}}>
+                    <Card elevation={0} sx={{borderRadius: "8px", backgroundColor: (!schema.ui_theme || schema.ui_theme === "cfde_theme" || elements !== null) ? "tertiary.light": "#FFF"}}>
                         <CardContent>
                             <GeneSetForm 
                                 libraries_list={libraries_list.map(l=>l.name)}
@@ -251,7 +251,7 @@ const Enrichment = async ({
                             <Card sx={{borderRadius: "24px", minHeight: 450, width: "100%"}}>
                                 <CardContent>
                                     {input_desc && 
-                                        <Typography variant='h5' sx={{textAlign: "center"}}><b>{input_desc}</b></Typography>
+                                        <Typography variant="h5" sx={{textAlign: "center"}}><b>{input_desc}</b></Typography>
                                     }
                                     <TermViz
                                         elements={elements} 
@@ -266,8 +266,8 @@ const Enrichment = async ({
                     </Grid>
                 }
                 <Grid item xs={12} spacing={2}>
-                    <Typography variant={"subtitle1"} style={{fontSize:12, fontWeight:'bolder'}}> Please acknowledge ChEA3 in your publications using the following reference: </Typography>
-                    <Typography variant={'body1'} style={{fontSize:12}}> Keenan AB, Torre D, Lachmann A, Leong AK, Wojciechowicz M, Utti V, Jagodnik K, Kropiwnicki E, Wang Z, Ma'ayan A (2019) ChEA3: transcription factor enrichment analysis by orthogonal omics integration. Nucleic Acids Research. doi:&nbsp;
+                    <Typography variant={"subtitle1"} style={{fontSize:12, fontWeight:"bolder"}}> Please acknowledge ChEA3 in your publications using the following reference: </Typography>
+                    <Typography variant={"body1"} style={{fontSize:12}}> Keenan AB, Torre D, Lachmann A, Leong AK, Wojciechowicz M, Utti V, Jagodnik K, Kropiwnicki E, Wang Z, Ma"ayan A (2019) ChEA3: transcription factor enrichment analysis by orthogonal omics integration. Nucleic Acids Research. doi:&nbsp;
                             <Link href={"https://doi.org/10.1093/nar/gkz446"} 
                                 target="_blank"
                                 rel="noopener noreferrer"
