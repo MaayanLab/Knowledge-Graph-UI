@@ -3,7 +3,7 @@ import { compute_colors, kind_mapper } from "@/utils/helper";
 import { NextResponse } from "next/server";
 import { NextRequest } from 'next/server'
 import { z } from 'zod';
-import { enrichr_query } from "./helper";
+import { chea_query } from "./helper";
 import { fetch_kg_schema } from "@/utils/initialize";
 import { initialize } from "../initialize/helper";
 const get_node_color_and_type = ({node,
@@ -76,7 +76,7 @@ const enrichment = async ({
                     node_library[library] = node
                 }
             }
-            return await enrichr_query({userListId, term_limit, library, term_degree})
+            return await chea_query({userListId, term_limit, library, term_degree})
         }  
         ))
 

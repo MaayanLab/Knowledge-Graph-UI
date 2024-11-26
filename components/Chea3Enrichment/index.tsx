@@ -232,7 +232,7 @@ const Enrichment = async ({
                 { elements!==null && 
                     <Grid item xs={12} md={9}>
                         <Stack direction={"column"} alignItems={"flex-start"} spacing={1}>
-                            <InteractiveButtons 
+                            {/* <InteractiveButtons 
                                 libraries_list={libraries_list.map(l=>l.name)}
                                 disableLibraryLimit={props.disableLibraryLimit}
                                 hiddenLinksRelations={hiddenLinksRelations}
@@ -246,8 +246,8 @@ const Enrichment = async ({
                                 additional_link_relation_tags={props.additional_link_relation_tags}
                                 searchParams={searchParams}
                             >
-                                {/* <Summarizer elements={elements} schema={schema} augmented={parsedParams.augment}/> */}
-                            </InteractiveButtons>
+                                <Summarizer elements={elements} schema={schema} augmented={parsedParams.augment}/>
+                            </InteractiveButtons> */}
                             <Card sx={{borderRadius: "24px", minHeight: 450, width: "100%"}}>
                                 <CardContent>
                                     {input_desc && 

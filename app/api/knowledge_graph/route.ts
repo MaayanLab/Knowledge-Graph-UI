@@ -11,7 +11,7 @@ import { ArrowShape } from "@/components/Cytoscape"
 export interface NetworkSchema {
     nodes: Array<{
         data: {
-            id: string | number,
+            id: string,
             kind: string,
             label: string,
 			pval?: number,
