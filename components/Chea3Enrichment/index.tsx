@@ -188,7 +188,7 @@ const Enrichment = async ({
         return (
             <Grid container spacing={1} alignItems={"flex-start"}>
                 <Grid item xs={12}>
-                    <Typography variant={"h2"}>{props.title || 'Enrichment Analysis'}</Typography>
+                    <Typography variant={"h2"}>{props.title || "Enrichment Analysis"}</Typography>
                     { props.disableHeader ? <Typography variant={"subtitle1"}>Enter a set of Entrez gene symbols below to perform transcription factor enrichment analysis using&nbsp;
                             <Link href={"https://maayanlab.cloud/chea3/"} 
                                 target="_blank"
