@@ -10,7 +10,7 @@
                 {
                     "label": "Transcription factor ID",
                     "text": "${id}",
-                    "type": "string"
+                    "type": "text"
                 },
                 {
                     "label": "Transcription factor symbol",
@@ -26,7 +26,6 @@
             ],
             "relation": [],
             "search": [
-                "id",
                 "label"
             ],
             "color": "#80D8FF"
