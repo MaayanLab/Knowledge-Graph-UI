@@ -213,8 +213,8 @@
                 {
                     "component": "github",
                     "props": {
-                        "code": "https://github.com/MaayanLab/TranscriptionNetwork-Demo",
-                        "issues": "https://github.com/MaayanLab/TranscriptionNetwork-Demo"
+                        "code": "https://github.com/MaayanLab/TranscriptionNetwork-Demo/issues",
+                        "issues": "https://github.com/MaayanLab/TranscriptionNetwork-Demo/issues"
                     }
                 }
             ],
