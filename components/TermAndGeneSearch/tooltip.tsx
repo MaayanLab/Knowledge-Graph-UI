@@ -1,8 +1,9 @@
 'use client'
 import { useEffect, useState } from "react"
+import { FilterSchema } from "@/utils/helper"
 import AsyncFormComponent from "./async_form"
 import { router_push } from "@/utils/client_side"
-import { useRouter, } from "next/navigation"
+import { useRouter, useSearchParams} from "next/navigation"
 import { Stack, 
 	Typography, 
 	Card, 
@@ -17,6 +18,7 @@ import { useQueryState, parseAsJson } from 'next-usequerystate';
 import { makeTemplate } from "@/utils/helper"
 import { precise } from "@/utils/math"
 import HubIcon from '@mui/icons-material/Hub';
+import DeleteIcon from '@mui/icons-material/Delete'
 import { UISchema } from "@/app/api/schema/route"
 
 export const TooltipComponent = ({data, float, tooltip_templates, schema}: {
@@ -31,9 +33,14 @@ export const TooltipComponent = ({data, float, tooltip_templates, schema}: {
 	schema: UISchema,
 	float?: boolean
 }) => {
+	const searchParams = useSearchParams()
+    const f = searchParams.get('filter')
+    const filter:FilterSchema = JSON.parse(f || '{}')
 	const router = useRouter()
 	const elements = []
 	const field = data.kind === "Relation" ? data.label : data.kind.replace(/Search TFs that are also ranked|Top 10 Ranked TFs|Search TFs/g, "Transcription Factor")
+	//const [selected, setSelected] = useQueryState('selected',  parseAsJson<{id: string, type: 'nodes' | 'edges'}>().withDefault(null))
+	//const [hovered, setHovered] = useQueryState('hovered',  parseAsJson<{id: string, type: 'nodes' | 'edges'}>().withDefault(null))
 	for (const i of tooltip_templates[field] || []) {
 		if (i.type === "link") {
 			const text = makeTemplate(i.text, data)
@@ -76,23 +83,28 @@ export const TooltipComponent = ({data, float, tooltip_templates, schema}: {
 			</CardContent>
 			{data.kind !== "Relation" &&
             <CardActions>
-              {/* {!filter.end_term 
-			  && <Tooltip title="Delete Node">
+              {/*{!filter.end_term && <Tooltip title="Delete Node">
                 <IconButton
                   onClick={()=>{
-                    setSelected(null)
-					setHovered(null)
+                    //setSelected(null)
+					//setHovered(null)
+					const pathname = (schema.header.tabs.filter(i=>i.component === 'KnowledgeGraph')[0] || {}).endpoint || '/'
+					console.log("pathname: ", pathname)
                     const queryParams: {filter: string, [key:string]: string} = {filter: '{}'}
-          searchParams.forEach((value, key) => {
-						queryParams[key] = value;
-					});
+          			searchParams.forEach((value, key) => {
+						// queryParams[key] = "nodes"
+						queryParams[key] = "nodes" ? value.replace("nodes","Transcription Factor"): value;
+					})
+					console.log("queryparams: ", queryParams)
 					const f = JSON.stringify({
                         ...filter,
-                        remove: [...(filter.remove || []), data.id]
+                        remove: [...(filter.remove || []), `${data.id}`]
                       })
+					  console.log("filter: ", filter)
+					  console.log("f: ", f)
 					router_push(router, pathname, {...queryParams, filter: f})
-          }}><DeleteIcon/></IconButton>
-              </Tooltip>} */}
+          }}><DeleteIcon/></IconButton> 
+              </Tooltip>}*/}
               <Tooltip title="Expand Node">
                 <IconButton
                   onClick={()=>{
@@ -100,7 +112,7 @@ export const TooltipComponent = ({data, float, tooltip_templates, schema}: {
 					// setHovered(null)
 					const pathname = (schema.header.tabs.filter(i=>i.component === 'KnowledgeGraph')[0] || {}).endpoint || '/'
 					const filter = JSON.stringify({
-                        start: data.kind,
+                        start: data.kind.replace(/Search TFs that are also ranked|Top 10 Ranked TFs|Search TFs/g, "Transcription Factor"),
                         start_term: data.label
                       })
 					router_push(router, pathname, {filter})
@@ -118,13 +130,15 @@ const TooltipComponentGroup = ({
 	tooltip_templates_nodes,
     tooltip_templates_edges,
 	schema,
-	float
+	float,
+
 }: {
 		elements: null | NetworkSchema,
 		tooltip_templates_edges: {[key: string]: Array<{[key: string]: string}>},
         tooltip_templates_nodes: {[key: string]: Array<{[key: string]: string}>},
 		schema: UISchema,
-		float?: boolean
+		float?: boolean,
+
 	}) => {
 	
 	const [tooltip, setTooltip] = useQueryState('tooltip')

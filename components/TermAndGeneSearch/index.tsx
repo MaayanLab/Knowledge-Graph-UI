@@ -87,6 +87,7 @@ const TermAndGeneSearch = async ({searchParams, props}: {
     const query_parser = parseAsJson<FilterSchema>().withDefault(props.initial_query)
     const filter: FilterSchema = query_parser.parseServerSide(searchParams.filter)
     const controller = new AbortController()
+
     try {
         if (filter.relation) {
             filter.relation = process_relation(filter.relation)
