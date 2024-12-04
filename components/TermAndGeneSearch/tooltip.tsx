@@ -162,8 +162,7 @@ const TooltipComponentGroup = ({
 		}
     }, [elements])
 	const user_input = selected || hovered
-	const tooltip_on = 'true' ? (tooltip === (undefined || null )) : tooltip
-	if (tooltip_on && user_input !== null && elementMapper[user_input.type][user_input.id] !== undefined) {
+	if (tooltip && user_input !== null && elementMapper[user_input.type][user_input.id] !== undefined) {
 		return (
 			<TooltipComponent 
 					data={elementMapper[user_input.type][user_input.id]} 
