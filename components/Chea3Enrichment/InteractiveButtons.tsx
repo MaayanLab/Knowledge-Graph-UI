@@ -53,40 +53,26 @@ const InteractiveButtons = ({
         hiddenLinksRelations=[], 
         shortId,
         // searchParams,
-        gene_count=0,
         elements,
-        // children,
-        disableLibraryLimit,
-        libraries_list,
+        children=null,
         parsedParams,
         short_url,
         fullscreen,
-        additional_link_button,
-        additional_link_relation_tags,
-        searchParams
+        additional_link_relation_tags
     }: {
         short_url?: string,
-        libraries_list?:Array<string>,
-        disableLibraryLimit?:boolean,
         hiddenLinksRelations?:Array<string>,
         shortId?: string,
-        gene_count?: number,
         elements: NetworkSchema,
-        // </string>children: ReactElement,
+        children?: ReactElement,
         parsedParams: EnrichmentParams,
         fullscreen?: 'true',
-        additional_link_button?: boolean,
-        additional_link_relation_tags?: Array<string>,
-        searchParams?: {
-            q?:string,
-            fullscreen?: 'true'
-            view?: string
-        }
+        additional_link_relation_tags?: Array<string>
     }) => {
     const router = useRouter()
     const pathname = usePathname()
     const [edge_labels, setEdgeLabels] = useQueryState('edge_labels')
-    // const [view, setView] = useQueryState('view')
+    const [view, setView] = useQueryState('view')
 	const [layout, setLayout] = useQueryState('layout')
 	const [legend, setLegend] = useQueryState('legend')
     const [tooltip, setTooltip] = useQueryState('tooltip')
@@ -97,9 +83,7 @@ const InteractiveButtons = ({
     const [anchorEl, setAnchorEl] = useState<HTMLElement>(null)
     const [anchorElLayout, setAnchorElLayout] = useState<HTMLElement>(null)
     const [geneLinksOpen, setGeneLinksOpen] = useState<boolean>(false)
-    const [augmentOpen, setAugmentOpen] = useState<boolean>(false)
     const [openShare, setOpenShare] = useState<boolean>(false)
-    const [augmentLimit, setAugmentLimit] = useState<number>(parsedParams.augment_limit||10)
     const [geneLinks, setGeneLinks] = useState<Array<string>>([])
     const [additionalLinkTags, setAdditionalLinkTags] = useState<Array<string>>([])
 
@@ -116,27 +100,17 @@ const InteractiveButtons = ({
 		setter(null);
 	};
 
-    const view = (searchParams || {}).view
 
     return (
         <Grid container>
-            {/*<Grid item xs={12}>
-                <LibraryPicker 
-                    // searchParams={searchParams}
-                    parsedParams={parsedParams}
-                    libraries_list={libraries_list}
-                    fullWidth={false}
-                    disableLibraryLimit={disableLibraryLimit || true}
-                />
-            </Grid>*/}
             <Grid item xs={12}>
                 <Stack direction={"row"} alignItems={"center"}>
                     <Tooltip title={"Network view"}>
                         <IconButton
                             onClick={()=>{
-                                const {view, ...query} = searchParams
-                                router_push(router, pathname, query)
-                                //setView(null)
+                                // const {view, ...query} = searchParams
+                                // router_push(router, pathname, query)
+                                setView(null)
                             }}
                             sx={{borderRadius: 5, background: (view === "network" || !view) ? "#e0e0e0": "none"}}
                         >
@@ -146,18 +120,18 @@ const InteractiveButtons = ({
                     <Tooltip title={"Table view"}>
                         <IconButton
                             onClick={()=>{
-                                const {view, ...query} = searchParams
-                                query["view"] = 'table'
-                                router_push(router, pathname, query)
-                                // setView('table')
+                                // const {view, ...query} = searchParams
+                                // query["view"] = 'table'
+                                // router_push(router, pathname, query)
+                                setView('table')
                             }}
                             sx={{borderRadius: 5, background: (view === "table") ? "#e0e0e0": "none"}}
                         >
                             <Icon path={mdiTable} size={0.8} />
                         </IconButton>
                     </Tooltip>
-                    {/* <Tooltip title={"Bar view"}>
-                         <IconButton
+                    <Tooltip title={"Bar view"}>
+                        <IconButton
                             onClick={()=>{
                                 // const {view, ...query} = searchParams
                                 // query["view"] = 'bar'
@@ -169,7 +143,6 @@ const InteractiveButtons = ({
                             <Icon path={mdiPoll} rotate={90} size={0.8} />
                         </IconButton>
                     </Tooltip>
-                    */}
                     <Divider sx={{backgroundColor: "secondary.main", height: 20, borderRightWidth: 1}} orientation="vertical"/>
                     { (view === "network" || !view) &&  
                         <>
@@ -184,7 +157,7 @@ const InteractiveButtons = ({
                                     <SaveIcon/>
                                 </IconButton>
                             </Tooltip>
-                            <Tooltip title={tooltip ? "Show tooltip": "Hide tooltip"}>
+                            <Tooltip title={tooltip ? "Hide tooltip": "Show tooltip"}>
                                 <IconButton
                                     disabled={elements===null}
                                     onClick={()=>{
@@ -192,7 +165,7 @@ const InteractiveButtons = ({
                                         else setTooltip('true')
                                     }}
                                 >
-                                    <Icon path={tooltip? mdiTooltip: mdiTooltipRemove} size={0.8} />
+                                    <Icon path={tooltip? mdiTooltipRemove: mdiTooltip} size={0.8} />
                                 </IconButton>
                             </Tooltip>
                             {/* <Tooltip title="Clear Graph">
@@ -301,7 +274,7 @@ const InteractiveButtons = ({
                             </Menu>
                         </>
                     }
-                    {/*shortId &&
+                    {shortId &&
                         <Tooltip title={"View in Enrichr"}>
                             <IconButton 
                                 target="_blank"
@@ -311,7 +284,7 @@ const InteractiveButtons = ({
                                 <LinkIcon/>
                             </IconButton>
                         </Tooltip>
-                    */}
+                    }
                     <Tooltip title={"Share"}>
                         <IconButton onClick={()=>setOpenShare(true)}>
                             <ShareIcon/>
@@ -379,35 +352,7 @@ const InteractiveButtons = ({
                             {fullscreen ? <FullscreenExitIcon/>: <FullscreenIcon/>}
                         </IconButton>
                     </Tooltip>
-                    {(!view || view === "network") &&
-                        <>
-                            {additional_link_button && 
-                                <Tooltip title={"Additional Links"}>
-                                    <IconButton 
-                                        onClick={()=>{
-                                            setGeneLinksOpen(!geneLinksOpen)
-                                            setAugmentOpen(false)
-                                        }}
-                                    >
-                                        <Icon path={gene_links ? mdiLinkVariantOff: mdiLinkVariant} size={0.8} />
-                                    </IconButton>
-                                </Tooltip>
-                            }
-                            {/* <Tooltip title={parsedParams.augment ? "Reset network": "Augment network using co-expressed genes"}>
-                                <IconButton
-                                    disabled={!parsedParams.augment && gene_count > 100}
-                                    onClick={()=>{
-                                        setGeneLinksOpen(false)
-                                        setAugmentOpen(!augmentOpen)
-                                    }}
-                                    sx={{borderRadius: 5, background: augmentOpen ? "#e0e0e0": "none"}}
-                                >
-                                    <Icon path={mdiDna} size={0.8} />
-                                </IconButton>
-                            </Tooltip> */}
-                        </>
-                    }
-                    {/*{children}*/}
+                    {children}
                     { (view === 'network' || !view) && 
                     <>
                         <Divider sx={{backgroundColor: "secondary.main", height: 20, borderRightWidth: 1}} orientation="vertical"/>
@@ -490,59 +435,6 @@ const InteractiveButtons = ({
                             <UndoIcon/>
                         </IconButton>
                     </Tooltip>
-                </Stack>
-            </Grid>
-        }
-        {(elements && augmentOpen) && 
-            <Grid item xs={12}>
-                <Stack direction="row" spacing={2} alignItems="center" justifyContent={"flex-end"}>
-                    <Typography variant='subtitle2'>Top co-expressed genes:</Typography>
-                    <Slider 
-                        value={augmentLimit || 10}
-                        onChange={(e, nv:number)=>{
-                            setAugmentLimit(nv)
-                        }}
-                        min={1}
-                        max={50}
-                        valueLabelDisplay='auto'
-                        aria-labelledby="augment-limit-slider"
-                        color="secondary"
-                        sx={{width: 100}}
-                    />
-                    <Typography variant='subtitle2'>{augmentLimit}</Typography>
-                    {/* <Tooltip title="Augment genes">
-                        <IconButton
-                            disabled={gene_count > 100}
-                            onClick={()=>{
-                                const {augment, augment_limit, ...q} = {...parsedParams, ...query}
-                                router_push(router, pathname, {
-                                    q: JSON.stringify({
-                                        ...q,
-                                        augment: true,
-                                        augment_limit: augmentLimit || 10
-                                    })
-                                })
-                                setAugmentOpen(false)
-                            }}
-                        >
-                            <SendIcon/>
-                        </IconButton>
-                    </Tooltip>
-                    <Tooltip title="Reset network">
-                        <div>
-                            <IconButton disabled={!parsedParams.augment}
-                                onClick={()=>{
-                                    const {augment, augment_limit, ...q} = {...parsedParams, ...query}
-                                    router_push(router, pathname, {
-                                        q: JSON.stringify(q)
-                                    })
-                                    setAugmentOpen(false)
-                                }}
-                            >
-                                <UndoIcon/>
-                            </IconButton>
-                        </div> 
-                    </Tooltip> */}
                 </Stack>
             </Grid>
         }
