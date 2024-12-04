@@ -52,23 +52,18 @@ export const process_tables = async (results) => {
 		}
 	}
 	for (const {data} of results.edges) {
-		const {source, target, relation, properties={}} = data
-		const {id, label, ...rest} = properties
-		const props = {
-			source,
-			target,
-			relation,
-			...rest
-		}
+		const {source, target, relation, id, label, lineColor, directed, ...properties} = data
+
 		const row = []
 		for (const i of relation_columns) {
-			row.push(props[i] || '')
+			row.push(typeof data[i] !== 'undefined' ?  data[i] : '')
 		}
-		for (const [k,v] of Object.entries(rest)) {
+		for (const [k,v] of Object.entries(properties)) {
 			if (relation_columns.indexOf(k) === -1) {
 				relation_columns.push(k)
-				row.push(v || '')
+                row.push( typeof v !== 'undefined' ? v : '')
 			}
+            
 		}
 		relations.push(row)
 	}

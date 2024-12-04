@@ -35,12 +35,12 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 # CFDE-KX
 
 ## Install
-helm install hgrn-chear maayanlab/docker-compose -f <(docker-compose config) -n hgrn-chear --create-namespace 
+helm install chea4-dev maayanlab/docker-compose -f <(docker-compose config) -n chea4-dev --create-namespace 
 
 ## UPGRADE
-helm upgrade hgrn-chear maayanlab/docker-compose -f <(docker-compose config) -n hgrn-chear 
+helm upgrade chea4-dev maayanlab/docker-compose -f <(docker-compose config) -n chea4-dev 
 
-helm template hgrn-chear maayanlab/docker-compose -f <(docker-compose config) -n hgrn-chear 
+helm template chea4-dev maayanlab/docker-compose -f <(docker-compose config) -n chea4-dev 
 
 
 ## Legacy Version
