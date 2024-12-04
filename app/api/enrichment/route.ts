@@ -139,7 +139,7 @@ const enrichment = async ({
             let query_part = `
                 MATCH p = (a:\`Transcription Factor\`)-[rel]-(b:\`Transcription Factor\`) 
                 WHERE a.label IN ${JSON.stringify(lib_terms)} 
-                AND b.label IN ${JSON.stringify([...genes, ...lib_terms])}
+                AND b.label IN ${JSON.stringify(lib_terms)}
                 ${(typeof pvalue === 'number') ? "AND rel.p_value <= " + pvalue : ""}
                 ${(typeof zscore === 'number') ? "AND rel.z_score >= " + zscore : ""}
             `
