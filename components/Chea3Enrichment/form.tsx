@@ -302,8 +302,8 @@ const GeneSetForm = ({
                                         rows={10}
                                         placeholder={"Paste a set of valid Entrez gene symbols (e.g. STAT3) on each row in the text-box"}
                                         fullWidth
-                                        // value={input.genes.join('\n')}
-                                        value = {input.genes}
+                                        value={input.genes.join('\n')}
+                                        // value = {input.genes}
                                         onChange={(e)=>{
                                             setInput({
                                                 ...input,
