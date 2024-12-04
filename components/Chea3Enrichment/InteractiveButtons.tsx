@@ -58,7 +58,11 @@ const InteractiveButtons = ({
         parsedParams,
         short_url,
         fullscreen,
-        additional_link_relation_tags
+        additional_link_relation_tags,
+        min_p=0,
+        max_p=1,
+        min_z=0,
+        max_z=1,
     }: {
         short_url?: string,
         hiddenLinksRelations?:Array<string>,
@@ -67,7 +71,11 @@ const InteractiveButtons = ({
         children?: ReactElement,
         parsedParams: EnrichmentParams,
         fullscreen?: 'true',
-        additional_link_relation_tags?: Array<string>
+        additional_link_relation_tags?: Array<string>,
+        min_p?: number,
+        max_p?: number,
+        min_z?: number,
+        max_z?: number
     }) => {
     const router = useRouter()
     const pathname = usePathname()
@@ -99,7 +107,6 @@ const InteractiveButtons = ({
 	const handleCloseMenu = (setter:Function) => {
 		setter(null);
 	};
-
 
     return (
         <Grid container>
@@ -389,6 +396,45 @@ const InteractiveButtons = ({
                     </>
                     }
                 </Stack>
+        </Grid>
+        <Grid item xs={12}>
+            <Stack direction={"row"} alignItems={"center"} spacing={2}>
+                <Typography variant='subtitle2'>Edge significance:</Typography>
+                <Tooltip title={`Filter edges by pvalue`}>
+                    <Slider 
+                        color="secondary"
+                        value={parsedParams.pvalue !== undefined ? parsedParams.pvalue: 0.05}
+                        onChange={(e, nv:number)=>{
+                            console.log({...parsedParams, pvalue: nv})
+                            router_push(router, pathname, {
+                                q: JSON.stringify({...parsedParams, pvalue: nv}),
+                            })
+                        }}
+                        sx={{width: "12%"}}
+                        min={0}
+                        max={0.05}
+                        valueLabelDisplay='auto'
+                        step={0.00000001}
+                        aria-labelledby="p-slider" />
+                </Tooltip>
+                <Typography variant='subtitle2'>Edge z-score:</Typography>
+                <Tooltip title={`Filter edges by z-score`}>
+                    <Slider 
+                        color="secondary"
+                        value={parsedParams.zscore !== undefined ? parsedParams.zscore: min_z}
+                        onChange={(e, nv:number)=>{
+                            console.log({...parsedParams, zscore: nv})
+                            router_push(router, pathname, {
+                                q: JSON.stringify({...parsedParams, zscore: nv}),
+                            })
+                        }}
+                        sx={{width: "12%", marginRight: 2, marginLeft: 2}}
+                        max={max_z}
+                        min={0}
+                        valueLabelDisplay='auto'
+                        aria-labelledby="z-slider" />
+                </Tooltip>
+            </Stack>
         </Grid>
         {(elements && geneLinksOpen) &&
             <Grid item xs={12}>

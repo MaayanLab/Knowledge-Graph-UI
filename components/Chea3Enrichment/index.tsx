@@ -37,6 +37,8 @@ export interface EnrichmentParams {
     expand?: Array<string>,
     remove?: Array<string>,
     additional_link_tags?: Array<string>,
+    pvalue?: number,
+    zscore?: number
 }
 
 
@@ -119,12 +121,17 @@ const Enrichment = async ({
             expand,
             remove,
             augment_limit,
-            gene_links
+            gene_links,
+            pvalue,
+            zscore
         } = parsedParams
         const libraries = parsedParams.libraries || []
         let elements:NetworkSchema = null
         let shortId = ""
-        let genes = []
+        let min_p = 1
+        let max_p = 0
+        let min_z = 100
+        let max_z = 0
         let input_desc
         if (userListId !==undefined && libraries.length > 0) {
             console.log("Getting description...")
@@ -153,7 +160,9 @@ const Enrichment = async ({
                         expand,
                         remove,
                         augment_limit,
-                        gene_links
+                        gene_links,
+                        pvalue,
+                        zscore
                     }),
                 })
             if (!res.ok) {
@@ -163,10 +172,14 @@ const Enrichment = async ({
             else{
                 console.log(`fetched`)
                 elements = await res.json()
-                genes = ((elements || {}).nodes || []).reduce((acc, i)=>{
-                    if (i.data.kind === "Gene" && acc.indexOf(i.data.label) === -1) return [...acc, i.data.label]
-                    else return acc
-                }, [])
+                
+                for (const i of (elements || {}).edges) {
+                    if (typeof i.data.p_value == 'number' && min_p > i.data.p_value) min_p = i.data.p_value
+                    if (typeof i.data.p_value == 'number' && max_p < i.data.p_value) max_p = i.data.p_value
+                    if (typeof i.data.z_score == 'number' && min_z > i.data.z_score) min_z = i.data.z_score
+                    if (typeof i.data.z_score == 'number' && max_z < i.data.z_score) max_z = i.data.z_score
+                    
+                }
             }
         }
         const payload = {
@@ -241,6 +254,10 @@ const Enrichment = async ({
                                 elements={elements}
                                 short_url={short_url}
                                 additional_link_relation_tags={props.additional_link_relation_tags}
+                                min_p={min_p}
+                                max_p={max_p}
+                                min_z={min_z}
+                                max_z={max_z}
                             />
                             
                             <Card sx={{borderRadius: "24px", minHeight: 450, width: "100%"}}>

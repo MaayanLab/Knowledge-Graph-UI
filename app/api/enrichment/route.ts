@@ -47,6 +47,8 @@ const enrichment = async ({
     expand=[],
     gene_links,
     expand_limit=10,
+    pvalue,
+    zscore
 }: {
     userListId: string,
     libraries: Array<{library?: string, term_limit?: number}>,
@@ -54,10 +56,12 @@ const enrichment = async ({
     term_degree?: number,
     min_lib?: number,
     gene_degree?: number,
-    remove?: Array<string>,
-    expand?: Array<string>,
+    remove?: Array<number>,
+    expand?: Array<number>,
     gene_links?: Array<string>,
     expand_limit?: number,
+    pvalue?: number,
+    zscore?: number,
 }) => {
     try {
         const nod = await fetch(`${process.env.NODE_ENV==="development" ? process.env.NEXT_PUBLIC_HOST_DEV : process.env.NEXT_PUBLIC_HOST}${process.env.NEXT_PUBLIC_PREFIX ? process.env.NEXT_PUBLIC_PREFIX: ''}/api/enrichment/node_mapping`)
@@ -133,9 +137,11 @@ const enrichment = async ({
         
         for (const [node, lib_terms] of Object.entries(library_terms)) {
             let query_part = `
-                MATCH p = (a:\`Transcription Factor\`)--(b:\`Transcription Factor\`) 
+                MATCH p = (a:\`Transcription Factor\`)-[rel]-(b:\`Transcription Factor\`) 
                 WHERE a.label IN ${JSON.stringify(lib_terms)} 
                 AND b.label IN ${JSON.stringify([...genes, ...lib_terms])}
+                ${(typeof pvalue === 'number') ? "AND rel.p_value <= " + pvalue : ""}
+                ${(typeof zscore === 'number') ? "AND rel.z_score >= " + zscore : ""}
             `
             for (const ind in remove) {
                 vars[`remove_${ind}`] = remove[ind]
@@ -205,25 +211,27 @@ const EnrichmentInput = z.object({
     term_degree: z.number().optional(),
     min_lib: z.number().optional(),
     gene_degree: z.number().optional(),
-    remove: z.array(z.string()).optional(),
-    expand: z.array(z.string()).optional(),
+    remove: z.array(z.number()).optional(),
+    expand: z.array(z.number()).optional(),
     gene_links: z.array(z.string()).optional(),
     expand_limit: z.number().optional(),
-    augment_limit: z.number().optional()
+    augment_limit: z.number().optional(),
+    pvalue: z.number().optional(),
+    zscore: z.number().optional()
 })
 
 
 
 export async function POST(req: NextRequest) {
     try {
-        const {userListId, libraries=[], gene_limit, term_degree, min_lib, gene_degree, remove, expand, gene_links, expand_limit} = EnrichmentInput.parse(await req.json())
+        const {userListId, libraries=[], gene_limit, term_degree, min_lib, gene_degree, remove, expand, gene_links, expand_limit, pvalue, zscore} = EnrichmentInput.parse(await req.json())
         if (userListId === undefined) {
             return NextResponse.json({error: "userListId is undefined"}, {status: 400})
         }
         if (libraries.length === 0) {
             return NextResponse.json({error: "library is empty"}, {status: 400})
         }
-        const results = await enrichment({userListId, libraries, gene_limit, term_degree, min_lib, gene_degree, remove, expand, gene_links, expand_limit})
+        const results = await enrichment({userListId, libraries, gene_limit, term_degree, min_lib, gene_degree, remove, expand, gene_links, expand_limit, pvalue, zscore})
         return NextResponse.json(results, {status: 200})
     } catch (error) {
         console.error(error)
