@@ -82,7 +82,7 @@ const enrichment = async ({
 
         const gene_counts = {}
         let terms = {}
-        const library_terms = {}
+        const library_terms: {[key:string]: Array<string>} = {}
         let max_score = 0
         let min_score = 10000
         let searched = []
@@ -135,7 +135,7 @@ const enrichment = async ({
             let query_part = `
                 MATCH p = (a:\`Transcription Factor\`)--(b:\`Transcription Factor\`) 
                 WHERE a.label IN ${JSON.stringify(lib_terms)} 
-                AND b.label IN ${JSON.stringify(genes)}
+                AND b.label IN ${JSON.stringify([...genes, ...lib_terms])}
             `
             for (const ind in remove) {
                 vars[`remove_${ind}`] = remove[ind]
