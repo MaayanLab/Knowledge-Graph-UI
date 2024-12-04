@@ -32,6 +32,8 @@ services:
     command: ["bash", "-c", "while true; do echo 'Neo4j is not running. Pod is in offline maintenance mode. Remove neo4j.offlineMaintenanceModeEnabled setting and run `helm upgrade ...` to resume normal operation.'; sleep 60; done"]
     x-kubernetes:
       imagePullPolicy: IfNotPresent
+      strategy:
+        type: Recreate
     environment:
       - NEO4J_PLUGINS=["apoc", "n10s"]
       - NEO4J_AUTH=${NEXT_PUBLIC_NEO4J_USER}/${NEXT_PUBLIC_NEO4J_PASSWORD}

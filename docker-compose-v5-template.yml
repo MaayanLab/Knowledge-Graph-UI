@@ -39,6 +39,8 @@ services:
     image: neo4j:5.19
     x-kubernetes:
       imagePullPolicy: IfNotPresent
+      strategy:
+        type: Recreate
     environment:
       - NEO4J_PLUGINS= ["apoc", "n10s"]
       - NEO4J_AUTH=${NEXT_PUBLIC_NEO4J_USER}/${NEXT_PUBLIC_NEO4J_PASSWORD}
