@@ -68,8 +68,8 @@ const TermViz = ({elements, schema, tooltip_templates_edges, tooltip_templates_n
 		else if (view === "bar") {
 			return(
 				<EnrichmentBar data={sorted_entries}
-					max={sorted_entries[0]["score"]}
-					min={sorted_entries[sorted_entries.length - 1]["score"]}
+					max={sorted_entries[0]["value"] as number}
+					min={sorted_entries[sorted_entries.length - 1]["value"] as number}
 					width={900}
 				/>
 			)}

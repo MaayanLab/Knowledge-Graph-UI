@@ -26,7 +26,7 @@ const renderCustomizedLabel = (props) => {
 	const textAnchor = width < 0 ? "end": "start"
 	return (
 	  <g>
-		<text x={transfomedX} y={y+(height/2) + 4} width={width} fill={fontColor} textAnchor={textAnchor} fontSize={11}>
+		<text x={transfomedX} y={y+(height/2) + 4} width={width} fill={fontColor} textAnchor={textAnchor} fontSize={15}>
 		  {value}
 		</text>
 	  </g>
@@ -65,8 +65,8 @@ export const EnrichmentBar = (props: {
 		   data,
 		   color="#0063ff",
 		   fontColor="#FFF",
-		   maxHeight=300,
-		   barSize=23,
+		   maxHeight=500,
+		   barSize=35,
 		   width=500,
 		   min,
 		   max
@@ -144,8 +144,24 @@ export const EnrichmentBar = (props: {
 							<LabelList dataKey="enrichr_label" position="left" content={renderCustomizedLabel} fill={fontColor}/>
 							{data_cells}
 						</Bar>
-						<XAxis type="number" domain={[0,1]} hide/>
-						<YAxis type="category" dataKey={"library"} width={yWidth*7} axisLine={false} fontSize={12}/>
+						<XAxis type="number" domain={[
+							() => {
+								if (min < 0) {
+									return min
+								} else {
+									return 0
+								}
+							},
+							() => {
+								console.log(max)
+								if (max > 0) {
+									return max
+								} else {
+									return 0
+								}
+							},
+						]}  hide/>
+						<YAxis type="category" dataKey={"library"} width={yWidth*7} axisLine={false} fontSize={12} hide={true}/>
 					</BarChart>
 				</ResponsiveContainer>
 			</Grid>
