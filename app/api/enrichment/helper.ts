@@ -53,7 +53,7 @@ export const chea_query = async ({
         const rank = i.Rank
         const chea3label = i.TF
         const label = regex[library] !== undefined ? regex[library].exec(chea3label).groups.label:chea3label
-        const score = i.Score
+        const score = parseFloat(i.Score)
         const libs = i.Library.split(';').map(i => i.split(',')[0])
         const overlapping_genes = i.Overlapping_Genes.split(',')
 

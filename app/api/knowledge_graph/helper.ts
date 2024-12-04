@@ -180,7 +180,7 @@ export const resolve_results = async ({
                             label: node.properties.label || node.properties.id,
                             ...process_properties(node.properties),
                             ...properties[node.properties.label || node.properties.id] || {},
-                            ...(kind_properties[kind] || {})[node.properties.label] || {},
+                            ...(kind_properties[type] || {})[node.properties.label] || {},
                         }
                         const node_color = get_node_color_and_type({node: node_properties, 
                             terms,

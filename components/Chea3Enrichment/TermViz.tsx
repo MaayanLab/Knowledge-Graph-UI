@@ -1,13 +1,14 @@
 'use client'
 import { precise } from "@/utils/math";
 import { useQueryState } from "next-usequerystate";
-// import EnrichmentBar from "./EnrichmentBar";
+import EnrichmentBar from "./EnrichmentBar";
 import { NetworkSchema } from "@/app/api/knowledge_graph/route";
 import { UISchema } from "@/app/api/schema/route";
 import NetworkTable from "./NetworkTable";
 import { Typography, CircularProgress } from "@mui/material";
 import dynamic from "next/dynamic";
 import Cytoscape from "../Cytoscape";
+import { number } from "zod";
 
 const TermViz = ({elements, schema, tooltip_templates_edges, tooltip_templates_nodes}:
 	{
@@ -27,8 +28,10 @@ const TermViz = ({elements, schema, tooltip_templates_edges, tooltip_templates_n
 			if (entries[id] === undefined && kind !== "Search TFs") {
 				const {
 					library,
-					score
+					score,
+					value
 				} = properties
+			
 				entries[id] = {
 					id,
 					label,
@@ -36,7 +39,8 @@ const TermViz = ({elements, schema, tooltip_templates_edges, tooltip_templates_n
 					// enrichr_label,
 					...properties,
 					library: `${library}`,
-					score: typeof score === 'number' ? parseFloat(`${precise(score)}`): undefined,
+					score: typeof score === 'number' ? parseFloat(`${precise(score)}`): typeof score === 'string'? parseFloat(score) :undefined,
+					value: typeof value === 'number' ? parseFloat(`${precise(value)}`): typeof value === 'string'? parseFloat(value) :undefined,
 					color: `${color}`
 				}
 				for (const [k,v] of Object.entries(entries[id])) {
@@ -46,7 +50,7 @@ const TermViz = ({elements, schema, tooltip_templates_edges, tooltip_templates_n
 			
 		}
 	}
-	const sorted_entries = Object.values(entries)
+	const sorted_entries = Object.values(entries).sort((a,b)=>a.score - b.score)
 	if (sorted_entries.length === 0) return <Typography variant="h5">No Results Found</Typography>
 	else {
 		if (view === 'network' || !view) return (
@@ -61,13 +65,14 @@ const TermViz = ({elements, schema, tooltip_templates_edges, tooltip_templates_n
 		else if (view === "table") return (
 			<NetworkTable sorted_entries={sorted_entries} columns={columns}/>
 		) 
-		// else if (view === "bar") return(
-			// <EnrichmentBar data={sorted_entries}
-				// max={sorted_entries[0]["score"]}
-				// min={sorted_entries[sorted_entries.length - 1]["score"]}
-				// width={900}
-			// />
-		// )
+		else if (view === "bar") {
+			return(
+				<EnrichmentBar data={sorted_entries}
+					max={sorted_entries[0]["score"]}
+					min={sorted_entries[sorted_entries.length - 1]["score"]}
+					width={900}
+				/>
+			)}
 	}
 }
 

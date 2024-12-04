@@ -88,7 +88,15 @@ const enrichment = async ({
         let searched = []
         let returned = []
         for (const {genes: lib_genes, terms: lib_terms, max_score: lib_max_score, min_score: lib_min_score, library} of results) {
-            terms[node_mapping[library]] = lib_terms
+            terms[node_mapping[library]] = {}
+            for (const [key, val] of Object.entries(lib_terms)) {
+                if (val["score"] !== undefined) {
+                    const ext_diff = Math.abs(lib_max_score+lib_min_score)
+                    val["value"] = 1 - (parseFloat(val["score"])/ext_diff)
+                }
+                terms[node_mapping[library]][key] = val
+                
+            }
             library_terms[node_library[library]] = Object.keys(lib_terms)
             // keep track of min and max scores across all query libraries 
             if (max_score < lib_max_score) max_score = lib_max_score
@@ -181,6 +189,7 @@ const enrichment = async ({
             `)   
         }
         const query = query_list.join(' UNION ')
+        console.log(query)
         const query_params = {limit: expand_limit, ...vars}
         const enrichment_subtypes = {query_terms: searched, result_terms: returned}
         return resolve_results({query, kind_mapper, enrichment_subtypes, query_params, aggr_scores, colors, kind_properties: terms, get_node_color_and_type, arrow_shape})

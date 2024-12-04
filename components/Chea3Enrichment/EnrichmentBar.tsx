@@ -35,14 +35,13 @@ const renderCustomizedLabel = (props) => {
 
   const BarTooltip = ({ active, payload, label }: TooltipProps<ValueType, NameType>) => {
 	if (active) {
-		const {enrichr_label, pval, qval, zscore, combined_score} = payload[0].payload
+		const {enrichr_label, score, overlap, combined_score} = payload[0].payload
 		return(
 			<Card sx={{opacity:"0.8", textAlign: "left"}}>
 				<CardContent>
 					<Typography variant="subtitle2"><b>{enrichr_label}</b></Typography>
-					{ pval && <Typography variant="subtitle2"><b>p-value:</b> {precise(pval)}</Typography>}
-					{ qval && <Typography variant="subtitle2"><b>q-value:</b> {precise(qval)}</Typography>}
-					{ zscore && <Typography variant="subtitle2"><b>z-score:</b> {precise(zscore)}</Typography>}
+					{ score && <Typography variant="subtitle2"><b>score:</b> {precise(score)}</Typography>}
+					{ overlap && <Typography variant="subtitle2"><b>overlap:</b> {precise(overlap)}</Typography>}
 					{ combined_score && <Typography variant="subtitle2"><b>combined score:</b> {precise(combined_score)}</Typography>}
 				</CardContent>
 			</Card>
@@ -52,7 +51,7 @@ const renderCustomizedLabel = (props) => {
 
 export const EnrichmentBar = (props: {
 	field?: string,
-	data: Array<{library: string, color: string, pval: number, [key: string]: number | string | boolean}>,
+	data: Array<{library: string, score: number, value?: number, [key: string]: number | string | boolean}>,
 	color?: string,
 	fontColor?: string,
 	maxHeight?: number,
@@ -80,7 +79,7 @@ export const EnrichmentBar = (props: {
 	for (const index in data) {
 		const i = data[index]
 		if (yWidth < i.library.length) yWidth = i.library.length
-		data_cells.push(<Cell key={`${field}-${index}`} fill={i.color} />)
+		data_cells.push(<Cell key={`${field}-${index}`} />)
 	}
 	const [download_image, setDownloadImage] = useQueryState('download_image')
 
@@ -141,26 +140,11 @@ export const EnrichmentBar = (props: {
 						ref={barRef}
 					>
 						<Tooltip content={<BarTooltip/>} />
-						<Bar dataKey="value" fill={color} barSize={barSize}>
+						<Bar dataKey="value" fill={"#C3E1E6"} barSize={barSize}>
 							<LabelList dataKey="enrichr_label" position="left" content={renderCustomizedLabel} fill={fontColor}/>
 							{data_cells}
 						</Bar>
-						<XAxis type="number" domain={[
-							() => {
-								if (min < 0) {
-									return min
-								} else {
-									return 0
-								}
-							},
-							() => {
-								if (max > 0) {
-									return max
-								} else {
-									return 0
-								}
-							},
-						]} hide/>
+						<XAxis type="number" domain={[0,1]} hide/>
 						<YAxis type="category" dataKey={"library"} width={yWidth*7} axisLine={false} fontSize={12}/>
 					</BarChart>
 				</ResponsiveContainer>
