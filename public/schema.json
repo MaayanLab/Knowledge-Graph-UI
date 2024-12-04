@@ -103,8 +103,8 @@
     ],
     "header": {
         "divider": false,
-        "header": "hGRN-ChEAR",
-        "title": "hGRN-ChEAR",
+        "header": "ChEA4",
+        "title": "ChEA4",
         "background": {
             "backgroundColor": "#000",
             "contrastText": "#FFF"
@@ -112,8 +112,8 @@
         "icon": {
             "src": "/hgrnchear_logo.png",
             "favicon": "/hgrnchear_logo.png",
-            "faviconTitle": "hGRN-ChEAR",
-            "alt": "hGRN ChEAR",
+            "faviconTitle": "ChEA4",
+            "alt": "ChEA4",
             "key": "hGRN_ChEAR_icon",
             "width": 200,
             "height": 120,
@@ -205,7 +205,7 @@
                     "props": {
                         "src": "/hgrnchear_white.png",
                         "alt": "hGRN_ChEAR_logo",
-                        "title": "hGRN-ChEAR",
+                        "title": "ChEA4",
                         "color": "inherit",
                         "size": "medium"
                     }
