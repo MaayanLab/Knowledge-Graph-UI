@@ -49,6 +49,7 @@ import { NetworkSchema } from '@/app/api/knowledge_graph/route';
 import { ReactElement } from 'react-markdown/lib/react-markdown';
 import LibraryPicker from './LibraryPicker';
 import { EnrichmentParams } from '.';
+import Link from 'next/link';
 const InteractiveButtons = ({
         hiddenLinksRelations=[], 
         shortId,
@@ -94,7 +95,7 @@ const InteractiveButtons = ({
     const [openShare, setOpenShare] = useState<boolean>(false)
     const [geneLinks, setGeneLinks] = useState<Array<string>>([])
     const [additionalLinkTags, setAdditionalLinkTags] = useState<Array<string>>([])
-
+    const [edgeFilter, setEdgeFilter] = useState<{zscore?: number, pvalue?: number}>({})
     useEffect(()=>{
         if (gene_links) setGeneLinks(gene_links)
         else setGeneLinks([])
@@ -403,12 +404,13 @@ const InteractiveButtons = ({
                 <Tooltip title={`Filter edges by pvalue`}>
                     <Slider 
                         color="secondary"
-                        value={parsedParams.pvalue !== undefined ? parsedParams.pvalue: 0.05}
+                        value={edgeFilter.pvalue !== undefined ? edgeFilter.pvalue: 0.05}
                         onChange={(e, nv:number)=>{
-                            console.log({...parsedParams, pvalue: nv})
-                            router_push(router, pathname, {
-                                q: JSON.stringify({...parsedParams, pvalue: nv}),
-                            })
+                            // console.log({...parsedParams, pvalue: nv})
+                            // router_push(router, pathname, {
+                            //     q: JSON.stringify({...parsedParams, pvalue: nv}),
+                            // })
+                            setEdgeFilter({...edgeFilter, pvalue: nv})
                         }}
                         sx={{width: "12%"}}
                         min={0}
@@ -421,18 +423,26 @@ const InteractiveButtons = ({
                 <Tooltip title={`Filter edges by z-score`}>
                     <Slider 
                         color="secondary"
-                        value={parsedParams.zscore !== undefined ? parsedParams.zscore: min_z}
+                        value={edgeFilter.zscore !== undefined ? edgeFilter.zscore: min_z}
                         onChange={(e, nv:number)=>{
-                            console.log({...parsedParams, zscore: nv})
-                            router_push(router, pathname, {
-                                q: JSON.stringify({...parsedParams, zscore: nv}),
-                            })
+                            setEdgeFilter({...edgeFilter, zscore: nv})
                         }}
                         sx={{width: "12%", marginRight: 2, marginLeft: 2}}
                         max={max_z}
                         min={0}
                         valueLabelDisplay='auto'
                         aria-labelledby="z-slider" />
+                </Tooltip>
+                <Tooltip title={`Filter subnetwork`}>
+                    <Link href={`${pathname}?q=${JSON.stringify({...parsedParams, ...edgeFilter})}&layout=${layout}`}>
+                        <IconButton onClick={()=>{
+                            const mod = {
+
+                            }
+                        }}>
+                            <SendIcon />
+                        </IconButton>
+                    </Link>
                 </Tooltip>
             </Stack>
         </Grid>
