@@ -91,9 +91,6 @@ const WholeNetwork = async ({props}: {
                             <CardContent>
                                 <Cytoscape 
                                     elements={elements}
-                                    schema={schema}
-                                    tooltip_templates_edges={tooltip_templates_edges}
-                                    tooltip_templates_nodes={tooltip_templates_nodes}
                                 /> 
                             </CardContent>
                         </Card>
