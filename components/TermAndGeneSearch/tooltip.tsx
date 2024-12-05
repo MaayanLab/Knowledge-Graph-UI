@@ -3,7 +3,7 @@ import { useEffect, useState } from "react"
 import { FilterSchema } from "@/utils/helper"
 import AsyncFormComponent from "./async_form"
 import { router_push } from "@/utils/client_side"
-import { useRouter, useSearchParams} from "next/navigation"
+import { usePathname, useRouter, useSearchParams} from "next/navigation"
 import { Stack, 
 	Typography, 
 	Card, 
@@ -19,6 +19,7 @@ import { makeTemplate } from "@/utils/helper"
 import { precise } from "@/utils/math"
 import HubIcon from '@mui/icons-material/Hub';
 import DeleteIcon from '@mui/icons-material/Delete'
+import SendIcon from '@mui/icons-material/Send'
 import { UISchema } from "@/app/api/schema/route"
 import Link from "next/link"
 
@@ -35,8 +36,18 @@ export const TooltipComponent = ({data, float, tooltip_templates, schema}: {
 	float?: boolean
 }) => {
 	const searchParams = useSearchParams()
-    const f = searchParams.get('filter')
-    const filter:FilterSchema = JSON.parse(f || '{}')
+	const pathname = usePathname()
+	const queryParams = {}
+	let filter = {}
+	let filter_field = 'filter'
+	searchParams.forEach((value, key) => {
+		console.log(key, value)
+		if (['filter', 'q', 'selected', 'hovered'].indexOf(key) === -1) queryParams[key] = value;
+		else if (['filter', 'q'].indexOf(key) > -1) {
+			filter_field = key
+			filter = JSON.parse(value)
+		}
+	});
 	const router = useRouter()
 	const elements = []
 	const field = data.kind === "Relation" ? data.label : data.kind.replace(/Search TFs that are also ranked|Top 10 Ranked TFs|Search TFs/g, "Transcription Factor")
@@ -84,35 +95,33 @@ export const TooltipComponent = ({data, float, tooltip_templates, schema}: {
 			</CardContent>
 			{data.kind !== "Relation" &&
             <CardActions>
-              {/*{!filter.end_term && <Tooltip title="Delete Node">
-                <IconButton
-                  onClick={()=>{
-                    //setSelected(null)
-					//setHovered(null)
-					const pathname = (schema.header.tabs.filter(i=>i.component === 'KnowledgeGraph')[0] || {}).endpoint || '/'
-					console.log("pathname: ", pathname)
-                    const queryParams: {filter: string, [key:string]: string} = {filter: '{}'}
-          			searchParams.forEach((value, key) => {
-						// queryParams[key] = "nodes"
-						queryParams[key] = "nodes" ? value.replace("nodes","Transcription Factor"): value;
-					})
-					console.log("queryparams: ", queryParams)
-					const f = JSON.stringify({
-                        ...filter,
-                        remove: [...(filter.remove || []), `${data.id}`]
-                      })
-					  console.log("filter: ", filter)
-					  console.log("f: ", f)
-					router_push(router, pathname, {...queryParams, filter: f})
-          }}><DeleteIcon/></IconButton> 
-              </Tooltip>}*/}
-              <Tooltip title="Expand Node">
+              {!filter["end_term"] && <Tooltip title="Delete Node">
+				<Link href={`${pathname}?${filter_field}=${JSON.stringify({
+					...filter,
+					remove: [...(filter["remove"] || []), parseInt(data.id)]
+				})}${Object.keys(queryParams).length ? "&" + Object.entries(queryParams).map(([k,v])=>`${k}=${v}`).join("&"): ""}`}>
+					<IconButton>
+						<DeleteIcon/>
+					</IconButton> 
+				</Link>
+              </Tooltip>}
+			  <Tooltip title="Expand Node">
+				<Link href={`${pathname}?${filter_field}=${JSON.stringify({
+					...filter,
+					expand: [...(filter["expand"] || []), parseInt(data.id)]
+				})}${Object.keys(queryParams).length ? "&" + Object.entries(queryParams).map(([k,v])=>`${k}=${v}`).join("&"): ""}`}>
+					<IconButton>
+						<HubIcon/>
+					</IconButton> 
+				</Link>
+              </Tooltip>
+              <Tooltip title="Open node in new page">
 				<Link href={`${(schema.header.tabs.filter(i=>i.component === 'KnowledgeGraph')[0] || {}).endpoint || '/'}?filter=${JSON.stringify({
                         start: data.kind.replace(/Search TFs that are also ranked|Top 10 Ranked TFs|Search TFs/g, "Transcription Factor"),
                         start_term: data.label
                       })}`}>
 					<IconButton>
-						<HubIcon sx={{transform: "scaleX(-1)"}}/>
+						<SendIcon sx={{transform: "scaleX(-1)"}}/>
 					</IconButton>
 				</Link>
               </Tooltip>
