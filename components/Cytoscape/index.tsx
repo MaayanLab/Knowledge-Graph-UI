@@ -73,6 +73,7 @@ export default function Cytoscape ({
 	const [hovered, setHovered] = useQueryState('hovered',  parseAsJson<{id: string, type: 'nodes' | 'edges'}>().withDefault(null))
 	const edgeStyle = edge_labels ? {label: 'data(label)'} : {}
 	const searchParams = useSearchParams()
+	const filter = searchParams.get('q') || searchParams.get('filter')
 	const { mutate } = useSWRConfig()
 	useEffect(()=>{
 		const cytoscape = require('cytoscape')
@@ -98,7 +99,7 @@ export default function Cytoscape ({
 		}
 		if (elements && elements.nodes.length > 0) update_counter()
 		setId(id+1)
-	}, [elements, searchParams])
+	}, [elements, filter])
 
 
 	useEffect(()=>{
