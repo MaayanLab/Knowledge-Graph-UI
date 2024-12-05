@@ -20,6 +20,7 @@ import { precise } from "@/utils/math"
 import HubIcon from '@mui/icons-material/Hub';
 import DeleteIcon from '@mui/icons-material/Delete'
 import { UISchema } from "@/app/api/schema/route"
+import Link from "next/link"
 
 export const TooltipComponent = ({data, float, tooltip_templates, schema}: {
 	data: {
@@ -106,18 +107,14 @@ export const TooltipComponent = ({data, float, tooltip_templates, schema}: {
           }}><DeleteIcon/></IconButton> 
               </Tooltip>}*/}
               <Tooltip title="Expand Node">
-                <IconButton
-                  onClick={()=>{
-                    // setSelected(null)
-					// setHovered(null)
-					const pathname = (schema.header.tabs.filter(i=>i.component === 'KnowledgeGraph')[0] || {}).endpoint || '/'
-					const filter = JSON.stringify({
+				<Link href={`${(schema.header.tabs.filter(i=>i.component === 'KnowledgeGraph')[0] || {}).endpoint || '/'}?filter=${JSON.stringify({
                         start: data.kind.replace(/Search TFs that are also ranked|Top 10 Ranked TFs|Search TFs/g, "Transcription Factor"),
                         start_term: data.label
-                      })
-					router_push(router, pathname, {filter})
-                  }}
-                ><HubIcon sx={{transform: "scaleX(-1)"}}/></IconButton>
+                      })}`}>
+					<IconButton>
+						<HubIcon sx={{transform: "scaleX(-1)"}}/>
+					</IconButton>
+				</Link>
               </Tooltip>
             </CardActions>
           }
