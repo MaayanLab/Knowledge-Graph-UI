@@ -12,6 +12,7 @@ import HubIcon from '@mui/icons-material/Hub';
 import { mdiFamilyTree,  mdiDotsCircle} from '@mdi/js';
 import Icon from '@mdi/react';
 import fileDownload from 'js-file-download';
+import { useSearchParams } from 'next/navigation';
 export const layouts = {
     "Force-directed": {
       name: 'cose',
@@ -53,16 +54,10 @@ export const layouts = {
 
 export default function Cytoscape ({
 	elements,
-	schema,
-	tooltip_templates_edges,
-	tooltip_templates_nodes,
 	search,
 }: {
 	elements: null | NetworkSchema, 
-	search?:boolean,
-	schema: UISchema,
-	tooltip_templates_edges: {[key: string]: Array<{[key: string]: string}>}, 
-	tooltip_templates_nodes: {[key: string]: Array<{[key: string]: string}>}, 
+	search?:boolean
 }) {
 	const cyref = useRef(null);
 	const networkRef = useRef(null);
@@ -77,7 +72,7 @@ export default function Cytoscape ({
 	const [selected, setSelected] = useQueryState('selected',  parseAsJson<{id: string, type: 'nodes' | 'edges'}>().withDefault(null))
 	const [hovered, setHovered] = useQueryState('hovered',  parseAsJson<{id: string, type: 'nodes' | 'edges'}>().withDefault(null))
 	const edgeStyle = edge_labels ? {label: 'data(label)'} : {}
-
+	const searchParams = useSearchParams()
 	const { mutate } = useSWRConfig()
 	useEffect(()=>{
 		const cytoscape = require('cytoscape')
@@ -103,7 +98,7 @@ export default function Cytoscape ({
 		}
 		if (elements && elements.nodes.length > 0) update_counter()
 		setId(id+1)
-	}, [elements])
+	}, [elements, searchParams])
 
 
 	useEffect(()=>{

@@ -189,9 +189,6 @@ const TermAndGeneSearch = async ({searchParams, props}: {
                                 <div style={{minHeight: 700}}><NetworkTable data={elements} schema={schema}/></div>:
                                 <Cytoscape 
                                     elements={elements}
-                                    schema={schema}
-                                    tooltip_templates_edges={tooltip_templates_edges}
-                                    tooltip_templates_nodes={tooltip_templates_nodes}
                                 /> 
                             }
                             </CardContent>

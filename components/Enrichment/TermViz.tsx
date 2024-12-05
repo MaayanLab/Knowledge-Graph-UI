@@ -60,9 +60,6 @@ const TermViz = ({elements, schema, tooltip_templates_edges, tooltip_templates_n
 		if (view === 'network' || !view) return (
 			<Cytoscape 
 				elements={elements}
-				schema={schema}
-				tooltip_templates_edges={tooltip_templates_edges}
-				tooltip_templates_nodes={tooltip_templates_nodes}
 				search={false}
 			/> 
 		) 

@@ -434,12 +434,8 @@ const InteractiveButtons = ({
                         aria-labelledby="z-slider" />
                 </Tooltip>
                 <Tooltip title={`Filter subnetwork`}>
-                    <Link href={`${pathname}?q=${JSON.stringify({...parsedParams, ...edgeFilter})}&layout=${layout}`}>
-                        <IconButton onClick={()=>{
-                            const mod = {
-
-                            }
-                        }}>
+                    <Link href={`${pathname}?q=${JSON.stringify({...parsedParams, ...edgeFilter})}${layout ? "&layout=" + layout: ""}`}>
+                        <IconButton>
                             <SendIcon />
                         </IconButton>
                     </Link>
