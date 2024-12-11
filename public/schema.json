@@ -168,7 +168,7 @@
                     ],
                     "sortLibraries": false,
                     "default_options": {
-                        "min_lib": 1,
+                        "min_lib": 3,
                         "libraries": [
                             {
                                 "name": "Integrated--meanRank",
@@ -188,7 +188,7 @@
                 "type": "page",
                 "component": "Markdown",
                 "props": {
-                    "src": "https://raw.githubusercontent.com/MaayanLab/TranscriptionNetwork-Demo/refs/heads/main/tf_knowledge_graph/tutorial.md"
+                    "src": "https://raw.githubusercontent.com/MaayanLab/Gene-Knowledge-Graph/refs/heads/tf/components/Tutorial.mdx"
                 }
             },
             {

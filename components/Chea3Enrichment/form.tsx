@@ -45,12 +45,12 @@ const GeneSetForm = ({
         min_lib?: number,
         gene_degree?: number,
         term_degree?: number,
-        libraries: Array<{
+        libraries: {
             name?: string,
             limit?: number,
             library?: string,
             term_limit?: number
-        }>
+        }
     },
     disableLibraryLimit?: boolean,
     example?: {
@@ -405,7 +405,7 @@ const GeneSetForm = ({
                                     <Tooltip title={`Filter out genes that are not in multiple libraries.`}>
                                         <Slider 
                                             color="secondary"
-                                            value={min_lib || 1}
+                                            value={min_lib || 3}
                                                 onChange={(e, nv:number)=>{
                                                 // const {search, augment, augment_limit, gene_links, ...rest} = combined_query
                                                 setQuery({
@@ -419,7 +419,7 @@ const GeneSetForm = ({
                                             }}
                                             sx={{width: "100%"}}
                                             min={1}
-                                            max={libraries_list.length}
+                                            max={6}
                                             marks
                                             valueLabelDisplay='auto'
                                             aria-labelledby="gene-slider" />
@@ -427,7 +427,7 @@ const GeneSetForm = ({
                                 </Grid>
                                 <Grid item>
                                     <Typography variant='subtitle2'>
-                                        {min_lib || 1}
+                                        {min_lib || 3}
                                     </Typography>
                                 </Grid>
                             </Grid>
