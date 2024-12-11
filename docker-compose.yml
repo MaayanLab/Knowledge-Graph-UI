@@ -5,13 +5,13 @@ services:
       context: .
       dockerfile: ./Dockerfile.next
     platform: linux/amd64
-    image: maayanlab/chea4:2.4.30
+    image: maayanlab/chea4:2.4.31
     x-kubernetes:
       strategy:
         type: Recreate
       imagePullPolicy: IfNotPresent
       annotations:
-        maayanlab.cloud/ingress: https://chea-kg.staging.maayanlab.cloud
+        maayanlab.cloud/ingress: https://chea-kg.maayanlab.cloud
     ports:
       - 3000:3000
     environment:
