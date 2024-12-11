@@ -1,4 +1,4 @@
-# ChEA-KG: Exploring a Novel Human Gene Regulatory Network
+# ChEA-KG: Exploring a Human Gene Regulatory Network
 ### Table of Contents
 1. [The ChEA-KG GRN](#introduction)
     1. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Searching the KG](#grn-search)
@@ -17,7 +17,10 @@
 
 ## **The ChEA-KG GRN** <a name="introduction"></a>
 
-<img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/search-home.png" alt="drawing" width="200"/> 
+### Abstract
+Gene expression is controlled by transcription factors that selectively bind to DNA to regulate mRNA expression of all human genes. Transcription factors control the expression of other transcription factors, forming a complex gene regulatory network (GRN) with switches, feedback loops, and other regulatory motifs. Many experimental methods and computational tools have been developed to reconstruct GRNs in-silico. Here we present a different approach to reconstruct the human GRN. By submitting thousands of gene sets from the RummaGEO resource for transcription factor enrichment analysis with ChEA3, we are able to distill signed and directed edges that connect all human transcription factors to construct a high quality human GRN. The GRN has 130,793 signed and directed edges between 703 source and 1,543 target transcription factors. The network is made accessible via an interactive web-based application called ChEA-KG. ChEA-KG enables users to query the GRN by searching for single or pairs of transcription factors, as well as by submitting gene sets to perform transcription factor enrichment analysis with ChEA3 and then place the enriched transcription factors in context of ChEA-KG. To demonstrate the utility of ChEA-KG, we systematically identified transcription factor subnetworks that regulate differentially expressed genes in tumors from ten cancer types, and 69 subtypes, profiled by the Clinical Proteomic Tumor Analysis Consortium (CPTAC). ChEA-KG is freely available from:
+
+<img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/search-home.png" alt="drawing" width="600"/> 
 
 ***Nodes*** 
 
@@ -29,7 +32,7 @@ Edges in the GRN indicate regulatory relationships between source and target TFs
     1 - <span style="color: red;">Red</span> plungers indicate downregulation  
     2 - <span style="color: green;">Green</span> arrows indicate upregulation  
 
-<img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/introduction.png" alt="drawing" width="200"/> 
+<img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/introduction.png" alt="drawing" width="400"/> 
 
 <p>&nbsp;</p>
 
@@ -38,15 +41,17 @@ Click and drag on any node to move it.
 
 #### *One-term search* <a name="single-search"></a>
 Generate a subnetwork of interactions between a single transcription factor and its neighboring nodes by inputting the gene symbol for a transcription factor into the "Start with" field. Type in the gene symbol. If it exists in the network, it will be shown in the autocomplete menu. Click on the matching name to view the results. 
-![single-term](https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/single-term.png)  
+<img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/single-term.png" alt="drawing" width="600"/> 
 
 #### *Subgraph search* <a name="subgraph-search"></a>
 Generate a subnetwork with a given number of relationships by toggling the "End Node" switch. Leave the "End with" field **blank**. Control the size of the subnetwork using the slider above the network view. 
-![subgraph](https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/subgraph.png)    
+<img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/subgraph.png" alt="drawing" width="600"/> 
+
 
 #### *Two-term search* <a name="two-term-search"></a>
 The two-term search generates a shortest path between two transcription factor nodes. Enter a starting transcription factor in the "Start with" field. Toggle the "End Node" switch, then input a desired end node in the "End with" field. The result displays a shorest path between the two nodes. In the case where there is a tie for a shortest path length, all paths of that length are shown. 
-![two-term](https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/two-term.png)  
+<img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/two-term.png" alt="drawing" width="600"/> 
+
 
 ### **Interacting with the network** <a name="interact-network"></a>
 The toolbar above the network view provides several buttons to further interact with the network. From left to right, these are Size, Full-screen, Network view, Table view, Save subnetwork, Download graph as an image file, Show tooltip, Switch graph layout, Show edge labels, and Show legend.  
@@ -56,34 +61,38 @@ To move a node in the network view, click and drag.
 #### *Adjust the network view:* <a name="adjust-view"></a>
 **Adjust subnetwork size:**  
 Adjust the size slider to limit the number of relationships displayed for that network
-![size](https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/network_size.png)  
+<img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/network_size.png" alt="drawing" width="600"/> 
+
 **Full-screen:**  
 Click the full-screen button to view the network search page in full-screen.  
 **Enable the tooltip:**  
 The tooltip displays the ID, label, and URI for each node when the mouse hovers over a node in the network. It also provides options to remove or expand a node.  
-![tooltip](https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/tooltip.png)  
+<img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/tooltip.png" alt="drawing" width="600"/> 
+
 **Deletee or expand a node:**  
-With the tooltip enabled, hover over the node of interest and click on the delete or expand buttons. 
-![expand](https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/expand1.png) ![remove](https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/delete1.png)  
-   
-After expand:  
-![expanded](https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/expand2.png)
-  
-After delete:  
-![removed](https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/delete2.png)   
+With the tooltip enabled, hover over the node of interest and click on the delete or expand buttons.
+Remove             |  Expand
+:-------------------------:|:-------------------------:
+![](https://...Dark.png)  |  ![](https://...Ocean.png) 
+![expand](https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/expand1.png)  |  ![remove](https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/delete1.png)  
+![expand](https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/expand2.png)  |  ![remove](https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/delete2.png)    
   
 **Network and table view:**  
 Toggle between network and table view by clicking on their respective buttons
-![table-view](https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/table_view.png)  
+<img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/table_view.png" alt="drawing" width="600"/> 
+
 **Switch graph layout:**  
 Switch between force-directed, geometric, or hierarchical graph layouts. 
-![hierarchical](https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/heirarchical-layout.png)  
+<img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/heirarchical-layout.png" alt="drawing" width="600"/> 
+
 **Show edge labels:**  
 Display the edge labels ("upregulates", "downregulates") over the edges
-![edge-labels](https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/edge-label.png)  
+<img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/edge-label.png" alt="drawing" width="600"/> 
+
 **Show legend:**  
 Show the legend. An additional toolbar button is displayed that adjusts the size of the legend when clicked.  
-![legend](https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/legend.png)  
+<img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/legend.png" alt="drawing" width="600"/> 
+
  
 
 #### *Download the subnetwork:*  <a name="download"></a>
@@ -97,7 +106,8 @@ Show the legend. An additional toolbar button is displayed that adjusts the size
 
 ## **Enrichment analysis with ChEA-KG** <a name="chea-enrichment"></a>
 The enrichment analysis page provides an option to visualize a subnetwork of the GRN based on ChEA3 enrichment analysis results. 
-![nodes-and-edges](https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/enrichment_home.png) 
+<img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/enrichment_home.png" alt="drawing" width="600"/> 
+
 ### Enrichment analysis subnetwork <a name="enrichment-subnetwork"></a>
 The subnetwork returned by this feature contains transcription factors with the highest integrated mean rank for that gene set. By default, the top 10 ranked TFs are returned. The ChEA3 integrated mean rank is calculated from the average rank across six libraries: Enrichr Queries, GTEx Coexpression, ARCHS4 Coexpression, ENCODE ChIP-seq, Literature ChIP-seq, and ReMap ChIP-seq. For more information on how the ChEA3 Integrated Mean Rank is calculated, visit the [ChEA3 website](https://maayanlab.cloud/chea3/). 
 
