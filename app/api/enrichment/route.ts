@@ -207,9 +207,10 @@ const enrichment = async ({
         
         for (const ind in expand) {
             vars[`expand_${ind}`] = expand[ind]
-            query_list.push( `MATCH p = (c)--(d)
+            query_list.push( `MATCH p = (c)-[rel]-(d)
                 WHERE c.id = $expand_${ind}
                 RETURN p, nodes(p) as n, relationships(p) as r
+                ORDER BY rel.p_value
                 LIMIT 10
             `)   
         }

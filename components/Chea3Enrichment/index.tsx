@@ -225,11 +225,9 @@ const Enrichment = async ({
                     <Card elevation={0} sx={{borderRadius: "8px", backgroundColor: (!schema.ui_theme || schema.ui_theme === "cfde_theme" || elements !== null) ? "tertiary.light": "#FFF"}}>
                         <CardContent>
                             <GeneSetForm 
-                                libraries_list={libraries_list.map(l=>l.name)}
                                 parsedParams={parsedParams}
                                 fullWidth={elements===null}
                                 elements={elements}
-                                searchParams={searchParams}
                                 {...props}
                             /> 
                             <TooltipComponentGroup

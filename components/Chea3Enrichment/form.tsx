@@ -28,42 +28,17 @@ import { useQueryState, parseAsJson } from 'next-usequerystate';
 import { EnrichmentParams } from '.';
 
 const GeneSetForm = ({
-    default_options,
-    disableLibraryLimit,  
     example,
-    libraries_list,
     parsedParams,
     fullWidth,
     elements, 
-    searchParams
 }: {
     fullWidth:boolean,
     elements: NetworkSchema,
-    default_options?: {
-        term_limit?: number,
-        gene_limit?: number,
-        min_lib?: number,
-        gene_degree?: number,
-        term_degree?: number,
-        libraries: {
-            name?: string,
-            limit?: number,
-            library?: string,
-            term_limit?: number
-        }
-    },
-    disableLibraryLimit?: boolean,
     example?: {
         gene_set?: string,
     },
-    libraries_list: Array<string>,
     parsedParams: EnrichmentParams,
-    searchParams: {
-        q?:string,
-        fullscreen?: 'true'
-        view?: string,
-        collapse?: 'true'
-    }
 }) => {
     const router = useRouter()
     const [query, setQuery] = useQueryState('query', parseAsJson<EnrichmentParams>().withDefault({}))
