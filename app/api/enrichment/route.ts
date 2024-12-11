@@ -107,11 +107,10 @@ const enrichment = async ({
                 if (min_lib) {
                     if (val["libs"].length >= min_lib) {
                         i ++
+                        terms[node_mapping[library]][key] = val
                         // zero index for just mean rank library -- will need to change if including other libraries
                         if (i >= libraries[0].term_limit) {
                             break
-                        } else {
-                            terms[node_mapping[library]][key] = val
                         }
                     }
                 }
