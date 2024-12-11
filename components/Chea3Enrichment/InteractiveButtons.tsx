@@ -282,7 +282,7 @@ const InteractiveButtons = ({
                             </Menu>
                         </>
                     }
-                    {shortId &&
+                    {/*{shortId &&
                         <Tooltip title={"View in Enrichr"}>
                             <IconButton 
                                 target="_blank"
@@ -292,7 +292,7 @@ const InteractiveButtons = ({
                                 <LinkIcon/>
                             </IconButton>
                         </Tooltip>
-                    }
+                    }*/}
                     <Tooltip title={"Share"}>
                         <IconButton onClick={()=>setOpenShare(true)}>
                             <ShareIcon/>
