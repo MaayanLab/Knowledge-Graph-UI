@@ -80,6 +80,7 @@ const enrichment = async ({
                     node_library[library] = node
                 }
             }
+            // term limit is doubled in chea_query -- returns twice as many results
             return await chea_query({userListId, term_limit, library, term_degree})
         }  
         ))
@@ -93,15 +94,30 @@ const enrichment = async ({
         let returned = []
         for (const {genes: lib_genes, terms: lib_terms, max_score: lib_max_score, min_score: lib_min_score, library} of results) {
             terms[node_mapping[library]] = {}
+            let i = 0
+            let j = 0
+            // go through all of the results for that library until we have ten enriched genes
             for (const [key, val] of Object.entries(lib_terms)) {
+                j ++
                 if (val["score"] !== undefined) {
                     const ext_diff = Math.abs(lib_max_score+lib_min_score)
                     val["value"] = 1 - (parseFloat(val["score"])/ext_diff)
                 }
-                terms[node_mapping[library]][key] = val
-                
+                // if the that gene has an adequate library length, increase counter
+                if (min_lib) {
+                    if (val["libs"].length >= min_lib) {
+                        i ++
+                        // zero index for just mean rank library -- will need to change if including other libraries
+                        if (i >= libraries[0].term_limit) {
+                            break
+                        } else {
+                            terms[node_mapping[library]][key] = val
+                        }
+                    }
+                }
             }
-            library_terms[node_library[library]] = Object.keys(lib_terms)
+            library_terms[node_library[library]] = Object.keys(lib_terms).slice(0,j).filter(key=>lib_terms[key]["libs"].length >= min_lib)
+            
             // keep track of min and max scores across all query libraries 
             if (max_score < lib_max_score) max_score = lib_max_score
             if (min_score > lib_min_score) min_score = lib_min_score
@@ -120,9 +136,12 @@ const enrichment = async ({
         }
         // filter gene list based on parameters
         let genes = Object.keys(gene_counts)
-        if (min_lib) {
-            genes = Object.keys(gene_counts).filter(gene=>gene_counts[gene].libraries >= min_lib)
-        } 
+        {/*if (min_lib) {
+            terms = Object.entries(terms).filter(key=>terms['Transcription Factor'][key].libs >= min_lib)
+            console.log("terms:", terms[node_mapping[library]][key]["libs"])
+            // genes = Object.keys(gene_counts).filter(gene=>gene_counts[gene].libraries >= min_lib)
+            // terms = Object.entries(terms).filter(term=>terms.libs >= min_lib)
+        } */}
         if (gene_degree) {
             genes = genes.filter(gene=>gene_counts[gene].count >= gene_degree)
         }

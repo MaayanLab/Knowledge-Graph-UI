@@ -48,8 +48,7 @@ export const chea_query = async ({
     let max_score = 0
     let min_score = 10000
 
-    // here I need to change results to not access specific libraries and hten alter the return results to fit the chea3 return
-    for (const i of results[library].slice(0,term_limit)) {
+    for (const i of results[library].slice(0,term_limit*2)) {
         const rank = i.Rank
         const chea3label = i.TF
         const label = regex[library] !== undefined ? regex[library].exec(chea3label).groups.label:chea3label
@@ -71,6 +70,7 @@ export const chea_query = async ({
                 terms[label].score = score
                 terms[label].rank = rank
                 terms[label].overlap = overlapping_genes.length
+                terms[label].libs = libs
             } else {
                 // if it appeared before (e.g. drug up, drug down) then use the one with lower pvalue 
                 // as default and push alternative enrichment to enrichment
@@ -82,13 +82,15 @@ export const chea_query = async ({
                     label,
                     score,
                     rank,
-                    overlap: overlapping_genes.length
+                    overlap: overlapping_genes.length,
+                    libs
                 })
                 if (terms[label].score > score) {
                     terms[label].enrichr_label = chea3label
                     terms[label].score = score
                     terms[label].rank = rank
                     terms[label].overlap = overlapping_genes.length
+                    terms[label].libs = libs
                 }
             }
             for (const gene of overlapping_genes) {
