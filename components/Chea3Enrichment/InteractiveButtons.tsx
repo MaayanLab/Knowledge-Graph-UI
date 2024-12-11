@@ -400,7 +400,7 @@ const InteractiveButtons = ({
         </Grid>
         <Grid item xs={12}>
             <Stack direction={"row"} alignItems={"center"} spacing={2}>
-                <Typography variant='subtitle2'>Edge significance:</Typography>
+                {/* <Typography variant='subtitle2'>Edge significance:</Typography>
                 <Tooltip title={`Filter edges by pvalue`}>
                     <Slider 
                         color="secondary"
@@ -418,7 +418,7 @@ const InteractiveButtons = ({
                         valueLabelDisplay='auto'
                         step={0.00000001}
                         aria-labelledby="p-slider" />
-                </Tooltip>
+                </Tooltip> */}
                 <Typography variant='subtitle2'>Edge z-score:</Typography>
                 <Tooltip title={`Filter edges by z-score`}>
                     <Slider 
