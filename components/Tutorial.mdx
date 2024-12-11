@@ -41,19 +41,19 @@ Click and drag on any node to move it.
 #### *One-term search* <a name="single-search"></a>
 Generate a subnetwork of interactions between a single transcription factor and its neighboring nodes by inputting the gene symbol for a transcription factor into the "Start with" field. Type in the gene symbol. If it exists in the network, it will be shown in the autocomplete menu. Click on the matching name to view the results.   
 <img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/single-term.png" alt="drawing" width="800"/> 
-**Figure 1.** Subnetwork produced by a single-term search for LYL1.  
+**Figure 2.** Subnetwork produced by a single-term search for LYL1.  
 
 
 #### *Subgraph search* <a name="subgraph-search"></a>
 Generate a subnetwork with a given number of relationships by toggling the "End Node" switch. Leave the "End with" field **blank**. Control the size of the subnetwork using the slider above the network view. 
 <img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/subgraph.png" alt="drawing" width="800"/> 
-**Figure 2.** An expanded LYL1 subnetwork is produced by toggling "End node".   
+**Figure 3.** An expanded LYL1 subnetwork is produced by toggling "End node".   
 
 
 #### *Two-term search* <a name="two-term-search"></a>
 The two-term search generates a shortest path between two transcription factor nodes. Enter a starting transcription factor in the "Start with" field. Toggle the "End Node" switch, then input a desired end node in the "End with" field. The result displays a shorest path between the two nodes. In the case where there is a tie for a shortest path length, all paths of that length are shown. 
 <img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/two-term.png" alt="drawing" width="800"/> 
-**Figure 3.** Subnetwork produced by a two-term search for LYL1 and CHCHDC3.  
+**Figure 4.** Subnetwork produced by a two-term search for LYL1 and CHCHDC3.  
 
 
 ### **Interacting with the network** <a name="interact-network"></a>
@@ -65,7 +65,7 @@ To move a node in the network view, click and drag.
 **Adjust subnetwork size:**  
 Adjust the size slider to limit the number of relationships displayed for that network.
 <img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/network_size.png" alt="drawing" width="800"/> 
-**Figure 4.** Adjusting the slider changes the number of relationships displayed subnetwork.  
+**Figure 5.** Adjusting the slider changes the number of relationships displayed subnetwork.  
 
 
 **Full-screen:**  
@@ -73,7 +73,7 @@ Click the full-screen button to view the network search page in full-screen.
 **Enable the tooltip:**  
 The tooltip displays the ID, label, and URI for each node when the mouse hovers over a node in the network. It also provides options to remove or expand a node.  
 <img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/tooltip.png" alt="drawing" width="800"/> 
-**Figure 5.** Enabling the tooltip displays the node ID, label, and URI for each node that is clicked or hovered over.  
+**Figure 6.** Enabling the tooltip displays the node ID, label, and URI for each node that is clicked or hovered over.  
 
 
 **Delete or expand a node:**  
@@ -81,35 +81,35 @@ With the tooltip enabled, hover over the node of interest and click on the delet
 *Expand the CTCFL node by clicking expand:*  
 <img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/expand1.png" alt="drawing" width="500"/>
 <img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/expand2.png" alt="drawing" width="500"/> 
-**Figure 6.** Expand the CTCFL node by clicking expand (top). This displays additional relationships involving the CTCFL node (bottom). 
+**Figure 7.** Expand the CTCFL node by clicking expand (top). This displays additional relationships involving the CTCFL node (bottom). 
 
 <p>&nbsp;</p>
 
 *Delete the expanded CTCFL node by clicking delete:*  
 <img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/delete1.png" alt="drawing" width="500"/>
 <img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/delete2.png" alt="drawing" width="500"/>
-**Figure 7.** Remove the CTCFL node by clicking delete (top). This removes the CTCFL node and its relationships (bottom).  
+**Figure 8.** Remove the CTCFL node by clicking delete (top). This removes the CTCFL node and its relationships (bottom).  
   
 **Network and table view:**  
 Toggle between network and table view by clicking on their respective buttons
 <img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/table_view.png" alt="drawing" width="800"/> 
-**Figure 8.** Expand the CTCFL node by clicking expand (top). This displays additional relationships involving the CTCFL node (bottom).  
+**Figure 9.** Expand the CTCFL node by clicking expand (top). This displays additional relationships involving the CTCFL node (bottom).  
 
 
 **Switch graph layout:**  
 Switch between force-directed, geometric, or hierarchical graph layouts. 
 <img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/heirarchical-layout.png" alt="drawing" width="800"/> 
-**Figure 9.** Switch to a hierarchical layout using the graph layout button. 
+**Figure 10.** Switch to a hierarchical layout using the graph layout button. 
 
 **Show edge labels:**  
 Display the edge labels ("upregulates", "downregulates") over the edges.
 <img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/edge-label.png" alt="drawing" width="800"/> 
-**Figure 10.** Display the edge labels using the edge labels button.  
+**Figure 11.** Display the edge labels using the edge labels button.  
 
 **Show legend:**  
 Show the legend. An additional toolbar button is displayed that adjusts the size of the legend when clicked.  
 <img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/legend.png" alt="drawing" width="800"/> 
-**Figure 9.** Show and adjust the size of the legend. 
+**Figure 12.** Show and adjust the size of the legend. 
  
 
 #### *Download the subnetwork:*  <a name="download"></a>
@@ -124,11 +124,11 @@ Show the legend. An additional toolbar button is displayed that adjusts the size
 ## **Enrichment analysis with ChEA-KG** <a name="chea-enrichment"></a>
 The enrichment analysis page provides an option to visualize a subnetwork of the GRN based on ChEA3 enrichment analysis results. 
 <img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/enrichment_home1.png" alt="drawing" width="1200"/> 
-**Figure 11.** Switch to a hierarchical layout using the graph layout button.  
+**Figure 13.** Switch to a hierarchical layout using the graph layout button.  
 
 ### Enrichment analysis subnetwork <a name="enrichment-subnetwork"></a>
 The subnetwork returned by this feature contains transcription factors with the highest integrated mean rank for that gene set. By default, the top 10 ranked TFs are returned. The ChEA3 integrated mean rank is calculated from the average rank across six libraries: Enrichr Queries, GTEx Coexpression, ARCHS4 Coexpression, ENCODE ChIP-seq, Literature ChIP-seq, and ReMap ChIP-seq. For more information on how the ChEA3 Integrated Mean Rank is calculated, visit the [ChEA3 website](https://maayanlab.cloud/chea3/). 
-**Figure 12.** Enrichment analysis produces a subnetwork of enriched TFs for a gene set. 
+**Figure 14.** Enrichment analysis produces a subnetwork of enriched TFs for a gene set. 
 
 ### Enrichment analysis search parameters: <a name="enrichment-params"></a>
 There are three advanced search options that can be adjusted by toggling "Advanced Options".  
