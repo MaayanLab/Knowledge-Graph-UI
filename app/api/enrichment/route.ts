@@ -48,11 +48,12 @@ const enrichment = async ({
     gene_links,
     expand_limit=10,
     pvalue,
-    zscore
+    zscore,
+    add_nodes
 }: {
     userListId: string,
     libraries: Array<{library?: string, term_limit?: number}>,
-    gene_limit?: number,
+    gene_limit?: number, 
     term_degree?: number,
     min_lib?: number,
     gene_degree?: number,
@@ -62,6 +63,7 @@ const enrichment = async ({
     expand_limit?: number,
     pvalue?: number,
     zscore?: number,
+    add_nodes?: number
 }) => {
     try {
         const nod = await fetch(`${process.env.NODE_ENV==="development" ? process.env.NEXT_PUBLIC_HOST_DEV : process.env.NEXT_PUBLIC_HOST}${process.env.NEXT_PUBLIC_PREFIX ? process.env.NEXT_PUBLIC_PREFIX: ''}/api/enrichment/node_mapping`)
@@ -80,8 +82,16 @@ const enrichment = async ({
                     node_library[library] = node
                 }
             }
+            if(add_nodes !== undefined){
+                console.log("Term_limit: ", term_limit)
+                const new_term_limit = term_limit + add_nodes
+                console.log("new term limit: ", new_term_limit)
+                libraries[0].term_limit = new_term_limit
+            }
+            
+            console.log("Libraries Term limit: ", libraries[0].term_limit)
             // term limit is doubled in chea_query -- returns twice as many results
-            return await chea_query({userListId, term_limit, library, term_degree})
+            return await chea_query({userListId, term_limit: 100, library, term_degree})
         }  
         ))
 
@@ -236,21 +246,22 @@ const EnrichmentInput = z.object({
     expand_limit: z.number().optional(),
     augment_limit: z.number().optional(),
     pvalue: z.number().optional(),
-    zscore: z.number().optional()
+    zscore: z.number().optional(),
+    add_nodes: z.number().optional()
 })
 
 
 
 export async function POST(req: NextRequest) {
     try {
-        const {userListId, libraries=[], gene_limit, term_degree, min_lib, gene_degree, remove, expand, gene_links, expand_limit, pvalue, zscore} = EnrichmentInput.parse(await req.json())
+        const {userListId, libraries=[], gene_limit, term_degree, min_lib, gene_degree, remove, expand, gene_links, expand_limit, pvalue, zscore, add_nodes} = EnrichmentInput.parse(await req.json())
         if (userListId === undefined) {
             return NextResponse.json({error: "userListId is undefined"}, {status: 400})
         }
         if (libraries.length === 0) {
             return NextResponse.json({error: "library is empty"}, {status: 400})
         }
-        const results = await enrichment({userListId, libraries, gene_limit, term_degree, min_lib, gene_degree, remove, expand, gene_links, expand_limit, pvalue, zscore})
+        const results = await enrichment({userListId, libraries, gene_limit, term_degree, min_lib, gene_degree, remove, expand, gene_links, expand_limit, pvalue, zscore, add_nodes})
         return NextResponse.json(results, {status: 200})
     } catch (error) {
         console.error(error)

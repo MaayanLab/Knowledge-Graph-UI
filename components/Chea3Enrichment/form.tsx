@@ -360,7 +360,7 @@ const GeneSetForm = ({
                                   }}
                             />
                         </Grid>
-                        <Grid item xs={12}>
+                        {/*<Grid item xs={12}>
                             <Stack direction={'row'} alignItems={"center"} justifyContent={'space-between'}>
                                 <Typography variant="caption">Advanced Options</Typography>
                                     <Switch 
@@ -371,8 +371,8 @@ const GeneSetForm = ({
                                 </Stack>
                         </Grid>
                     </Grid>
-                    { showForm &&
-                    <>
+                    { showForm && 
+                    <>*/}
                         <Grid item xs={12}>
                             <Grid container alignItems={"stretch"} spacing={2}>
                                 <Grid item><Typography variant='subtitle2'>Minimum libraries per gene</Typography></Grid>
@@ -407,7 +407,8 @@ const GeneSetForm = ({
                                 </Grid>
                             </Grid>
                         </Grid>
-                        <Grid item xs={12}>
+                    
+                        {/*<Grid item xs={12}>
                             <Grid container alignItems={"stretch"} spacing={2}>
                                 <Grid item><Typography variant='subtitle2'>Minimum links per gene</Typography></Grid>
                                 <Grid item sx={{ flexGrow: 1 }}>
@@ -508,8 +509,8 @@ const GeneSetForm = ({
                                 </Grid>
                             </Grid>
                         </Grid>
-                    </>
-                }
+                    </> 
+                }*/}
                 {/*</Grid>
                 { fullWidth &&
                     <Grid item xs={12} md={6}>
@@ -531,6 +532,7 @@ const GeneSetForm = ({
                     </Grid>
                 }
             </Grid>*/}
+            </Grid>
         </FormGroup>
     )
 }

@@ -38,7 +38,8 @@ export interface EnrichmentParams {
     remove?: Array<string>,
     additional_link_tags?: Array<string>,
     pvalue?: number,
-    zscore?: number
+    zscore?: number,
+    add_nodes?: number
 }
 
 
@@ -123,7 +124,8 @@ const Enrichment = async ({
             augment_limit,
             gene_links,
             pvalue,
-            zscore
+            zscore, 
+            add_nodes
         } = parsedParams
         const libraries = parsedParams.libraries || []
         let elements:NetworkSchema = null
@@ -162,7 +164,8 @@ const Enrichment = async ({
                         augment_limit,
                         gene_links,
                         pvalue,
-                        zscore
+                        zscore,
+                        add_nodes
                     }),
                 })
             if (!res.ok) {

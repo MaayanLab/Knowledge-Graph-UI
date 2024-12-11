@@ -7,7 +7,7 @@ export const chea_query = async ({
 }: {
     userListId: string,
     library: string,
-    term_limit: number,
+    term_limit?: number,
     term_degree?: number
 }) => {
     const data = await fetch(`${process.env.NODE_ENV==="development" ? process.env.NEXT_PUBLIC_HOST_DEV : process.env.NEXT_PUBLIC_HOST}${process.env.NEXT_PUBLIC_PREFIX ? process.env.NEXT_PUBLIC_PREFIX: ''}/api/enrichment/view?userListId=${userListId}`)
@@ -48,7 +48,7 @@ export const chea_query = async ({
     let max_score = 0
     let min_score = 10000
 
-    for (const i of results[library].slice(0,term_limit*2)) {
+    for (const i of results[library].slice(0,term_limit)) {
         const rank = i.Rank
         const chea3label = i.TF
         const label = regex[library] !== undefined ? regex[library].exec(chea3label).groups.label:chea3label

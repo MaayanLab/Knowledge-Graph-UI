@@ -95,7 +95,8 @@ const InteractiveButtons = ({
     const [openShare, setOpenShare] = useState<boolean>(false)
     const [geneLinks, setGeneLinks] = useState<Array<string>>([])
     const [additionalLinkTags, setAdditionalLinkTags] = useState<Array<string>>([])
-    const [edgeFilter, setEdgeFilter] = useState<{zscore?: number, pvalue?: number}>({})
+    const [edgeFilter, setEdgeFilter] = useState<{zscore?: number, add_nodes?: number}>({})
+ 
     useEffect(()=>{
         if (gene_links) setGeneLinks(gene_links)
         else setGeneLinks([])
@@ -400,25 +401,26 @@ const InteractiveButtons = ({
         </Grid>
         <Grid item xs={12}>
             <Stack direction={"row"} alignItems={"center"} spacing={2}>
-                {/* <Typography variant='subtitle2'>Edge significance:</Typography>
-                <Tooltip title={`Filter edges by pvalue`}>
+                <Typography variant='subtitle2'>Add additional top-ranked nodes from ChEA3:</Typography>
+                <Tooltip title={`Add additional nodes`}>
                     <Slider 
                         color="secondary"
-                        value={edgeFilter.pvalue !== undefined ? edgeFilter.pvalue: 0.05}
+                        value={edgeFilter.add_nodes !== undefined ? edgeFilter.add_nodes : 0}
                         onChange={(e, nv:number)=>{
                             // console.log({...parsedParams, pvalue: nv})
                             // router_push(router, pathname, {
                             //     q: JSON.stringify({...parsedParams, pvalue: nv}),
                             // })
-                            setEdgeFilter({...edgeFilter, pvalue: nv})
+                            setEdgeFilter({...edgeFilter, add_nodes: nv})
+
                         }}
                         sx={{width: "12%"}}
                         min={0}
-                        max={0.05}
+                        max={25}
                         valueLabelDisplay='auto'
-                        step={0.00000001}
-                        aria-labelledby="p-slider" />
-                </Tooltip> */}
+                        step={5}
+                        aria-labelledby="node-slider" />
+                </Tooltip> 
                 <Typography variant='subtitle2'>Edge z-score:</Typography>
                 <Tooltip title={`Filter edges by z-score`}>
                     <Slider 
