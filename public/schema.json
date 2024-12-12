@@ -63,6 +63,16 @@
                     "label": "p value",
                     "text": "${p_value}",
                     "type": "text"
+                },
+                {
+                    "label": "source label",
+                    "text": "${source_label}",
+                    "type": "text"
+                },
+                {
+                    "label": "target label",
+                    "text": "${target_label}",
+                    "type": "text"
                 }
             ]
         },
@@ -96,6 +106,16 @@
                 {
                     "label": "p value",
                     "text": "${p_value}",
+                    "type": "text"
+                },
+                {
+                    "label": "source label",
+                    "text": "${source_label}",
+                    "type": "text"
+                },
+                {
+                    "label": "target label",
+                    "text": "${target_label}",
                     "type": "text"
                 }
             ]
