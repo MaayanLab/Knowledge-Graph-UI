@@ -8,12 +8,12 @@
             ],
             "display": [
                 {
-                    "label": "Transcription factor ID",
+                    "label": "Gene ID",
                     "text": "${id}",
                     "type": "text"
                 },
                 {
-                    "label": "Transcription factor symbol",
+                    "label": "Gene symbol",
                     "text": "${label}",
                     "type": "text"
                 },
@@ -40,8 +40,8 @@
             "directed": "triangle",
             "display": [
                 {
-                    "label": "source",
-                    "text": "${source}",
+                    "label": "source label",
+                    "text": "${source_label}",
                     "type": "text"
                 },
                 {
@@ -50,8 +50,8 @@
                     "type": "text"
                 },
                 {
-                    "label": "target",
-                    "text": "${target}",
+                    "label": "target label",
+                    "text": "${target_label}",
                     "type": "text"
                 },
                 {
@@ -62,16 +62,6 @@
                 {
                     "label": "p value",
                     "text": "${p_value}",
-                    "type": "text"
-                },
-                {
-                    "label": "source label",
-                    "text": "${source_label}",
-                    "type": "text"
-                },
-                {
-                    "label": "target label",
-                    "text": "${target_label}",
                     "type": "text"
                 }
             ]
@@ -84,8 +74,8 @@
             "directed": "tee",
             "display": [
                 {
-                    "label": "source",
-                    "text": "${source}",
+                    "label": "source label",
+                    "text": "${source_label}",
                     "type": "text"
                 },
                 {
@@ -94,8 +84,8 @@
                     "type": "text"
                 },
                 {
-                    "label": "target",
-                    "text": "${target}",
+                    "label": "target label",
+                    "text": "${target_label}",
                     "type": "text"
                 },
                 {
@@ -106,16 +96,6 @@
                 {
                     "label": "p value",
                     "text": "${p_value}",
-                    "type": "text"
-                },
-                {
-                    "label": "source label",
-                    "text": "${source_label}",
-                    "type": "text"
-                },
-                {
-                    "label": "target label",
-                    "text": "${target_label}",
                     "type": "text"
                 }
             ]

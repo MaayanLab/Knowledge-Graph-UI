@@ -41,7 +41,6 @@ export const TooltipComponent = ({data, float, tooltip_templates, schema}: {
 	let filter = {}
 	let filter_field = 'filter'
 	searchParams.forEach((value, key) => {
-		console.log(key, value)
 		if (['filter', 'q', 'selected', 'hovered'].indexOf(key) === -1) queryParams[key] = value;
 		else if (['filter', 'q'].indexOf(key) > -1) {
 			filter_field = key
