@@ -98,7 +98,7 @@ export const TooltipComponent = ({data, float, tooltip_templates, schema}: {
               {!filter["end_term"] && <Tooltip title="Delete Node">
 				<Link href={`${pathname}?${filter_field}=${JSON.stringify({
 					...filter,
-					remove: [...(filter["remove"] || []), parseInt(data.id)]
+					remove: [...(filter["remove"] || []), data.id]
 				})}${Object.keys(queryParams).length ? "&" + Object.entries(queryParams).map(([k,v])=>`${k}=${v}`).join("&"): ""}`}>
 					<IconButton>
 						<DeleteIcon/>
@@ -108,7 +108,7 @@ export const TooltipComponent = ({data, float, tooltip_templates, schema}: {
 			  <Tooltip title="Expand Node">
 				<Link href={`${pathname}?${filter_field}=${JSON.stringify({
 					...filter,
-					expand: [...(filter["expand"] || []), parseInt(data.id)]
+					expand: [...(filter["expand"] || []), data.id]
 				})}${Object.keys(queryParams).length ? "&" + Object.entries(queryParams).map(([k,v])=>`${k}=${v}`).join("&"): ""}`}>
 					<IconButton>
 						<HubIcon/>
