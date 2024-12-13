@@ -5,7 +5,7 @@ services:
       context: .
       dockerfile: ./Dockerfile.next
     platform: linux/amd64
-    image: maayanlab/chea4:2.4.31
+    image: maayanlab/chea4:2.4.32
     x-kubernetes:
       strategy:
         type: Recreate
