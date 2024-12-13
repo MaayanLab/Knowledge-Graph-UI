@@ -204,7 +204,7 @@ export const cfde_theme = createTheme({
                     padding: "8px 16px",
                     ...(ownerState.variant === 'contained' &&
                       ownerState.color === 'primary' && {
-                        backgroundColor: '#71bdc9',
+                        backgroundColor: '#dbedf0',
                         color: '#336699',
                       }),
                     ...(ownerState.variant === 'contained' &&

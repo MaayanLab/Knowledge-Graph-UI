@@ -6,6 +6,8 @@ import { layouts } from '../Cytoscape';
 import Tooltip from '@mui/material/Tooltip';
 import ShareIcon from '@mui/icons-material/Share';
 
+import Button from '@mui/material/Button'
+
 import IconButton from '@mui/material/IconButton'
 
 import LinkIcon from '@mui/icons-material/Link'
@@ -401,11 +403,11 @@ const InteractiveButtons = ({
         </Grid>
         <Grid item xs={12}>
             <Stack direction={"row"} alignItems={"center"} spacing={2}>
-                <Typography variant='subtitle2'>Add additional top-ranked nodes from ChEA3:</Typography>
-                <Tooltip title={`Add additional nodes`}>
+                <Typography variant='subtitle2'>Add nodes:</Typography>
+                <Tooltip title={`Add additional top-ranked nodes from ChEA3`}>
                     <Slider 
                         color="secondary"
-                        value={edgeFilter.add_nodes !== undefined ? edgeFilter.add_nodes : 0}
+                        value={edgeFilter.add_nodes !== undefined ? edgeFilter.add_nodes : 10}
                         onChange={(e, nv:number)=>{
                             // console.log({...parsedParams, pvalue: nv})
                             // router_push(router, pathname, {
@@ -415,13 +417,13 @@ const InteractiveButtons = ({
 
                         }}
                         sx={{width: "12%"}}
-                        min={0}
+                        min={5}
                         max={25}
                         valueLabelDisplay='auto'
                         step={5}
                         aria-labelledby="node-slider" />
                 </Tooltip> 
-                <Typography variant='subtitle2'>Edge z-score:</Typography>
+                <Typography variant='subtitle2'>Minimum z-score:</Typography>
                 <Tooltip title={`Filter edges by z-score`}>
                     <Slider 
                         color="secondary"
@@ -434,14 +436,27 @@ const InteractiveButtons = ({
                         min={0}
                         valueLabelDisplay='auto'
                         aria-labelledby="z-slider" />
-                </Tooltip>
+                </Tooltip> 
                 <Tooltip title={`Filter subnetwork`}>
-                    <Link href={`${pathname}?q=${JSON.stringify({...parsedParams, ...edgeFilter})}${layout ? "&layout=" + layout: ""}`}>
+                <Link href={`${pathname}?q=${JSON.stringify({...parsedParams, ...edgeFilter})}${layout ? "&layout=" + layout: ""}`}>
                         <IconButton>
                             <SendIcon />
                         </IconButton>
                     </Link>
                 </Tooltip>
+                <div style={{ marginLeft: 'auto' }}>
+                <Tooltip title={`Reset subnetwork`}>
+                <Link href={`${pathname}?q=${JSON.stringify({...parsedParams, zscore:0, add_nodes:0})}${layout ? "&layout=" + layout: ""}`} >
+                    <Button 
+                        size="small"
+	                    variant="contained"
+	                    sx={{
+	                        padding: "7.5px 20px"
+	                    }}
+                    ><Typography color={'secondary'} variant='subtitle2'>Reset network</Typography></Button>
+                    </Link>
+                </Tooltip>    
+                </div>            
             </Stack>
         </Grid>
         {(elements && geneLinksOpen) &&

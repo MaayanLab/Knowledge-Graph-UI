@@ -145,7 +145,7 @@
                 "component":"Chea3Enrichment",
                 "props": {
                     "init_function": "initialize_enrichment",
-                    "title": "ChEA3 Transcription Factor Enrichment Analysis",
+                    "title": "Transcription Factor Enrichment Analysis with ChEA3",
                     "description": "Enter a set of Entrez gene below to perform enrichment analysis using [ChEA3](https://maayanlab.cloud/ChEA3/).",
                     "placeholder": "Enter newline separated gene sets",
                     "disableHeader": true,
