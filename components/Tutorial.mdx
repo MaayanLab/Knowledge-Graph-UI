@@ -10,11 +10,10 @@
     1. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1 - [Adjust network view](#adjust-vew)
     2. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2 - [Download network](#download)
 5. 5 - [Enrichment analysis with ChEA-KG](#chea-enrichment)
-	1. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1 - [Subnetwork](#enrichment-subnetwork)
-	2. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2 - [Search parameters](#enrichment-params)
-	3. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3 - [Perform a query](#perform-query)
+	1. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1 - [Perform a query](#perform-query)
+	2. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2 - [Filter the results](#filter-query)
+	3. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3 - [View results in a table or bar chart](#view-table)
 
-<brstyle="border: 2px solid grey;" /><brstyle="border: 2px solid grey;" />
 ## **Abstract** <a name="grn-search"></a>
 Gene expression is controlled by transcription factors that selectively bind to DNA to regulate mRNA expression of all human genes. Transcription 
 factors control the expression of other transcription factors, forming a complex gene regulatory network (GRN) with switches, feedback loops, and 
@@ -36,9 +35,8 @@ serves as the source node, and the TFs in the gene set, which become the targets
 
 **Nodes** 
 
-The 1,554 TFs are the TFs found to be highly enriched for any RummaGEO gene set [ChEA3 primary libraries](https://maayanlab.cloud/chea3/). 
-Each node is associated with an **id, label**, and **URI** that points to the NCBI gene page for that gene.  
-
+There are 1,554 nodes representing TFs that are found to be highly enriched for any RummaGEO gene set based on the 1,632 TFs cataloged by the [ChEA3 primary libraries](https://maayanlab.cloud/chea3/). 
+Each node is associated with an **id, label**, and **URI** that points to the NCBI gene page for that gene.   
 
 **Edges** 
 
@@ -46,7 +44,7 @@ Edges in the GRN indicate regulatory relationships between source and target TFs
     1 - <span style="color: red;">Red</span> plungers indicate downregulation  
     2 - <span style="color: green;">Green</span> arrows indicate upregulation  
 
-<img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/introduction1.png" alt="drawing" width="400"style="border: 2px solid grey;" /> 
+<img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/introduction1.png" alt="drawing" width="400"/> 
 **Figure 1.** The ChEA-KG consists of one node type (TFs) and two edge types (upregulated and downregulated). 
 
 <p>&nbsp;</p>
@@ -58,9 +56,9 @@ results, and the toolbar provides buttons to interact with the results. The foll
 
 #### *Single Term Search* <a name="single-search"></a>
 To perform a single-term search, start typing in the name of the Entrez gene symbol of a TF into the "Start with" field (Figure 2). If the node exists in the network, it will show up in the autocomplete drop-down menu.
-To perform the search, click on the node name in the menu. Alternatively, search either of the two example nodes by clicking on their names. 
+To perform the search, click on the node name in the menu. Alternatively, search either of the two example nodes by clicking on their names under "Example". 
 This generates a subnetwork of relationships between the search TF and its immediate neighbors.   
-<img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/single-term.png" alt="drawing" width="800"style="border: 2px solid grey;" /> 
+<img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/single-term.png" alt="drawing" width="800"style="border: 1px solid grey;" /> 
 **Figure 2.** Subnetwork produced by a single-term search for LYL1.  
 
 
@@ -68,7 +66,7 @@ This generates a subnetwork of relationships between the search TF and its immed
 The expanded single term search displays a single-term subnetwork with an additional layer of relationships. To perform this search, input an Entrez
 gene symbol into the "Start with" field and click on its name in the autocomplete drop-down menu. Next, toggle the "End Node" switch on (Figure 3). 
 Leave the "End with" field **blank**. Control the size of the subnetwork using the slider above the network view. 
-<img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/subgraph.png" alt="drawing" width="800"style="border: 2px solid grey;" /> 
+<img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/subgraph.png" alt="drawing" width="800"style="border: 1px solid grey;" /> 
 **Figure 3.** An expanded LYL1 subnetwork is produced by toggling "End node".   
 
 
@@ -76,37 +74,39 @@ Leave the "End with" field **blank**. Control the size of the subnetwork using t
 The two-term search displays shortest path between two TFs (Figure 4). In the case where there is a tie for the shortest path 
 length, all paths of that length are displayed. To perform this search, enter a starting transcription factor in the "Start with" field. Select its name 
 from the autocomplete drop-down menu. Toggle the "End Node" switch, then input a desired end node in the "End with" field. 
-<img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/two-term.png" alt="drawing" width="800"style="border: 2px solid grey;" /> 
+<img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/two-term.png" alt="drawing" width="800"style="border: 1px solid grey;" /> 
 **Figure 4.** Subnetwork produced by a two-term search for LYL1 and CHCHDC3.  
 
-
+<p>&nbsp;</p>
 ## **Interacting with the subnetwork using the toolbar** <a name="interact-network"></a>
 Basic navigation such as zooming in or out and highlighting nodes and edges are accomplished with the mouse. The toolbar above the network
-view provides several buttons for additional methods of interacting with the subnetwork. From left to right, these tools are Size, Full-screen, 
-Network View, Table View, Save Subnetwork, Download Graph as an Image File, Show Tooltip, Switch Graph Layout, Show Edge Labels, and Show Legend.     
+view provides several buttons for additional methods of interacting with the subnetwork. From left to right, these tools are **Size, Full-screen, 
+Network View, Table View, Save Subnetwork, Download Graph as an Image File, Show Tooltip, Switch Graph Layout, Show Edge Labels, and Show Legend**.     
 <p>&nbsp;</p>
 
 #### *Adjust the Network View:* <a name="adjust-view"></a>  
 **Basic navigation** 
-* To rearrange individual network nodes,* click and drag on any node. Use the mouse to zoom in and out of the network. 
-* To emphasize a node and its edges,* hover your mouse over the node. Click on the node to temporarily highlight its edges (Figure 5). 
-* Click and drag the whitespace *to move the whole subnetwork.*  
- <img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/highlight.png" alt="drawing" width="800"style="border: 2px solid grey;" />  
+* To rearrange individual network nodes, click and drag on any node. Use the mouse to zoom in and out of the network. 
+* To emphasize a node and its edges, hover your mouse over the node. Click on the node to temporarily highlight its edges (Figure 5). 
+* Click and drag the whitespace to move the whole subnetwork.  
+ <img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/highlight.png" alt="drawing" width="800"style="border: 1px solid grey;" />  
  **Figure 5.** Highlight a node and its edges by clicking on it.  
 <p>&nbsp;</p>
 
 **Adjust Subnetwork Size:**  
 Adjust the size slider to limit the number of relationships displayed for that network (Figure 6). This adds or subtracts edge relationships from the subnetwork.
  Relationships are prioritized based on their z-score. 
-<img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/network_size.png" alt="drawing" width="800"style="border: 2px solid grey;" /> 
+<img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/network_size.png" alt="drawing" width="800"style="border: 1px solid grey;" /> 
 **Figure 6.** Adjusting the slider changes the number of relationships displayed subnetwork.  
 
 
 **Full Screen:**  
 Clicking on the full-screen button displays the search panel, network view, and toolbar in full-screen.  
+
+
 **Enable the Tooltip:**  
-The tooltip is used to see more information about a node in the network. The tooltip lists the ID, label, and URI for a node.  view the ID, label, and URI for a node when the mouse hovers over or clicks on a node in the network (Figure 7). 
-<img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/tooltip.png" alt="drawing" width="800"style="border: 2px solid grey;" /> 
+The tooltip is used to see more information about a node in the network. The tooltip lists the ID, label, and URI for a node. View the ID, label, and URI for a node when the mouse hovers over or clicks on a node in the network (Figure 7). 
+<img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/tooltip.png" alt="drawing" width="800"style="border: 1px solid grey;" /> 
 **Figure 7.** Enabling the tooltip displays the node ID, label, and URI for each node that is clicked or hovered over.  
 
 
@@ -114,50 +114,48 @@ The tooltip is used to see more information about a node in the network. The too
 The tooltip also provides options to add relationships involving that node to the subnetwork results (expand), or to view the single-term search results for that node in a new page (open node in a new page) (Figure 8). 
 In the single-term search and expanded single-term search, the tooltip also provides the option to delete nodes from the results (Figure 9).
 To use these options, with the tooltip enabled click on the node of interest to view its tooltip. Click on the "delete", "expand", or "open node in a new page" icons to perform the action.  
-*Expand the CTCFL node by clicking expand:*  
-<img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/expand1.png" alt="drawing" width="500"style="border: 2px solid grey;" />
-<img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/expand2.png" alt="drawing" width="500"style="border: 2px solid grey;" /> 
+*Expand the CTCFL node by clicking expand (Figure 8):*  
+<img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/expand1.png" alt="drawing" width="500"style="border: 1px solid grey;" />
+<img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/expand2.png" alt="drawing" width="500"style="border: 1px solid grey;" /> 
 **Figure 8.** Expand the CTCFL node by clicking expand (top). This displays additional relationships involving the CTCFL node (bottom). 
-
 <p>&nbsp;</p>
-
-*Delete the expanded CTCFL node by clicking delete (Figure 8):*  
-<img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/delete1.png" alt="drawing" width="500"style="border: 2px solid grey;" />
-<img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/delete2.png" alt="drawing" width="500"style="border: 2px solid grey;" />
-**Figure 8.** Remove the CTCFL node by clicking delete (top). This removes the CTCFL node and its relationships (bottom).  
+*Delete the expanded CTCFL node by clicking delete (Figure 9):*  
+<img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/delete1.png" alt="drawing" width="500"style="border: 1px solid grey;" />
+<img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/delete2.png" alt="drawing" width="500"style="border: 1px solid grey;" />
+**Figure 9.** Remove the CTCFL node by clicking delete (top). This removes the CTCFL node and its relationships (bottom).  
   
 **Network and Table View:**  
-In addition to the network view, there is also the option to view the network as a table. To change between the network and table view, click on their respective buttons (Figure 9). Three tables are produced, one for the nodes and one for each edge type,
-which show the data associated with each node and edge. The tables contain the following fields:
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Nodes: Transcription Factor ID, Transcription Factor symbol, URI
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Edges (upregulated and downregulated):  Source, relation, target, z score, p value
+In addition to the network view, there is also the option to view the network as a table. To change between the network and table view, click on their respective buttons (Figure 10). Three tables are produced, one for the nodes and one for each edge type,
+which show the data associated with each node and edge. The tables contain the following fields:  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Nodes: Transcription Factor ID, Transcription Factor symbol, URI   
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Edges (upregulated and downregulated):  Source, relation, target, z score, p value   
 Switch between the table results using the tabs at the top. Invidual entries can be searched by entering an item into the "Search Results" field. 
 The table can be exported as a CSV file or printed using the "Export" button to the right of the search bar. Click on any of the header titles to sort the table according to that field. Adjust the 
 number of results displayed and view additional entries using the buttons at the bottom of the table. 
-<img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/table_view.png" alt="drawing" width="800"style="border: 2px solid grey;" /> 
-**Figure 9.** View the network as a table using the Table View button.  
+<img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/table_view.png" alt="drawing" width="800"style="border: 1px solid grey;" /> 
+**Figure 10.** View the network as a table using the Table View button.  
 
 
 **Switch Graph Layout:**  
 The network view provides three graph layouts from Cytoscape. These are force-directed (emphasizes clustering), geometric (organizes nodes into circle; emphasizes density), and hierarchical (useful for tree-like graphs).
 More information about graph layout algorithms is available on the [Cytoscape blog](https://blog.js.cytoscape.org/2020/05/11/layouts/#classes-of-layouts). Switch between the graph 
-layouts by clicking on the Graph Layout button, and then clicking on the name of the desired layout (Figure 10). 
-<img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/heirarchical-layout.png" alt="drawing" width="800"style="border: 2px solid grey;" /> 
-**Figure 10.** Switch to a hierarchical layout using the Graph Layout button. 
+layouts by clicking on the Graph Layout button, and then clicking on the name of the desired layout (Figure 11). 
+<img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/heirarchical-layout.png" alt="drawing" width="800"style="border: 1px solid grey;" /> 
+**Figure 11.** Switch to a hierarchical layout using the Graph Layout button. 
 
 **Show Edge Labels:**  
-To overlay the edge labels ("upregulates" and "downregulates") on the graph edges, click on the Edge Labels button. (Figure 11).
-<img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/edge-label.png" alt="drawing" width="800"style="border: 2px solid grey;" /> 
-**Figure 11.** Display the edge labels using the Edge Labels button.  
+To overlay the edge labels ("upregulates" and "downregulates") on the graph edges, click on the Edge Labels button. (Figure 12).
+<img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/edge-label.png" alt="drawing" width="800"style="border: 1px solid grey;" /> 
+**Figure 12.** Display the edge labels using the Edge Labels button.  
 
 **Show Legend:**  
-To display a legend describing the node and edge colors, use the Show Legend button (Figure 12). On clicking this button, an additional toolbar button is displayed that, when clicked, adjusts the size of the legend.  
-<img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/legend.png" alt="drawing" width="800"style="border: 2px solid grey;" /> 
-**Figure 12.** Show and adjust the size of the legend. 
+To display a legend describing the node and edge colors, use the Show Legend button (Figure 13). On clicking this button, an additional toolbar button is displayed that, when clicked, adjusts the size of the legend.  
+<img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/legend.png" alt="drawing" width="800"style="border: 1px solid grey;" /> 
+**Figure 13.** Show and adjust the size of the legend. 
  
 
 #### *Download the Subnetwork:*  <a name="download"></a>
-There are two methods of saving the subnetwork: saving the network to a file or saving the network as an image. 
+There are two methods of saving the subnetwork: saving the network to a file or saving the network as an image.  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*Save subnetwork:* Save the subnetwork to a file. This produces two files:   
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1&nbsp;-&nbsp;nodes.csv has the fields [id, label, kind, uri, color]  
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2&nbsp;-&nbsp;edges.csv has the  fields [source, target, relation, source_label, target_label, kind, p_value, z_score]  
@@ -166,48 +164,47 @@ There are two methods of saving the subnetwork: saving the network to a file or 
 <p>&nbsp;</p>
 
 ## **Enrichment Analysis with ChEA-KG** <a name="chea-enrichment"></a>
-The enrichment analysis page provides the option to input a gene set for ChEA3 enrichment analysis and visualize the results as a subnetwork of the GRN. The landing page is shown in Figure 13. 
-<img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/enrichment_home1.png" alt="drawing" width="600"style="border: 2px solid grey;" /> 
-**Figure 13.** The "Enrichment" tab landing page.  
+The enrichment analysis page provides the option to input a gene set for ChEA3 enrichment analysis and visualize the results as a subnetwork of the GRN. The landing page is shown in Figure 14. 
+<img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/enrichment_home1.png" alt="drawing" width="700"style="border: 1px solid grey;" /> 
+**Figure 14.** The "Enrichment" tab landing page.  
 
-### Enrichment Analysis Subnetwork <a name="enrichment-subnetwork"></a>
-This feature generates a subnetwork of the GRN containing the TFs with the highest integrated mean rank for that gene set (Figure 14). By default, the top 10 ranked TFs that appear in at least 3 out of 6 ChEA3 primary libraries are included. The ChEA3 integrated mean rank is calculated from the average rank across six libraries: Enrichr Queries, GTEx Coexpression, ARCHS4 Coexpression, ENCODE ChIP-seq, Literature ChIP-seq, and ReMap ChIP-seq. For more information on how the ChEA3 Integrated Mean Rank is calculated, visit the [ChEA3 website](https://maayanlab.cloud/chea3/). 
+This feature generates a subnetwork of the GRN containing the TFs with the highest integrated mean rank for that gene set. By default, the top 10 ranked TFs that appear in at least 3 out of 6 ChEA3 primary libraries are included. The ChEA3 integrated mean rank is calculated from the average rank across six libraries: Enrichr Queries, GTEx Coexpression, ARCHS4 Coexpression, ENCODE ChIP-seq, Literature ChIP-seq, and ReMap ChIP-seq. For more information on how the ChEA3 Integrated Mean Rank is calculated, visit the [ChEA3 website](https://maayanlab.cloud/chea3/). 
 
 *NOTE:* There are approximately 80 TFs cataloged by ChEA3 that are not included in the ChEA-KG GRN, meaning that the network may contain fewer than the specified number of ranked nodes, if those ranked nodes do not exist in the ChEA-KG network.  
 
-### Perform a Query:<a name="perform-query"></a>
-To perform a query, input a list of newline-separated Entrez gene symbols into the text box. The submitted genes are automatically checked for validity, and invalid gene symbols are flagged. Add a description under the "Description" field. Click "Submit".  To use an example gene set, click "try an example" (Figure 14). 
-<img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/tutorial_enrichment/example.png" alt="drawing" width="600 style="border: 2px solid grey;" />  
-**Figure 14***. Performing a ChEA-KG query using the example gene set.  
+### *Perform a Query:*<a name="perform-query"></a>
+To perform a query, input a list of newline-separated Entrez gene symbols into the text box. The submitted genes are automatically checked for validity, and invalid gene symbols are flagged. Add a description under the "Description" field. Click "Submit".  To use an example gene set, click "try an example" (Figure 15). 
+<img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/tutorial_enrichment/example.png" alt="drawing" width="700" style="border: 1px solid grey;" />  
+**Figure 15**. Performing a ChEA-KG query using the example gene set.  
   
-Clicking "submit" to view the resulting TF network (Figure 15). The toolbar at the top containing options to reformat and 
+Click "submit" to view the resulting TF network (Figure 16). The toolbar at the top containing options to reformat and 
 interact with the network. Details about the toolbar features are provided [here](#adjust-view). New queries can be performed using the form on the left.  
-<img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/tutorial_enrichment/example_results.png" alt="drawing" width="600" style="border: 2px solid grey;" />   
-**Figure 15.** Subnetwork of enriched TFs for the example gene set. Yellow nodes are enriched TFs that are also present in the input gene set.  
+<img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/tutorial_enrichment/example_results.png" alt="drawing" width="700" style="border: 1px solid grey;" />   
+**Figure 16.** Subnetwork of enriched TFs for the example gene set. Yellow nodes are enriched TFs that are also present in the input gene set.  
   
-### Filter query results and add more nodes
+### *Filter query results and add more nodes* *<a name="filter-query"></a>
 The initial query results can be adjusted to add nodes or filter edges by z-score using the two sliders above the network view. Adjust "Add nodes" 
 to add the next 5-25 ranked nodes. Adjust the z-score to remove edges below the z-score cutoff. ("Filter subnetwork") to apply the changes. To reset the subnetwork to the original results, click "Reset network".   
   
-**Example**
-Adjust "Add nodes" to 15 and click the send icon ("Filter subnetwork"). The network now shows the top 25 TFs for the gene set (Figure 16).  
-<img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/tutorial_enrichment/adding_nodes.png" alt="drawing" width="400" style="border: 2px solid grey;" />  
-<img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/tutorial_enrichment/added_nodes.png" alt="drawing" width="400" style="border: 2px solid grey;" />  
-**Figure 16.** Add 15 more top-ranked nodes by adjusting the "Add nodes" slider (top). The network now displays the top 25 nodes (bottom). 
+**Example**  
+Adjust "Add nodes" to 15 and click the send icon ("Filter subnetwork"). The network now shows the top 25 TFs for the gene set (Figure 17).  
+<img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/tutorial_enrichment/adding_nodes.png" alt="drawing" width="500" style="border: 1px solid grey;" />  
+<img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/tutorial_enrichment/added_nodes.png" alt="drawing" width="500" style="border: 1px solid grey;" />  
+**Figure 17.** Add 15 more top-ranked nodes by adjusting the "Add nodes" slider (top). The network now displays the top 25 nodes (bottom). 
    
 Without resetting the network, now adjust the "minimum z-score" filter to remove edges with a z-score less than 10 and click the send icon ("Filter subnetwork). The network now shows
-up to the top 25 TFs and edges with a zscore of more than 10. Only nodes with significant edges are kept (Figure 17).  
-<img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/tutorial_enrichment/filtering_z.png" alt="drawing" width="400" style="border: 2px solid grey;" />  
-<img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/tutorial_enrichment/z-filtered.png" alt="drawing" width="400" style="border: 2px solid grey;" />  
-**Figure 17.** Filter out edges with a zscore of less than 10 by adjusting the slider (top). The network now contains only nodes with significant edges (bottom).
+up to the top 25 TFs and edges with a zscore of more than 10. Only nodes with significant edges are kept (Figure 18).  
+<img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/tutorial_enrichment/filtering_z.png" alt="drawing" width="500" style="border: 1px solid grey;" />  
+<img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/tutorial_enrichment/z-filtered.png" alt="drawing" width="500" style="border: 1px solid grey;" />  
+**Figure 18.** Filter out edges with a zscore of less than 10 by adjusting the slider (top). The network now contains only nodes with significant edges (bottom).
 
-### View results in a table or bar chart
+### *View results in a table or bar chart* <a name="view-table"></a>
 The table view shows the enriched nodes, whether they also exist in the input gene set, the node's URI, and the score and number of overlapping genes.
-The score indicates how relevant the gene set is to the enriched TF, with a lower score indicating higher relevancy. The overlapping genes is the 
-number of genes shared between the input gene set and the TF's annotated targets (Figure 18). The bar view shows the enriched TFs ordered by their score.
-Mousing over each bar displays a tooltip with the score and number of overlapping genes for that TF (Figure 19). 
-<img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/tutorial_enrichment/table_view.png" alt="drawing" width="600 style="border: 2px solid grey;" />  
-**Figure 18.** View the results as a table. 
+The score indicates how relevant the gene set is to the enriched TF, with a lower score indicating higher relevancy. "Overlapping genes" is the 
+number of genes shared between the input gene set and the TF's annotated targets (Figure 19). The bar view shows the enriched TFs ordered by their score.
+Mousing over each bar displays a tooltip with the score and number of overlapping genes for that TF (Figure 20). 
+<img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/tutorial_enrichment/table_view.png" alt="drawing" width="700 style="border: 1px solid grey;" />  
+**Figure 19.** View the results as a table. 
 
-<img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/tutorial_enrichment/bar_view_tooltip.png" alt="drawing" width="600" style="border: 2px solid grey;" />  
-**Figure 19.** View the results as a bar chart. 
+<img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/tutorial_enrichment/bar_view_tooltip.png" alt="drawing" width="600" style="border: 1px solid grey;" />  
+**Figure 20.** View the results as a bar chart. 

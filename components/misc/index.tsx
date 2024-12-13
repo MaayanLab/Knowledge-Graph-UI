@@ -96,9 +96,14 @@ export const Legend = ({
         relation_colors[relation] = <Grid item xs={12} key={relation}>
           <Grid container alignItems={"center"} spacing={1}>
             <Grid item><hr style={{color: lineColor, height: lineHeight[legendSize], backgroundColor: lineColor, width: lineWidth[legendSize], borderStyle: i.data.hidden ? 'dotted': 'solid'}}/></Grid>
-            <Grid item><Typography variant="subtitle1">{relation}</Typography></Grid>   
-          </Grid></Grid>
-      }
+            <Grid item><Typography variant="subtitle1">{relation.replace(/upregulates|downregulates/g, match => {
+              if (match === "upregulates") {
+                return "Activation links";
+              } else if (match === "downregulates") {
+                return "Inhibition links";
+              }})}</Typography></Grid>   
+                      </Grid></Grid>
+                  }
       if (colors[kind]===undefined && color !== "#ff8a80" && kind !== "Relation") {
         color_sum[kind] = color
         colors[kind] = <Grid item xs={12} key={kind}>
