@@ -47,7 +47,7 @@ Edges in the GRN indicate regulatory relationships between source and target TFs
     2 - <span style="color: green;">Green</span> arrows indicate upregulation  
 
 <img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/introduction1.png" alt="drawing" width="400"/> 
-**Figure 1.** The ChEA-KG consists of one node type (transcription factors) and two edge types (upregulated and downregulated). 
+**Figure 1.** The ChEA-KG consists of one node type (TFs) and two edge types (upregulated and downregulated). 
 
 <p>&nbsp;</p>
 
@@ -73,7 +73,7 @@ Leave the "End with" field **blank**. Control the size of the subnetwork using t
 
 
 #### *Two Term Search* <a name="two-term-search"></a>
-The two-term search displays shortest path between two transcription factors (Figure 4). In the case where there is a tie for the shortest path 
+The two-term search displays shortest path between two TFs (Figure 4). In the case where there is a tie for the shortest path 
 length, all paths of that length are displayed. To perform this search, enter a starting transcription factor in the "Start with" field. Select its name 
 from the autocomplete drop-down menu. Toggle the "End Node" switch, then input a desired end node in the "End with" field. 
 <img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/two-term.png" alt="drawing" width="800"/> 
@@ -165,21 +165,49 @@ There are two methods of saving the subnetwork: saving the network to a file or 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*Download graph as an image file:* Clicking on this button shows a menu of image formats. Click on the appropriate one to save an image of the current subnetwork view.  
 <p>&nbsp;</p>
 
-
 ## **Enrichment Analysis with ChEA-KG** <a name="chea-enrichment"></a>
-The enrichment analysis page provides an option to visualize a subnetwork of the GRN based on ChEA3 enrichment analysis results (Figure 13). 
+The enrichment analysis page provides the option to input a gene set for ChEA3 enrichment analysis and visualize the results as a subnetwork of the GRN. The landing page is shown in Figure 13. 
 <img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/enrichment_home1.png" alt="drawing" width="1200"/> 
-**Figure 13.** Switch to a hierarchical layout using the graph layout button.  
+**Figure 13.** The "Enrichment" tab landing page.  
 
 ### Enrichment Analysis Subnetwork <a name="enrichment-subnetwork"></a>
-The subnetwork returned by this feature contains transcription factors with the highest integrated mean rank for that gene set (Figure 14). By default, the top 10 ranked TFs are returned. The ChEA3 integrated mean rank is calculated from the average rank across six libraries: Enrichr Queries, GTEx Coexpression, ARCHS4 Coexpression, ENCODE ChIP-seq, Literature ChIP-seq, and ReMap ChIP-seq. For more information on how the ChEA3 Integrated Mean Rank is calculated, visit the [ChEA3 website](https://maayanlab.cloud/chea3/). 
-**Figure 14.** Enrichment analysis produces a subnetwork of enriched TFs for a gene set. 
+This feature generates a subnetwork of the GRN containing the TFs with the highest integrated mean rank for that gene set (Figure 14). By default, the top 10 ranked TFs that appear in at least 3 out of 6 ChEA3 primary libraries are included. The ChEA3 integrated mean rank is calculated from the average rank across six libraries: Enrichr Queries, GTEx Coexpression, ARCHS4 Coexpression, ENCODE ChIP-seq, Literature ChIP-seq, and ReMap ChIP-seq. For more information on how the ChEA3 Integrated Mean Rank is calculated, visit the [ChEA3 website](https://maayanlab.cloud/chea3/). 
 
-### Enrichment Analysis Search Parameters: <a name="enrichment-params"></a>
-There are three advanced search options that can be adjusted by toggling "Advanced Options".  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1 - Minimum libraries: This filters out nodes from the enrichment results if they occur in fewer than the specified number of ChEA3 libraries (maximum of 6)  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2 - Maximum edge p-value: Specify the maximum p-value of an edge.  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3 - Specify number of nodes: Specify how many top ranked nodes.  
+*NOTE:* There are approximately 80 TFs cataloged by ChEA3 that are not included in the ChEA-KG GRN, meaning that the network may contain fewer than the specified number of ranked nodes, if those ranked nodes do not exist in the ChEA-KG network.  
 
 ### Perform a Query:<a name="perform-query"></a>
-To perform a query, input a list of newline-separated Entrez gene symbols into the text box. Alternatively, click "try an example" to use an example gene set. Add a description under the "Description" field. Adjust the advanced options as necessary. Click submit. 
+To perform a query, input a list of newline-separated Entrez gene symbols into the text box. The submitted genes are automatically checked for validity, and invalid gene symbols are flagged. Add a description under the "Description" field. Click "Submit".  To use an example gene set, click "try an example" (Figure 14). 
+<img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/tutorial_enrichment/example.png" alt="drawing" width="800 />  
+**Figure 14***. Performing a ChEA-KG query using the example gene set.  
+  
+Clicking "submit" to view the resulting TF network (Figure 15). The toolbar at the top containing options to reformat and 
+interact with the network. Details about the toolbar features are provided [here](#adjust-view). New queries can be performed using the form on the left.  
+<img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/tutorial_enrichment/example_results.png" alt="drawing" width="800 />   
+**Figure 15.** Subnetwork of enriched TFs for the example gene set. Yellow nodes are enriched TFs that are also present in the input gene set.  
+  
+### Filter query results and add more nodes
+The initial query results can be adjusted to add nodes or filter edges by z-score using the two sliders above the network view. Adjust "Add nodes" 
+to add the next 5-25 ranked nodes. Adjust the z-score to remove edges below the z-score cutoff. ("Filter subnetwork") to apply the changes. To reset the subnetwork to the original results, click "Reset network".   
+  
+**Example**
+Adjust "Add nodes" to 15 and click the send icon ("Filter subnetwork"). The network now shows the top 25 TFs for the gene set (Figure 16).  
+<img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/tutorial_enrichment/adding_nodes.png" alt="drawing" width="800 />  
+<img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/tutorial_enrichment/added_nodes.png" alt="drawing" width="800 />  
+**Figure 16.** Add 15 more top-ranked nodes by adjusting the "Add nodes" slider (top). The network now displays the top 25 nodes (bottom). 
+   
+Without resetting the network, now adjust the "minimum z-score" filter to remove edges with a z-score less than 10 and click the send icon ("Filter subnetwork). The network now shows
+up to the top 25 TFs and edges with a zscore of more than 10. Only nodes with significant edges are kept (Figure 17).  
+<img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/tutorial_enrichment/filtering_z.png" alt="drawing" width="800 />  
+<img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/tutorial_enrichment/z-filtered.png" alt="drawing" width="800 />  
+**Figure 17.** Filter out edges with a zscore of less than 10 by adjusting the slider (top). The network now contains only nodes with significant edges (bottom).
+
+### View results in a table or bar chart
+The table view shows the enriched nodes, whether they also exist in the input gene set, the node's URI, and the score and number of overlapping genes.
+The score indicates how relevant the gene set is to the enriched TF, with a lower score indicating higher relevancy. The overlapping genes is the 
+number of genes shared between the input gene set and the TF's annotated targets (Figure 18). The bar view shows the enriched TFs ordered by their score.
+Mousing over each bar displays a tooltip with the score and number of overlapping genes for that TF (Figure 19). 
+<img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/tutorial_enrichment/table_view.png" alt="drawing" width="800 />  
+**Figure 18.** View the results as a table. 
+
+<img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/tutorial_enrichment/bar_view_tooltip.png" alt="drawing" width="800 />  
+**Figure 19.** View the results as a bar chart. 
