@@ -254,6 +254,20 @@
                         "width": 150
                     }
                 }
+            ],
+            [
+                {
+                    "component": "icon",
+                    "props": {
+                        "type": "icon",
+                        "key": "center_icon",
+                        "src": "https://minio.dev.maayanlab.cloud/hgrn-chear/license.png",
+                        "alt": "COB",
+                        "href": "https://creativecommons.org/licenses/by-sa/2.0/deed.en",
+                        "height": 60,
+                        "width": 150
+                    }
+                }
             ]
         ],
         "footer_text": "<span style='color:white'>This website was prepared using KG UI. KG UI is being developed by the Ma'ayan Lab at Icahn School of Medicine and is available <a style='color: #81A1C1' href='https://github.com/MaayanLab/KnowledgeGraphUIDemo'>here.</a></span>"

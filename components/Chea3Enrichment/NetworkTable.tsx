@@ -24,7 +24,7 @@ const header: GridColDef[] = [
     {
         field: 'uri',
         headerName: "uri",
-        flex: 1,
+        flex: 2,
         align: "left"
     },
     {
