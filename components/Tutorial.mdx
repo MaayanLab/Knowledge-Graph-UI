@@ -3,22 +3,22 @@
 1. 1 - [Abstract](#abstract)
 2. 2 - [The ChEA-KG GRN](#introduction)
 3. 3 - [Searching the KG](#grn-search)
-	1. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1 - [Single term search](#single-search)
-    2. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2 - [Expanded single term search](#subgraph-search)
-	3. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3 - [Two term search](#two-term-search)
+	1. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1 - Single term search
+    2. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2 - Expanded single term search
+	3. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3 - Two term search
 4. 4 - [Interacting with the subnetwork using the toolbar](#interact-network)
-    1. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1 - [Adjust network view](#adjust-vew)
-    2. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2 - [Downloading the network](#download)
+    1. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1 - Adjust network view
+    2. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2 - Downloading the network
 5. 5 - [Enrichment analysis with ChEA-KG](#chea-enrichment)
-	1. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1 - [Performing a query](#perform-query)
-	2. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2 - [Filtering the results](#filter-query)
-	3. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3 - [Viewing results in a table or bar chart](#view-table)
+	1. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1 - Performing a query
+	2. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2 - Filtering the results
+	3. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3 - Viewing results in a table or bar chart
 
 ## **Abstract** <a name="grn-search"></a>
 Gene expression is controlled by transcription factors that selectively bind to DNA to regulate mRNA expression of all human genes. Transcription factors control the expression of other transcription factors, forming a complex gene regulatory network (GRN) with switches, feedback loops, and other regulatory motifs. Many experimental methods and computational tools have been developed to reconstruct GRNs in-silico. Here we present a different approach to reconstruct the human GRN. By submitting thousands of gene sets from the RummaGEO resource for transcription factor enrichment analysis with ChEA3, we are able to distill signed and directed edges that connect all human transcription factors to construct a high quality human GRN. The GRN has 130,793 signed and directed edges between 703 source and 1,543 target transcription factors. The network is made accessible via an interactive web-based application called ChEA-KG. ChEA-KG enables users to query the GRN by searching for single or pairs of transcription factors, as well as by submitting gene sets to perform transcription factor enrichment analysis with ChEA3 and then place the enriched transcription factors in context of ChEA-KG. To demonstrate the utility of ChEA-KG, we systematically identified transcription factor subnetworks that regulate differentially expressed genes in tumors from ten cancer types, and 69 subtypes, profiled by the Clinical Proteomic Tumor Analysis Consortium (CPTAC).    
 
 ## **The ChEA-KG GRN** <a name="introduction"></a>
-ChEA-KG visualizes a human GRN that connects **1,554** transcription factors (TFs) with signed, directed edges that indicate up- or down-regulatory 
+ChEA-KG visualizes a human GRN that connects **1,553** transcription factors (TFs) with signed, directed edges that indicate up- or down-regulatory 
 relationships between TFs. There are **63,375** upregulated edges and **67,418** downregulated edges in the GRN. The network is constructed by inputting **171,441** human gene 
 sets from [RummaGEO](https://rummageo.com) into ChEA3 for enrichment analysis. For each gene set, edges are identified between each enriched TF, which 
 serves as the source node, and the TFs in the gene set, which become the targets. The final ChEA-KG network is filtered by edge significance using a z-test and a p-value threshold of (p < 0.01).    
@@ -52,13 +52,13 @@ To perform a single-term search, start typing the name of a valid Entrez gene sy
 #### *Expanded single term search* <a name="subgraph-search"></a>
 The single term search displays a subnetwork centered around a specific TF while the expanded single term search shows more in depth interactions centered on the same TF. To perform an expanded search of a single TF, input the Entrez gene symbol of the search TF into the "Start with" field, and click on its name in the autocomplete drop-down menu. Next, toggle the "End Node" switch on (Fig. 3). Leave the "End with" field blank. Control the size of the subnetwork using the slider above the network view.   
 <img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/subgraph.png" alt="drawing" width="800"style="border: 1px solid grey;" /> 
-**Fig. 3.** An expanded LYL1 subnetwork produced by toggling "End node" switch on and leaving the text box for the end node blank.    
+**Fig. 3.** An expanded LYL1 subnetwork produced by toggling the "End node" switch on and leaving the text box for the end node blank.    
 
 
 #### *Two term search* <a name="two-term-search"></a>
 The two-term search displays the shortest path between two TFs (Fig. 4). In the case where there is a tie for the shortest paths of the same length, all paths of that length will be displayed. To perform the search, enter a starting TF in the "Start with" textbox. Select its name from the autocomplete drop-down menu. Toggle the "End node" switch on, then input a desired end TF in the "End with" field.  
 <img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/two-term2.png" alt="drawing" width="800"style="border: 1px solid grey;" /> 
-**Fig. 4.** Fig. 4. Subnetwork produced by a two-term search for finding paths that connect the TFs LYL1 and CHCHDC3. The subnetwork size has been limited to 11, using the “Size:” slider above the network view.   
+**Fig. 4.** Fig. 4. Subnetwork produced by a two-term search for finding paths that connect the TFs LYL1 and CHCHDC3. The subnetwork size has been limited to 11, using the slider above the network view.   
 
 <p>&nbsp;</p>
 ## **Interacting with the subnetwork using the toolbar** <a name="interact-network"></a>
@@ -66,15 +66,14 @@ Basic navigation such as zooming in and out, and highlighting nodes and edges ar
 <p>&nbsp;</p>
 
 #### *Adjust the network view* <a name="adjust-view"></a>  
-**Basic navigation** 
+**Basic navigation**   
 To rearrange individual network nodes, click on a node and drag it. Use the mouse wheel to zoom in and out. To emphasize a TF and its edges, hover over the TF node with the mouse pointer. Click on the TF to highlight its edges (Fig. 5). Click and drag the whitespace to move the entire subnetwork and pan.    
  <img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/highlight.png" alt="drawing" width="800"style="border: 1px solid grey;" />  
  **Fig. 5.** Highlight a TF and its edges by clicking on it.  
 <p>&nbsp;</p>
 
 **Adjusting the subnetwork size**  
-Adjust the size slider to limit the number of relationships displayed for that network (Figure 6). This adds or subtracts edge relationships from the subnetwork.
- Relationships are prioritized based on their z-score. Z-scores are calculated from expected counts generated by randomly shuffling the network.  
+Adjust the size of the subnetwork with the slider to limit the number of relationships displayed (Fig. 6). This adds or subtracts edges for the subnetwork. Edges are prioritized based on their z-score. Relationships are prioritized based on their z-score. Z-scores are calculated from expected counts generated by randomly shuffling the network.  
 <img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/network_size.png" alt="drawing" width="800"style="border: 1px solid grey;" /> 
 **Fig. 6.** Adjusting the slider changes the number of edges.  
 
@@ -107,16 +106,13 @@ The tooltip also provides options to add additional edges for the selected TF (e
 **Subnetwork and table views**  
 In addition to the subnetwork view, there is also the option to view the subnetwork as a table. To change between the subnetwork and table views, click on their respective buttons (Fig. 10). Three tables are produced, one for the nodes, one for the upregulation edges, and one for downregulation edges. The tables contain the following fields:    
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Nodes: TF ID, symbol, and URI   
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Edges (upregulated and downregulated):  Source, relation, target, Z score, p-value   
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Edges:  Source, relation, target, Z score, p-value   
 Individual entries can be searched by entering a search term into the "Search Results" field. The table can be exported as a CSV file or printed using the "Export" button to the right of the search bar. Clicking on any of the header titles sorts the table according to that field. Adjusting the number of results displayed adds more entries.   
 <img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/table_view.png" alt="drawing" width="800"style="border: 1px solid grey;" /> 
 **Fig. 10.** Viewing the subnetwork as a table with the Table View button.   
 
 
 **Switching to the graph layout**  
-The network view provides three graph layouts from Cytoscape. These are force-directed (emphasizes clustering), geometric (organizes nodes into circle; emphasizes density), and hierarchical (useful for tree-like graphs).
-More information about graph layout algorithms is available on the [Cytoscape blog](https://blog.js.cytoscape.org/2020/05/11/layouts/#classes-of-layouts). Switch between the graph 
-layouts by clicking on the Graph Layout button, and then clicking on the name of the desired layout (Figure 11). 
 The subnetwork view provides three graph layouts. These are 1) force-directed (emphasizes clustering), 2) geometric (organizes nodes into a circle, emphasizing density), and hierarchical (emphasizing the hierarchical structure of the subnetwork). More information about these graph layout algorithms is available on the [Cytoscape blog](https://blog.js.cytoscape.org/2020/05/11/layouts/#classes-of-layouts). Switching between the graph layouts can be done by clicking on the Graph Layout button, and then clicking on the name of the desired layout (Fig. 11).  
 <img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/heirarchical-layout.png" alt="drawing" width="800"style="border: 1px solid grey;" /> 
 **Fig. 11.** Example from a hierarchical layout using the Graph Layout button. 
@@ -127,22 +123,21 @@ To display the edge labels ("upregulates" and "downregulates") on the subnetwork
 **Fig. 12.** Display the edge labels using the Edge Labels button.  
 
 **Showing the legend**  
-To display a legend describing the node and edge colors, use the “Show Legend” button (Fig. 13). Once clicking the button, an additional toolbar is added to the toolbar. This button can be used to adjust the size of the legend.    
+To display a legend describing the node and edge colors, use the “Show Legend” button (Fig. 13). Once clicking the button, an additional tool is added to the toolbar. This button can be used to adjust the size of the legend.    
 <img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/legend.png" alt="drawing" width="800"style="border: 1px solid grey;" /> 
 **Fig. 13.** Showing and adjusting the size of the legend.   
  
 
 #### *Downloading the subnetwork*  <a name="download"></a>
 There are two methods for saving the subnetwork: saving the subnetwork as a file, or saving the subnetwork as an image.   
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*Save subnetwork:* Saving the subnetwork as a file produces two files:   
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1&nbsp;-&nbsp;nodes.csv has the fields [id, label, kind, uri, color]  
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2&nbsp;-&nbsp;edges.csv has the  fields [source, target, relation, source_label, target_label, kind, p_value, z_score]  
+Saving the subnetwork as a file produces two files:   
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1&nbsp;-&nbsp;nodes.csv has the fields [id, label, kind, uri, color]  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;-&nbsp;edges.csv has the  fields [source, target, relation, source_label, target_label, kind, p_value, z_score]  
 <p>&nbsp;</p>
 Saving the subnetwork as an image can be achieved by clicking on the camera icon. The subnetwork can be saved in PNG, JPEG, or SVG formats. 
 <p>&nbsp;</p>
 
 ## **Enrichment Analysis with ChEA-KG** <a name="chea-enrichment"></a>
-The enrichment analysis page provides the option to input a gene set for ChEA3 enrichment analysis and visualize the results as a subnetwork of the GRN. The landing page is shown in Figure 14. 
 The enrichment analysis page provides the option to input a gene set for TF enrichment analysis with [ChEA3](https://maayanlab.cloud/chea3/) (Fig. 14). The enrichment analysis results are visualized as a ChEA-KG subnetwork connecting the enriched TFs. 
 <img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/enrichment_home1.png" alt="drawing" width="700"style="border: 1px solid grey;" /> 
 **Fig. 14.** The "Enrichment" tab landing page provides a textbox for inputting sets of human or mouse genes for TF enrichment analysis with ChEA3.  
@@ -157,29 +152,29 @@ To perform a query, input a set of newline-separated Entrez gene symbols into th
 **Fig. 15.** Performing a ChEA3 query in ChEA-KG using the example gene set.   
   
 Clicking the "Submit" button should produce a TF subnetwork (Fig. 16). The toolbar at the top contains options to reformat and interact with the subnetwork. New queries can be performed using the form on the left.    
-<img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/tutorial_enrichment/example_results.png" alt="drawing" width="700" style="border: 1px solid grey;" />   
+<img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/tutorial_enrichment/example_results1.png" alt="drawing" width="700" style="border: 1px solid grey;" />   
 **Fig. 16.** Subnetwork of enriched TFs for the example gene set. Yellow nodes are enriched TFs that are also present in the input gene set.    
   
-### *Filtering the results and add more nodes and edges* *<a name="filter-query"></a>
+### *Filtering the results and add more nodes and edges* <a name="filter-query"></a>
 The initial query results can be adjusted by adding and removing nodes and edges. Using the two sliders above the network view users can "add nodes" by changing the number of nodes returned from the ChEA3 enrichment analysis. The slide provides the option to select 5-25 enriched TFs. Adjusting the z-score slider can be used to add/remove edges based on a Z score cutoff. These Z scores are not related to the enrichment analysis, but are from the original construction of the KG. To reset the subnetwork to the original settings, click "Reset subnetwork".     
   
 **Example**  
-djust "Add nodes" to 15 and click the send icon ("Submit changes"). The subnetwork will display the top 25 TFs for the same input gene set (Fig. 17).  
-<img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/tutorial_enrichment/adding_nodes.png" alt="drawing" width="500" style="border: 1px solid grey;" />  
+Adjust "Add/remove nodes" to 15 and click the send icon ("Submit changes"). The subnetwork will display the top 25 TFs for the same input gene set (Fig. 17).  
+<img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/tutorial_enrichment/adding_nodes1.png" alt="drawing" width="500" style="border: 1px solid grey;" />  
 **Fig. 17A.** Changing the “Add TFs” to 15 can be used to increase the subnetwork size.  
-<img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/tutorial_enrichment/added_nodes.png" alt="drawing" width="500" style="border: 1px solid grey;" />  
+<img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/tutorial_enrichment/added_nodes1.png" alt="drawing" width="500" style="border: 1px solid grey;" />  
 **Fig. 17B.** The returned subnetwork displays the top 25 nodes.    
 
 To change the number of edges, use the "Add/remove edges" slider to add/remove edges based on their Z score. The subnetwork will have the same number of TFs but more or less edges. Only TFs with edges that meet the specified threshold are kept (Fig. 18).   
-<img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/tutorial_enrichment/filtering_z.png" alt="drawing" width="500" style="border: 1px solid grey;" />   
+<img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/tutorial_enrichment/filtering_z1.png" alt="drawing" width="500" style="border: 1px solid grey;" />   
 **Fig. 18A.** Filtering out edges with a Z score of less than 10 by adjusting the edges slider.    
-<img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/tutorial_enrichment/z-filtered.png" alt="drawing" width="500" style="border: 1px solid grey;" />    
+<img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/tutorial_enrichment/z-filtered1.png" alt="drawing" width="500" style="border: 1px solid grey;" />    
 **Fig. 18B.**  The network contains only TFs connected with edges that meet the new threshold.    
 
 ### *Viewing the results as a table or a bar chart* <a name="view-table"></a>
 The table view of the enrichment analysis results in ChEA-KG lists the enriched TFs, whether they also exist in the input gene set, the TF URI, the enrichment score, and the number of overlapping genes between the TF targets in ChEA3 and the genes from the input set (Fig. 19). The score indicates how relevant the gene set is for the enriched TF, with a lower score indicating more relevancy (higher average rank). The bar chart view displays the enriched TFs ordered by their score. Mousing over each bar displays a tooltip with the score and number of overlapping genes for that TF (Fig. 20).   
-<img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/tutorial_enrichment/table_view.png" alt="drawing" width="700 style="border: 1px solid grey;" />  
+<img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/tutorial_enrichment/table_view1.png" alt="drawing" width="700" style="border: 1px solid grey;" />  
 **Fig. 19.** View the ChEA-KG enrichment analysis results as a table. 
 
-<img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/tutorial_enrichment/bar_view_tooltip.png" alt="drawing" width="600" style="border: 1px solid grey;" />  
+<img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/tutorial_enrichment/bar_view_tooltip1.png" alt="drawing" width="600" style="border: 1px solid grey;" />  
 **Fig. 20.** View the ChEA-KG enrichment analysis results as a bar chart. 
