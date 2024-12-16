@@ -153,22 +153,22 @@ To perform a query, input a set of newline-separated Entrez gene symbols into th
   
 Clicking the "Submit" button should produce a TF subnetwork (Fig. 16). The toolbar at the top contains options to reformat and interact with the subnetwork. New queries can be performed using the form on the left.    
 <img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/tutorial_enrichment/example_results1.png" alt="drawing" width="700" style="border: 1px solid grey;" />   
-**Fig. 16.** Subnetwork of enriched TFs for the example gene set. Yellow nodes are enriched TFs that are also present in the input gene set.    
+**Fig. 16.** Subnetwork of enriched TFs for an example gene set. Yellow nodes are enriched TFs that are also present in the input gene set.    
   
 ### *Filtering the results and add more nodes and edges* <a name="filter-query"></a>
-The initial query results can be adjusted by adding and removing nodes and edges. Using the two sliders above the network view users can "add nodes" by changing the number of nodes returned from the ChEA3 enrichment analysis. The slide provides the option to select 5-25 enriched TFs. Adjusting the z-score slider can be used to add/remove edges based on a Z score cutoff. These Z scores are not related to the enrichment analysis, but are from the original construction of the KG. To reset the subnetwork to the original settings, click "Reset subnetwork".     
+The initial query results can be adjusted by adding and removing nodes and edges. Using the two sliders above the network view users can "add/remove nodes" by changing the number of nodes returned from the ChEA3 enrichment analysis. The slide provides the option to select 5-25 enriched TFs. Adjusting the z-score slider can be used to add/remove edges based on a Z score cutoff. These Z scores are not related to the enrichment analysis, but are from the original construction of the KG. To reset the subnetwork to the original settings, click "Reset subnetwork".     
   
 **Example**  
-Adjust "Add/remove nodes" to 15 and click the send icon ("Submit changes"). The subnetwork will display the top 25 TFs for the same input gene set (Fig. 17).  
+Adjust "Add/remove nodes" to 15 and click the send icon ("Submit changes"). The subnetwork will display the top 15 TFs for the same input gene set (Fig. 17).  
 <img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/tutorial_enrichment/adding_nodes1.png" alt="drawing" width="500" style="border: 1px solid grey;" />  
 **Fig. 17A.** Changing the “Add TFs” to 15 can be used to increase the subnetwork size.  
 <img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/tutorial_enrichment/added_nodes1.png" alt="drawing" width="500" style="border: 1px solid grey;" />  
-**Fig. 17B.** The returned subnetwork displays the top 25 nodes.    
+**Fig. 17B.** The returned subnetwork displays the top 15 nodes.    
 
 To change the number of edges, use the "Add/remove edges" slider to add/remove edges based on their Z score. The subnetwork will have the same number of TFs but more or less edges. Only TFs with edges that meet the specified threshold are kept (Fig. 18).   
 <img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/tutorial_enrichment/filtering_z1.png" alt="drawing" width="500" style="border: 1px solid grey;" />   
 **Fig. 18A.** Filtering out edges with a Z score of less than 10 by adjusting the edges slider.    
-<img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/tutorial_enrichment/z-filtered1.png" alt="drawing" width="500" style="border: 1px solid grey;" />    
+<img src="https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/tutorial_enrichment/z_filtered1.png" alt="drawing" width="500" style="border: 1px solid grey;" />    
 **Fig. 18B.**  The network contains only TFs connected with edges that meet the new threshold.    
 
 ### *Viewing the results as a table or a bar chart* <a name="view-table"></a>
