@@ -55,9 +55,6 @@ const GeneSetForm = ({
     const combined_query = {...parsedParams, ...query}
     const {
         userListId,
-        min_lib,
-        gene_degree,
-        term_degree,
     } = combined_query
 
     const get_controller = () => {

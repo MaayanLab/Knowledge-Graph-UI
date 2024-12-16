@@ -403,8 +403,8 @@ const InteractiveButtons = ({
         </Grid>
         <Grid item xs={12}>
             <Stack direction={"row"} alignItems={"center"} spacing={2}>
-                <Typography variant='subtitle2'>Add nodes:</Typography>
-                <Tooltip title={`Add additional top-ranked nodes from ChEA3`}>
+                <Typography variant='subtitle2'>Add/remove nodes:</Typography>
+                <Tooltip title={`Include additional top-ranked nodes from ChEA3`}>
                     <Slider 
                         color="secondary"
                         value={edgeFilter.add_nodes !== undefined ? edgeFilter.add_nodes : 10}
@@ -423,7 +423,7 @@ const InteractiveButtons = ({
                         step={5}
                         aria-labelledby="node-slider" />
                 </Tooltip> 
-                <Typography variant='subtitle2'>Minimum z-score:</Typography>
+                <Typography variant='subtitle2'>Add/remove edges:</Typography>
                 <Tooltip title={`Filter edges by z-score`}>
                     <Slider 
                         color="secondary"
@@ -446,7 +446,7 @@ const InteractiveButtons = ({
                 </Tooltip>
                 <div style={{ marginLeft: 'auto' }}>
                 <Tooltip title={`Reset subnetwork`}>
-                <Link href={`${pathname}?q=${JSON.stringify({...parsedParams, zscore:0, add_nodes:0})}${layout ? "&layout=" + layout: ""}`} >
+                <Link href={`${pathname}?q=${JSON.stringify({...parsedParams, zscore:0, add_nodes:10})}${layout ? "&layout=" + layout: ""}`} >
                     <Button 
                         size="small"
 	                    variant="contained"
