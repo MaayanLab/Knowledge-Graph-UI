@@ -404,7 +404,7 @@ const InteractiveButtons = ({
         <Grid item xs={12}>
             <Stack direction={"row"} alignItems={"center"} spacing={2}>
                 <Typography variant='subtitle2'>Add/remove nodes:</Typography>
-                <Tooltip title={`Include additional top-ranked nodes from ChEA3`}>
+                <Tooltip title={`Change number of top-ranked nodes from ChEA3`}>
                     <Slider 
                         color="secondary"
                         value={edgeFilter.add_nodes !== undefined ? edgeFilter.add_nodes : 10}
