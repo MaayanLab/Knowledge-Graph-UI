@@ -41,7 +41,6 @@ export const TooltipComponent = ({data, float, tooltip_templates, schema}: {
 	let filter = {}
 	let filter_field = 'filter'
 	searchParams.forEach((value, key) => {
-		console.log(key, value)
 		if (['filter', 'q', 'selected', 'hovered'].indexOf(key) === -1) queryParams[key] = value;
 		else if (['filter', 'q'].indexOf(key) > -1) {
 			filter_field = key
@@ -50,7 +49,7 @@ export const TooltipComponent = ({data, float, tooltip_templates, schema}: {
 	});
 	const router = useRouter()
 	const elements = []
-	const field = data.kind === "Relation" ? data.label : data.kind.replace(/Search TFs that are also ranked|Top 10 Ranked TFs|Search TFs/g, "Transcription Factor")
+	const field = data.kind === "Relation" ? data.label : data.kind.replace(/Queried TFs that are also enriched|Top Ranked TFs|Search TFs/g, "Transcription Factor")
 	//const [selected, setSelected] = useQueryState('selected',  parseAsJson<{id: string, type: 'nodes' | 'edges'}>().withDefault(null))
 	//const [hovered, setHovered] = useQueryState('hovered',  parseAsJson<{id: string, type: 'nodes' | 'edges'}>().withDefault(null))
 	for (const i of tooltip_templates[field] || []) {
@@ -117,7 +116,7 @@ export const TooltipComponent = ({data, float, tooltip_templates, schema}: {
               </Tooltip>
               <Tooltip title="Open node in new page">
 				<Link href={`${(schema.header.tabs.filter(i=>i.component === 'KnowledgeGraph')[0] || {}).endpoint || '/'}?filter=${JSON.stringify({
-                        start: data.kind.replace(/Search TFs that are also ranked|Top 10 Ranked TFs|Search TFs/g, "Transcription Factor"),
+                        start: data.kind.replace(/Queried TFs that are also enriched|Top Ranked TFs|Search TFs/g, "Transcription Factor"),
                         start_term: data.label
                       })}`}>
 					<IconButton>

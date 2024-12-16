@@ -212,7 +212,7 @@ const Enrichment = async ({
                                 style={{color: "black", textDecoration: "underline"}}
                             >
                                 <span style={{fontSize: 16, fontWeight: 700, fontFamily: "Rubik, sans-serif"}}>ChEA3</span>
-                            </Link>. The result is a subnetwork of made of the top 10 mean-ranked transcription factors enriched for the query set.</Typography>:
+                            </Link>. The result is a subnetwork of the ChEA-KG GRN, made of the top {add_nodes} mean-ranked transcription factors enriched for the query set.</Typography>:
                         <Typography variant="subtitle1" sx={{marginBottom: 3}}>Submit your gene set for enrichment analysis with &nbsp;
                             <Link href={shortId ? `https://maayanlab.cloud/Enrichr/enrich?dataset=${shortId}` : "https://maayanlab.cloud/Enrichr/"} 
                                 target="_blank"

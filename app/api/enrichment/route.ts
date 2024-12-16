@@ -83,15 +83,12 @@ const enrichment = async ({
                 }
             }
             if(add_nodes !== undefined){
-                console.log("Term_limit: ", term_limit)
-                const new_term_limit = term_limit + add_nodes
-                console.log("new term limit: ", new_term_limit)
-                libraries[0].term_limit = new_term_limit
+                term_limit = add_nodes
+
             }
             
-            console.log("Libraries Term limit: ", libraries[0].term_limit)
             // term limit is doubled in chea_query -- returns twice as many results
-            return await chea_query({userListId, term_limit: 100, library, term_degree})
+            return await chea_query({userListId, term_limit, library, term_degree})
         }  
         ))
 
@@ -104,28 +101,30 @@ const enrichment = async ({
         let returned = []
         for (const {genes: lib_genes, terms: lib_terms, max_score: lib_max_score, min_score: lib_min_score, library} of results) {
             terms[node_mapping[library]] = {}
-            let i = 0
-            let j = 0
+ 
             // go through all of the results for that library until we have ten enriched genes
             for (const [key, val] of Object.entries(lib_terms)) {
-                j ++
                 if (val["score"] !== undefined) {
                     const ext_diff = Math.abs(lib_max_score+lib_min_score)
                     val["value"] = 1 - (parseFloat(val["score"])/ext_diff)
                 }
+                terms[node_mapping[library]][key] = val
                 // if the that gene has an adequate library length, increase counter
+                /* console.log("term_limit: ", libraries[0].term_limit)
                 if (min_lib) {
                     if (val["libs"].length >= min_lib) {
-                        i ++
                         terms[node_mapping[library]][key] = val
+                        counted ++
+                        console.log("counted:", counted)
                         // zero index for just mean rank library -- will need to change if including other libraries
-                        if (i >= libraries[0].term_limit) {
+                        if (counted > libraries[0].term_limit) {
                             break
                         }
                     }
                 }
+                    */
             }
-            library_terms[node_library[library]] = Object.keys(lib_terms).slice(0,j).filter(key=>lib_terms[key]["libs"].length >= min_lib)
+            library_terms[node_library[library]] = Object.keys(lib_terms)
             
             // keep track of min and max scores across all query libraries 
             if (max_score < lib_max_score) max_score = lib_max_score

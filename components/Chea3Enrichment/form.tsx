@@ -55,9 +55,6 @@ const GeneSetForm = ({
     const combined_query = {...parsedParams, ...query}
     const {
         userListId,
-        min_lib,
-        gene_degree,
-        term_degree,
     } = combined_query
 
     const get_controller = () => {
@@ -375,7 +372,7 @@ const GeneSetForm = ({
                     <>*/}
                         <Grid item xs={12}>
                             <Grid container alignItems={"stretch"} spacing={2}>
-                                <Grid item><Typography variant='subtitle2'>Minimum libraries per gene</Typography></Grid>
+                                {/* <Grid item><Typography variant='subtitle2'>Minimum libraries per gene</Typography></Grid>
                                 <Grid item sx={{ flexGrow: 1 }}>
                                     <Tooltip title={`Filter out genes that are not in multiple libraries.`}>
                                         <Slider 
@@ -404,7 +401,7 @@ const GeneSetForm = ({
                                     <Typography variant='subtitle2'>
                                         {min_lib || 3}
                                     </Typography>
-                                </Grid>
+                                </Grid> */}
                             </Grid>
                         </Grid>
                     

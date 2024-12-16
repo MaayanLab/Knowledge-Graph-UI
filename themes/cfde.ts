@@ -115,8 +115,8 @@ export const cfde_theme = createTheme({
     },
     palette: {
         primary: {
-            main: "#C3E1E6",
-            light: "#DBEDF0",
+            main: "#71bdc9",
+            light: "#71bdc9",
             dark: "#84A9AE"
         },
         secondary: {
@@ -204,7 +204,7 @@ export const cfde_theme = createTheme({
                     padding: "8px 16px",
                     ...(ownerState.variant === 'contained' &&
                       ownerState.color === 'primary' && {
-                        backgroundColor: '#C3E1E6',
+                        backgroundColor: '#dbedf0',
                         color: '#336699',
                       }),
                     ...(ownerState.variant === 'contained' &&
@@ -225,7 +225,7 @@ export const cfde_theme = createTheme({
                     padding: "10px 16px",
                     ...(ownerState.variant === 'filled' &&
                       ownerState.color === 'primary' && {
-                        backgroundColor: '#C3E1E6',
+                        backgroundColor: '#71bdc9',
                         color: '#336699',
                       }),
                     ...(ownerState.variant === 'filled' &&

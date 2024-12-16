@@ -55,7 +55,7 @@ const NetworkTable = ({data, schema}: {data: NetworkSchema, schema: UISchema}) =
 									header.push({
 										field,
 										headerName: field,
-										flex: 1,
+										flex: 2,
 										style: {flexDirection: "row"},
 										align: "left",
 										text: prop.text,
@@ -92,7 +92,7 @@ const NetworkTable = ({data, schema}: {data: NetworkSchema, schema: UISchema}) =
 							header.push({
 								field: 'label',
 								headerName: "Label",
-								flex: 1,
+								// flex: 1,
 								style: {flexDirection: "row"},
 								align: "left",
 								type: relation ? "edge": "node",

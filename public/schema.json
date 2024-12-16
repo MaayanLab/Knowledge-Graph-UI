@@ -8,12 +8,12 @@
             ],
             "display": [
                 {
-                    "label": "Transcription factor ID",
+                    "label": "Gene ID",
                     "text": "${id}",
                     "type": "text"
                 },
                 {
-                    "label": "Transcription factor symbol",
+                    "label": "Gene symbol",
                     "text": "${label}",
                     "type": "text"
                 },
@@ -40,8 +40,8 @@
             "directed": "triangle",
             "display": [
                 {
-                    "label": "source",
-                    "text": "${source}",
+                    "label": "source label",
+                    "text": "${source_label}",
                     "type": "text"
                 },
                 {
@@ -50,8 +50,8 @@
                     "type": "text"
                 },
                 {
-                    "label": "target",
-                    "text": "${target}",
+                    "label": "target label",
+                    "text": "${target_label}",
                     "type": "text"
                 },
                 {
@@ -74,8 +74,8 @@
             "directed": "tee",
             "display": [
                 {
-                    "label": "source",
-                    "text": "${source}",
+                    "label": "source label",
+                    "text": "${source_label}",
                     "type": "text"
                 },
                 {
@@ -84,8 +84,8 @@
                     "type": "text"
                 },
                 {
-                    "label": "target",
-                    "text": "${target}",
+                    "label": "target label",
+                    "text": "${target_label}",
                     "type": "text"
                 },
                 {
@@ -145,7 +145,7 @@
                 "component":"Chea3Enrichment",
                 "props": {
                     "init_function": "initialize_enrichment",
-                    "title": "ChEA3 Transcription Factor Enrichment Analysis",
+                    "title": "Transcription Factor Enrichment Analysis with ChEA3",
                     "description": "Enter a set of Entrez gene below to perform enrichment analysis using [ChEA3](https://maayanlab.cloud/ChEA3/).",
                     "placeholder": "Enter newline separated gene sets",
                     "disableHeader": true,
@@ -250,6 +250,20 @@
                         "src": "https://minio.dev.maayanlab.cloud/enrichr-kg/bioinformatics.png",
                         "alt": "COB",
                         "href": "https://icahn.mssm.edu/research/bioinformatics",
+                        "height": 60,
+                        "width": 150
+                    }
+                }
+            ],
+            [
+                {
+                    "component": "icon",
+                    "props": {
+                        "type": "icon",
+                        "key": "center_icon",
+                        "src": "https://minio.dev.maayanlab.cloud/hgrn-chear/tutorial/license1.png",
+                        "alt": "COB",
+                        "href": "https://creativecommons.org/licenses/by-sa/2.0/deed.en",
                         "height": 60,
                         "width": 150
                     }

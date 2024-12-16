@@ -47,8 +47,12 @@ export const chea_query = async ({
     const genes = {}
     let max_score = 0
     let min_score = 10000
+    console.log("term limit: ", term_limit)
+    for (const i of results[library].slice(0,100)) {
 
-    for (const i of results[library].slice(0,term_limit)) {
+        if (Object.keys(terms).length >= term_limit) break
+        console.log("terms so far:", Object.keys(terms).length )
+
         const rank = i.Rank
         const chea3label = i.TF
         const label = regex[library] !== undefined ? regex[library].exec(chea3label).groups.label:chea3label
@@ -57,7 +61,7 @@ export const chea_query = async ({
         const overlapping_genes = i.Overlapping_Genes.split(',')
 
         // label is the term name from enrichr. collect the label and store it in terms along with the library it was found in
-        if (term_degree===undefined || overlapping_genes.length >= term_degree) {
+        if (libs.length >= 3 && term_degree===undefined || overlapping_genes.length >= term_degree) {
             if (terms[label] === undefined) terms[label] = {library, label}
             
             // keep track of max score 
