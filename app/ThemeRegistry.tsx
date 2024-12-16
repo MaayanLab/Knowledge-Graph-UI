@@ -10,9 +10,18 @@ import { enrichr_kg_theme } from '@/themes/enrichr-kg';
 import { lncRNAlyzr } from '@/themes/lncRNAlyzr';
 import { harmonizome_kg_theme } from '@/themes/harmonizome-kg';
 import { withCookie } from '@/components/ConsentCookie';
-import { GoogleAnalytics } from "nextjs-google-analytics";
-import ConsentCookie from '@/components/ConsentCookie';
+import dynamic from 'next/dynamic';
 
+const GoogleAnalytics = dynamic(async()=>((await import('nextjs-google-analytics')).GoogleAnalytics),
+    {
+        ssr: false,
+    }
+)
+const ConsentCookie = dynamic(()=>import('@/components/ConsentCookie'),
+    {
+        ssr: false,
+    }
+)
 const themes = {
     cfde_theme: cfde_theme,
     enrichr_kg_theme: enrichr_kg_theme,

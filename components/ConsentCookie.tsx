@@ -4,17 +4,15 @@ import { Alert, AlertTitle, Button, Grid, Typography } from '@mui/material'
 import { useState, useEffect } from "react"
 import Cookies from 'js-cookie'
 
-const consent_cookie_name = 'consentCookie'
-
 export function withCookie<P>(Component: React.ComponentType<{[key:string]: any}>){
     const WrappedComponent = (props: {[key: string]: any}) => {
-        const [consentCookie, setConsentCookie] = useState(Cookies.get(consent_cookie_name))
+        const [consentCookie, setConsentCookie] = useState(Cookies.get(process.env.NEXT_PUBLIC_COOKIE_NAME))
         useEffect(()=>{
-            Cookies.set(consent_cookie_name, consentCookie)
+            Cookies.set(process.env.NEXT_PUBLIC_COOKIE_NAME, consentCookie)
         }, [consentCookie])
         
         const resetCookie  = () => {
-            Cookies.remove(consent_cookie_name)
+            Cookies.remove(process.env.NEXT_PUBLIC_COOKIE_NAME)
             setConsentCookie(undefined)
         }
 
@@ -29,6 +27,7 @@ export function withCookie<P>(Component: React.ComponentType<{[key:string]: any}
 export const ConsentCookie = ({consentCookie, setConsentCookie}) => {
     if (consentCookie !== undefined || typeof process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID === 'undefined') return null
     else {
+        console.log(consentCookie)
         return(
             <Alert severity="info" id="cookieConsent">
                 <AlertTitle>Cookie Policy</AlertTitle>
