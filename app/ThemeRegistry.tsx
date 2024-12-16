@@ -31,7 +31,7 @@ const themes = {
 
 // This implementation is from emotion-js
 // https://github.com/emotion-js/emotion/issues/2928#issuecomment-1319747902
-export default function ThemeRegistry(props:{options:any, children:any, theme: 'cfde_theme' | string}) {
+function ThemeRegistry(props:{options:any, children:any, theme: 'cfde_theme' | string, consentCookie?: string, setConsentCookie?:Function, resetCookie?:Function}) {
     const { options, children, theme: t } = props;
     const theme = themes[t]
     const [{ cache, flush }] = React.useState(() => {
@@ -73,13 +73,18 @@ export default function ThemeRegistry(props:{options:any, children:any, theme: '
         />
       );
     });
-  
+    console.log(process.env.NEXT_PUBLIC_COOKIE_NAME, "NEXT_PUBLIC_COOKIE_NAME", typeof process.env.NEXT_PUBLIC_COOKIE_NAME)
+
     return (
       <CacheProvider value={cache}>
         <ThemeProvider theme={theme}>
           <CssBaseline />
           {children}
+          <ConsentCookie consentCookie={props.consentCookie} setConsentCookie={props.setConsentCookie}/>
         </ThemeProvider>
+        {(props.consentCookie === "allow" || process.env.NEXT_PUBLIC_COOKIE_NAME === '') && <GoogleAnalytics trackPageViews />}
       </CacheProvider>
     );
   }
+
+  export default withCookie(ThemeRegistry)
