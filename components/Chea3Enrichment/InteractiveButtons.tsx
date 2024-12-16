@@ -437,7 +437,7 @@ const InteractiveButtons = ({
                         valueLabelDisplay='auto'
                         aria-labelledby="z-slider" />
                 </Tooltip> 
-                <Tooltip title={`Filter subnetwork`}>
+                <Tooltip title={`Submit changes`}>
                 <Link href={`${pathname}?q=${JSON.stringify({...parsedParams, ...edgeFilter})}${layout ? "&layout=" + layout: ""}`}>
                         <IconButton>
                             <SendIcon />
@@ -453,7 +453,7 @@ const InteractiveButtons = ({
 	                    sx={{
 	                        padding: "7.5px 20px"
 	                    }}
-                    ><Typography color={'secondary'} variant='subtitle2'>Reset network</Typography></Button>
+                    ><Typography color={'secondary'} variant='subtitle2'>Reset subnetwork</Typography></Button>
                     </Link>
                 </Tooltip>    
                 </div>            
