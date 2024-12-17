@@ -10,9 +10,25 @@ export const enrichr_query = async ({
     term_limit: number,
     term_degree?: number
 }) => {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_ENRICHR_URL}/enrich?userListId=${userListId}&backgroundType=${library}`)
+    const req = await fetch(`${process.env.NODE_ENV==="development" ? process.env.NEXT_PUBLIC_HOST_DEV : process.env.NEXT_PUBLIC_HOST}${process.env.NEXT_PUBLIC_PREFIX ? process.env.NEXT_PUBLIC_PREFIX: ''}/api/enrichment/view?userListId=${userListId}`)
+    const {genes: gene_list, description} = (await req.json())
+    const formData = new FormData();
+            // const gene_list = geneStr.trim().split(/[\t\r\n;]+/).join("\n")
+    formData.append('list', gene_list.join("\n"))
+    formData.append('description', description)
+            
+    const {userListId:uid}:{userListId:string} = await (
+        await fetch(`${process.env.NEXT_PUBLIC_ENRICHR_URL}/addList`, {
+            method: 'POST',
+            body: formData,
+        })
+    ).json()
+    console.log("uid", uid)
+    console.log(`${process.env.NEXT_PUBLIC_ENRICHR_URL}/enrich?userListId=${uid}&backgroundType=${library}`)
+            
+    const res = await fetch(`${process.env.NEXT_PUBLIC_ENRICHR_URL}/enrich?userListId=${uid}&backgroundType=${library}`)
     if (res.ok !== true) {
-        console.log(`${process.env.NEXT_PUBLIC_ENRICHR_URL}/enrich?userListId=${userListId}&backgroundType=${library}`)
+        console.log(`${process.env.NEXT_PUBLIC_ENRICHR_URL}/enrich?userListId=${uid}&backgroundType=${library}`)
         throw new Error(`Error communicating with Enrichr`)
     }
     const regex = {}
