@@ -5,7 +5,7 @@ services:
       context: .
       dockerfile: ./Dockerfile.next
     platform: linux/amd64
-    image: maayanlab/lncrnalyzr:2.5.6
+    image: maayanlab/lncrnalyzr:2.6.0
     x-kubernetes:
       imagePullPolicy: IfNotPresent
       annotations:
