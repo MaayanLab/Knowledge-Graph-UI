@@ -1678,7 +1678,8 @@
 					}
 				  }
 			]
-		]
+		],
+		"footer_text": "<span style='color:black'>Please acknowledge lncRNAlyzr in your publications by citing the following reference:<br><a style='color: white' href='https://doi.org/10.1016/j.jmb.2025.168938'>Evangelista, J. E., Ali-Nasser, T., Malek, L. E., Xie, S., Marino, G. B., Bester, A. C., & Ma’ayan, A. lncRNAlyzr: Enrichment Analysis for lncRNA Sets. Journal of Molecular Biology. 2025 Jan 11:168938. doi: 10.1016/j.jmb.2025.168938.</a></span>"
 	},
 	"header": {
 		"divider": true,
