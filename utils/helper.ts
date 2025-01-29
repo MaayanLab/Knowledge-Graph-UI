@@ -210,9 +210,10 @@ export const compute_colors = ({properties, aggr_scores, color}:{
     }
     const max_pval = aggr_scores.max //aggr_scores.max_pval > 0.05 ? aggr_scores.max_pval: 0.05
     const min_pval = aggr_scores.min
+    console.log("kind", properties.kind)
     const darken =  Math.abs((properties.pval - min_pval)/(max_pval-min_pval))
-    props.gradient_color = get_color({color, darken})
-    props.color = color
+    props.gradient_color = properties.kind == 'Queried TFs that are also enriched'? "#fc8b3a" : get_color({color, darken})
+    props.color = properties.kind == 'Queried TFs that are also enriched'? "#fc8b3a" : color
 
     return props
 }
