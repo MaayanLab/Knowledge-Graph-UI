@@ -41,7 +41,7 @@ const TermViz = ({elements, schema, tooltip_templates_edges, tooltip_templates_n
 					library: `${library}`,
 					score: typeof score === 'number' ? parseFloat(`${precise(score)}`): typeof score === 'string'? parseFloat(score) :undefined,
 					value: typeof value === 'number' ? parseFloat(`${precise(value)}`): typeof value === 'string'? parseFloat(value) :undefined,
-					color: `${color}`
+					color: `${color}` 
 				}
 				for (const [k,v] of Object.entries(entries[id])) {
 					if (v !== undefined) columns[k] = true
