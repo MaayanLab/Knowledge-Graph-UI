@@ -26,7 +26,7 @@ export const SmallNav = ({tab_component, ui_theme,  counter}:
 	};
 	return (
 		<>		
-			{counter && <Counter ui_theme={ui_theme}/>}
+			{/* {counter && <Counter ui_theme={ui_theme}/>} */}
 			<Button color="tertiary" onClick={handleClick}><MenuIcon/></Button>
 			<Menu
 				id="basic-menu"
@@ -45,6 +45,7 @@ export const SmallNav = ({tab_component, ui_theme,  counter}:
 				}}
 				
 			>
+				{counter && <Counter ui_theme={ui_theme}/>}
 				{...tab_component.top}
 				{...tab_component.bottom}
 			</Menu>

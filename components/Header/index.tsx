@@ -3,7 +3,8 @@ import {
 	Stack, 
 	AppBar, 
 	Toolbar,
-	Divider
+	Divider,
+	Typography
 } from "@mui/material";
 import Link from "next/link";
 import { UISchema } from '@/app/api/schema/route';
@@ -53,12 +54,13 @@ export const Nav = ({tabs, ui_theme, divider, title, icon, counterTop, counter}:
 				<Logo alt={icon.alt} src={icon.favicon} title={title} avatar={icon.avatar} size='large' color="secondary"/>
 			</Grid>
 			<Grid item sx={{display: {xs: "none", sm: "none", md: "block"}}}>
-				<Stack direction={"row"} alignItems={"center"} spacing={2}>
-					{tab_component.top}
-					{(counter && tab_component.bottom.length === 0 && counterTop) && 
-						<Counter ui_theme={ui_theme}/>
-					}
-				</Stack>
+					<Stack direction={"row"} alignItems={"center"} spacing={2}>
+						{tab_component.top}
+						{(counter && tab_component.bottom.length === 0 && counterTop) && 
+							<Counter ui_theme={ui_theme}/>
+						}
+					</Stack>
+					
 			</Grid>
 			{tab_component.bottom.length > 0 &&
 				<Grid item xs={12} sx={{display: {xs: "none", sm: "none", md: "block"}}}>
@@ -73,7 +75,7 @@ export const Nav = ({tabs, ui_theme, divider, title, icon, counterTop, counter}:
 			}
 			{(counter && tab_component.bottom.length === 0 && !counterTop) &&
 				<Grid item xs={12} className='flex justify-end' sx={{display: {xs: "none", sm: "none", md: "block"}}}>		
-					<Counter ui_theme={ui_theme}/>
+					<div className="flex justify-end"><Counter ui_theme={ui_theme}/></div>
 				</Grid>
 			}
 			<Grid item className='flex justify-end' sx={{display: {xs: "block", sm: "block", md: "none", lg: "none", xl: "none"}}}>

@@ -170,11 +170,14 @@ export const enrichr_kg_theme = createTheme({
         },
         MuiTypography: {
             styleOverrides: {
-                root: ({ ownerState }) => ({
+                root: ({ ownerState, theme }) => ({
                     ...(ownerState.color === 'tertiary' &&
                      {
                         color: '#7187C3',
                       }),
+                    ...(ownerState.variant === "nav" && theme.breakpoints.down('md')) && {
+                        color: "#000"
+                    }
                   }),
             }
         },
