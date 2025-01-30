@@ -564,7 +564,7 @@ const GeneSetForm = ({
                 }
                 { !fullWidth &&
                     <Grid item>
-                        <Button variant='outlined'
+                        <Button variant='outlined' color="secondary"
                             onClick={()=>{
                                 const {collapse, ...query} = searchParams
                                 if (collapse === undefined) query['collapse'] = 'true'

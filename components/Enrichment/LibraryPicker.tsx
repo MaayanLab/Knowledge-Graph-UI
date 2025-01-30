@@ -52,9 +52,11 @@ const LibraryPicker = ({
 	const [error, setError] = useState<{message: string, type: string}>(null)
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 	const [query, setQuery] = useQueryState('query', parseAsJson<EnrichmentParams>().withDefault({}))
+	const [selected, setSelected] = useState<string>(null)
 	
-	const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+	const handleClick = (event: React.MouseEvent<HTMLElement>, selected) => {
 		setAnchorEl(anchorEl ? null : event.currentTarget);
+		setSelected(anchorEl ? null: selected)
 	};
 	const open = Boolean(anchorEl);
 	const id = open ? 'simple-popper' : undefined;
@@ -147,7 +149,7 @@ const LibraryPicker = ({
                                 <Grid item key={name} xs={fullWidth ? 12: undefined}>
                                     <Tooltip title={`Click chip to adjust limits`} key={name} placement="top">
                                         <Chip label={`${name}: ${limit}`}
-											onClick={handleClick}
+											onClick={(event: React.MouseEvent<HTMLElement>)=>handleClick(event, name)}
                                             color="primary"
                                             sx={{padding: 0, borderRadius: "8px"}}
                                             onDelete={()=>{
@@ -185,15 +187,17 @@ const LibraryPicker = ({
 												<Icon path={mdiMinusCircleOutline} size={0.8} />
 												<Slider 
 													color="secondary"
-													value={limit}
+													value={(libraries.filter(i=>i.name === selected)[0] || {}).limit || 5}
 													onChange={(e, nv)=>{
 														const new_libraries = []
 														for (const i of libraries) {
-															if (i.name === name) new_libraries.push({
-																name,
-																limit: nv
-															})
-															else new_libraries.push(i)
+															if (i.name === selected) {
+																console.log(selected, i)
+																new_libraries.push({
+																	name: selected,
+																	limit: nv
+																})
+															}else new_libraries.push(i)
 														}
 														if (fullWidth) {
 															setQuery({
@@ -220,7 +224,7 @@ const LibraryPicker = ({
 													max={50}
 													aria-labelledby="limit-slider" />
 												<Icon path={mdiPlusCircleOutline} size={0.8} />
-												<Button color="secondary" onClick={handleClick}><Icon path={mdiCloseCircle} size={0.8} /></Button>
+												<Button color="secondary" onClick={(event: React.MouseEvent<HTMLElement>)=>handleClick(event, '')}><Icon path={mdiCloseCircle} size={0.8} /></Button>
 											</Stack>	
 										</Box>
 									</Popper>

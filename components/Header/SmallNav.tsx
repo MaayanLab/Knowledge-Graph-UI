@@ -46,9 +46,10 @@ export const SmallNav = ({tab_component, ui_theme,  counter}:
 				}}
 				
 			>
-				{counter && <Counter ui_theme={ui_theme}/>}
-				{...tab_component.top}
-				{...tab_component.bottom}
+				{/* {counter && <MenuItem><Counter ui_theme={ui_theme}/></MenuItem>} */}
+				{tab_component.top.map((c,i)=><MenuItem key={i}>{c}</MenuItem>)}
+				{tab_component.bottom.map((c,i)=><MenuItem key={i}>{c}</MenuItem>)}
+				{/* {...tab_component.bottom} */}
 			</Menu>
 		</>
 	)
