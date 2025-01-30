@@ -11,7 +11,7 @@ export const Counter = ({ui_theme}: {ui_theme?: string}) => {
             <Typography variant="nav">Queries Submitted: </Typography> 
             {ui_theme === undefined || ui_theme === 'cfde_theme' ?
             <Typography><b>{(data || {}).count}</b></Typography>:
-            <Typography variant={'nav'}><b>{(data || {}).count}</b></Typography>
+            <Typography variant={'nav'} sx={{display: {xs: "#000", sm: "#000", md: "#FFF", lg: "#FFF", xl: "#FFF"}}}><b>{(data || {}).count}</b></Typography>
             }
         </Stack>
     )

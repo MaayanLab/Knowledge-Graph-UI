@@ -74,6 +74,12 @@ export const enrichr_kg_theme = createTheme({
             fontWeight: 600,
             color: "#FFF"
         },
+        nav_small: {
+            fontSize: 16,
+            fontStyle: "normal",
+            fontWeight: 600,
+            color: "#000"
+        },
         footer: {
             fontFamily: noto_sans.style.fontFamily,
             fontSize: 16,
@@ -175,9 +181,6 @@ export const enrichr_kg_theme = createTheme({
                      {
                         color: '#7187C3',
                       }),
-                    ...(ownerState.variant === "nav" && theme.breakpoints.down('md')) && {
-                        color: "#000"
-                    }
                   }),
             }
         },
@@ -253,6 +256,7 @@ declare module '@mui/material/styles' {
       cfde: React.CSSProperties;
       cfde_small: React.CSSProperties;
       nav: React.CSSProperties;
+      nav_small: React.CSSProperties;
       footer: React.CSSProperties;
       stats_h3: React.CSSProperties;
       stats_sub: React.CSSProperties;
@@ -263,6 +267,7 @@ declare module '@mui/material/styles' {
       cfde?: React.CSSProperties;
       cfde_small?: React.CSSProperties;
       nav?: React.CSSProperties;
+      nav_small?: React.CSSProperties;
       footer?: React.CSSProperties;
       stats_h3?: React.CSSProperties;
       stats_sub?: React.CSSProperties;
@@ -297,6 +302,7 @@ declare module '@mui/material/styles' {
       cfde: true;
       cfde_small: true;
       nav: true;
+      nav_small: true;
       footer: true;
       stats_h3: true;
       stats_sub: true;
