@@ -230,7 +230,7 @@ const Enrichment = async ({
                         <Grid container alignItems={"flex-start"}>
                             {searchParams.collapse && 
                                 <Grid item xs={12} md={2}>
-                                    <Card elevation={0} sx={{borderRadius: "8px", backgroundColor: (!schema.ui_theme || schema.ui_theme === 'cfde_theme' || elements !== null) ? "tertiary.light": "#FFF"}}>
+                                    <Card elevation={0} sx={{borderRadius: "8px", backgroundColor: "#FFF"}}>
                                         <CardContent>
                                             <GeneSetForm 
                                                 libraries_list={libraries_list.map(l=>l.name)}
