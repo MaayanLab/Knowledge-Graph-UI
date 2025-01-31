@@ -40,7 +40,7 @@ helm install cfde-gse maayanlab/docker-compose -f <(docker-compose config) -n cf
 ## UPGRADE
 helm upgrade enrichr-kg maayanlab/docker-compose -f <(docker-compose config) -n enrichr-kg 
 
-helm template cfde-gse maayanlab/docker-compose -f <(docker-compose config) -n cfde-gse 
+helm template enrichr-kg maayanlab/docker-compose -f <(docker-compose config) -n enrichr-kg 
 
 
 ## Legacy Version
