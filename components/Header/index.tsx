@@ -44,7 +44,7 @@ export const Nav = ({tabs, ui_theme, divider, title, icon, counterTop, counter}:
 				<TextNav path={tab.endpoint} title={tab.label}/>
 			</React.Fragment>
 		)
-		if (divider) tab_component[position].push(<Divider key={tab.label + "div"} sx={{display: {xs: "none", sm: "none", md: "block", borderColor: "#000"}}} orientation='vertical' flexItem/>)
+		if (divider) tab_component[position].push(<Divider key={tab.label + "div"} sx={{display: {xs: "none", sm: "none", md: "block", borderColor: "#fff"}}} orientation='vertical' flexItem/>)
 	}
 	if (divider) {
 		for (const position of Object.keys(tab_component)) {
@@ -59,6 +59,7 @@ export const Nav = ({tabs, ui_theme, divider, title, icon, counterTop, counter}:
 			<Grid item sx={{display: {xs: "none", sm: "none", md: "block"}}}>
 					<Stack direction={"row"} alignItems={"center"} spacing={2}>
 						{tab_component.top}
+						{divider && <Divider sx={{display: {xs: "none", sm: "none", md: "block", borderColor: "#fff"}}} orientation='vertical' flexItem/>}
 						{(counter && tab_component.bottom.length === 0 && counterTop) && 
 							<Counter ui_theme={ui_theme}/>
 						}
@@ -91,7 +92,7 @@ export const Nav = ({tabs, ui_theme, divider, title, icon, counterTop, counter}:
 export default function Header ({schema}: {schema:UISchema}) {
 	const {title, icon, tabs, divider, counterTop, counter} = schema.header
 	return  (
-		<AppBar position="static" sx={{color: "#000"}}>
+		<AppBar position="static" sx={{color: "#000", marginBottom: 1}}>
 			<Toolbar>
 				<Nav counterTop={counterTop} counter={counter} tabs={tabs} divider={divider} ui_theme={schema.ui_theme} title={title} icon={icon}/>
 			</Toolbar>
