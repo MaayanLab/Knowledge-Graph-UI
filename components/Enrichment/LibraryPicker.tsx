@@ -61,7 +61,6 @@ const LibraryPicker = ({
 	const open = Boolean(anchorEl);
 	const id = open ? 'simple-popper' : undefined;
 	let libraries = query.libraries || parsedParams.libraries
-	console.log(view, fullscreen)
 
 	return (
 		<Grid container spacing={1}>
@@ -192,7 +191,6 @@ const LibraryPicker = ({
 														const new_libraries = []
 														for (const i of libraries) {
 															if (i.name === selected) {
-																console.log(selected, i)
 																new_libraries.push({
 																	name: selected,
 																	limit: nv

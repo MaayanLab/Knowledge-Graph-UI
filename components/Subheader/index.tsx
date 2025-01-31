@@ -86,7 +86,7 @@ const Subheader = ({schema}:{schema:UISchema}) => {
 		}
 		if (subheader_props === null) return null
 		return (
-			<Grid container spacing={1} justifyContent={'center'} alignItems={"center"}>
+			<Grid container spacing={1} justifyContent={'center'} alignItems={"center"} columns={8} sx={{marginLeft: 2}}>
 				<Snackbar open={error!==null}
 					anchorOrigin={{ vertical:"bottom", horizontal:"left" }}
 					autoHideDuration={4500}
@@ -118,7 +118,7 @@ const Subheader = ({schema}:{schema:UISchema}) => {
 					else if (active) style = styles.active
 					else style = styles.disabled
 					return (
-						<Grid item key={i.label}>
+						<Grid item xs={2} md={1} key={i.label}>
 							<Tooltip title={i.label} placement="top">
 								<Button
 									disabled={!subheader_props}
