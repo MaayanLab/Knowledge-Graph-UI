@@ -71,7 +71,7 @@ export const enrichr_kg_theme = createTheme({
         nav: {
             fontSize: 16,
             fontStyle: "normal",
-            fontWeight: 600,
+            fontWeight: 400,
             color: "#FFF"
         },
         nav_small: {
