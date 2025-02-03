@@ -8,6 +8,31 @@ import {
     GridToolbarExport,
 } from "@mui/x-data-grid";
 import { useState } from "react";
+
+const OverlapDialog = ({row}: {
+    row: {
+        overlapping_set: Array<string>,
+        overlap: string
+    }
+}) => {
+    const [open, setOpen] = useState(false)
+    return <><Button variant="outlined" color="secondary" onClick={()=>setOpen(!open)}><Typography>{row.overlap}</Typography></Button>
+            <Dialog
+                open={open}
+                onClose={()=>setOpen(false)}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+            >
+                <DialogTitle><Typography variant="h4">Overlaps</Typography></DialogTitle>
+                <DialogContent>
+                    <TextField
+                    value={row.overlapping_set.join("\n")}
+                    multiline
+                    />
+                </DialogContent>
+            </Dialog>
+        </>
+}
 const header: GridColDef[] = [
     {
         field: 'enrichr_label',
@@ -50,25 +75,7 @@ const header: GridColDef[] = [
         valueGetter: ({row})=>{
             return row.overlapping_set.join(";")
         },
-        renderCell: ({row})=>{
-            const [open, setOpen] = useState(false)
-            return <><Button variant="outlined" color="secondary" onClick={()=>setOpen(!open)}><Typography>{row.overlap}</Typography></Button>
-                    <Dialog
-                        open={open}
-                        onClose={()=>setOpen(false)}
-                        aria-labelledby="alert-dialog-title"
-                        aria-describedby="alert-dialog-description"
-                    >
-                        <DialogTitle><Typography variant="h4">Overlaps</Typography></DialogTitle>
-                        <DialogContent>
-                            <TextField
-                            value={row.overlapping_set.join("\n")}
-                            multiline
-                            />
-                        </DialogContent>
-                    </Dialog>
-                </>
-        }
+        renderCell: ({row})=><OverlapDialog row={row}/>
     }
 ]
 
