@@ -3769,10 +3769,7 @@
 			  "CCLE Proteomics"
 			],
 			"libraries": [
-			  {
-				"library": "CCLE_Proteomics_2020",
-				"term_limit": 5
-			  }
+			  "CCLE_Proteomics_2020"
 			]
 		  },
 		  "href": "https://sites.broadinstitute.org/ccle"
@@ -3802,10 +3799,7 @@
 			  "DisGeNET Association"
 			],
 			"libraries": [
-			  {
-				"library": "DisGeNET",
-				"term_limit": 5
-			  }
+			  "DisGeNET"
 			]
 		  },
 		  "href": "https://www.disgenet.org/"
