@@ -17,6 +17,7 @@ const TermViz = ({elements, schema, tooltip_templates_edges, tooltip_templates_n
 		tooltip_templates_nodes: {[key: string]: Array<{[key: string]: string}>}, 
 		view?: string
 	}) => {
+	console.log(elements)
 	// const [view, setView] = useQueryState('view')
 	const entries:{[key:string]: {library: string, value: number, color:string, pval: number, [key: string]: number | string | boolean}} = {}
 	const columns:{[key:string]: boolean} = {}
