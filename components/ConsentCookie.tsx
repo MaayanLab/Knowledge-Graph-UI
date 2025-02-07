@@ -25,7 +25,7 @@ export function withCookie<P>(Component: React.ComponentType<{[key:string]: any}
 }
 
 export const ConsentCookie = ({consentCookie, setConsentCookie}) => {
-    if (consentCookie !== undefined || typeof process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID === 'undefined') return null
+    if (consentCookie !== undefined || process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID === '' || process.env.NEXT_PUBLIC_COOKIE_NAME === '') return null
     else {
         console.log(consentCookie)
         return(
