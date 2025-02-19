@@ -22,6 +22,7 @@ with open(filename) as o:
 	compose = compose.replace('${APP_NAME}', env['APP_NAME'])
 	compose = compose.replace('${VERSION}', env['VERSION'])
 	compose = compose.replace('${NEXT_PUBLIC_HOST}', env['NEXT_PUBLIC_HOST'])
+	compose = compose.replace('${NEXT_PUBLIC_PREFIX}', env['NEXT_PUBLIC_PREFIX'])
 	compose = compose.replace('${DOCKERHUB_NAME}', env['DOCKERHUB_NAME'])
 	print(compose)
 	
