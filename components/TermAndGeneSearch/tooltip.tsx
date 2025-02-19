@@ -100,7 +100,7 @@ export const TooltipComponent = ({data, float, tooltip_templates, schema}: {
           }}><DeleteIcon/></IconButton>
               </Tooltip>} */}
               <Tooltip title="Expand Node">
-				<Link href={`${process.env.NEXT_PUBLIC_HOST}/${pathname}?filter=${filter}`}>
+				<Link href={`${process.env.NEXT_PUBLIC_HOST}${process.env.NEXT_PUBLIC_PREFIX}/${pathname}?filter=${filter}`}>
 					<IconButton>
 						<HubIcon sx={{transform: "scaleX(-1)"}}/>
 					</IconButton>
