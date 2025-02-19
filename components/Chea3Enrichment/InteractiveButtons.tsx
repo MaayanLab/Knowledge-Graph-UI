@@ -446,7 +446,7 @@ const InteractiveButtons = ({
                 </Tooltip>
                 <div style={{ marginLeft: 'auto' }}>
                 <Tooltip title={`Reset subnetwork`}>
-                <Link href={`${pathname}?q=${JSON.stringify({...parsedParams, zscore:0, add_nodes:10})}${layout ? "&layout=" + layout: ""}`} >
+                <Link href={`${pathname}?q=${JSON.stringify({...parsedParams, zscore:0, add_nodes:10, remove:[], expand:[]})}${layout ? "&layout=" + layout: ""}`} >
                     <Button 
                         size="small"
 	                    variant="contained"

@@ -66,8 +66,8 @@ const resolve_two_terms = async ({
         relation?: Array<{name?: string, limit?: number, end?: string}>,
         aggr_scores?: {[key:string]: {max: number, min: number}},
         colors?: {[key: string]: {color?: string, field?: string, aggr_type?: string}},
-        expand?: Array<string>,
-        remove?: Array<string>,
+        expand?: Array<number>,
+        remove?: Array<number>,
         gene_links?: Array<string>,
 		additional_link_tags?: Array<string>,
 		arrow_shape?: {[key: string]: ArrowShape}
@@ -87,10 +87,13 @@ const resolve_two_terms = async ({
 	}
 	const vars = {}
 	if ((remove || []).length) {
+		console.log(query)
 		query = query + `
 			AND NOT a.id in ${JSON.stringify(remove)}
 			AND NOT b.id in ${JSON.stringify(remove)}
 		`
+		console.log("new query:", query)
+
 	} 
 	const gl = []
 	const q = query
@@ -192,8 +195,8 @@ const resolve_term_and_end_type = async (
             relation?: Array<{name?: string, limit?: number, end?: string}>,
             aggr_scores?: {[key:string]: {max: number, min: number}},
             colors?: {[key: string]: {color?: string, field?: string, aggr_type?: string}},
-            expand?: Array<string>,
-            remove?: Array<string>,
+            expand?: Array<number>,
+            remove?: Array<number>,
             gene_links?: Array<string>,
 			additional_link_tags?: Array<string>,
 			arrow_shape?: {[key: string]: ArrowShape}
@@ -214,7 +217,7 @@ const resolve_term_and_end_type = async (
 	const vars = {}
 	if ((remove || []).length) {
 		query = query + `
-			WHERE NOT a.id in ${JSON.stringify(remove)}
+			AND NOT a.id in ${JSON.stringify(remove)}
 			AND NOT b.id in ${JSON.stringify(remove)}
 		`
 	} 
@@ -333,8 +336,8 @@ const resolve_one_term = async ({
         path_length?: number,
         aggr_scores?: {[key:string]: {max: number, min: number}},
         colors?: {[key: string]: {color?: string, field?: string, aggr_type?: string}},
-        expand?: Array<string>,
-        remove?: Array<string>,
+        expand?: Array<number>,
+        remove?: Array<number>,
         gene_links?: Array<string>,
 		additional_link_tags?: Array<string>,
         augment?: Boolean,
@@ -566,8 +569,8 @@ const input_query_schema = z.object({
         end: z.optional(z.string())
     }))),
     path_length: z.optional(z.number()),
-    remove: z.optional(z.array(z.string())),
-    expand: z.optional(z.array(z.string())),
+    remove: z.optional(z.array(z.number())),
+    expand: z.optional(z.array(z.number())),
     gene_links: z.optional(z.array(z.string())),
     augment: z.optional(z.boolean()),
     augment_limit: z.optional(z.number()),

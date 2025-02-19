@@ -71,7 +71,6 @@ const enrichment = async ({
             throw new Error(`Error fetching node_map`)
         }
         const node_mapping = await nod.json()
-        console.log("node mapping; ", node_mapping)
         const nodes = []
         const node_library = {}
         const results = await Promise.all(libraries.map(async ({library, term_limit})=> {
@@ -170,13 +169,15 @@ const enrichment = async ({
                 ${(typeof pvalue === 'number') ? "AND rel.p_value <= " + pvalue : ""}
                 ${(typeof zscore === 'number') ? "AND rel.z_score >= " + zscore : ""}
             `
-            for (const ind in remove) {
-                vars[`remove_${ind}`] = remove[ind]
-                query_part = query_part + `
-                    AND NOT a.id = $remove_${ind}
-                    AND NOT b.id = $remove_${ind}
-                `
-            }
+            
+            //vars[`remove_${ind}`] = remove[ind]
+            // modified to use node ids directly, remove "" manually to fix string->number issue
+
+            query_part = query_part + `
+                AND NOT a.id in ${JSON.stringify(remove).replace(/\"/g,"")}
+                AND NOT b.id in ${JSON.stringify(remove).replace(/\"/g,"")}
+            `
+            
             query_part = query_part + `RETURN p, nodes(p) as n, relationships(p) as r`
             query_list.push(query_part)   
             searched.push(genes)
@@ -198,13 +199,14 @@ const enrichment = async ({
                 AND r.relation IN ${JSON.stringify(gene_links)}
             `
             if ((remove || []).length) {
-                for (const ind in remove) {
-                    vars[`remove_${ind}`] = remove[ind]
-                    query_part = query_part + `
-                        AND NOT a.id = $remove_${ind}
-                        AND NOT b.id = $remove_${ind}
+                query_part = query_part + `
+                        AND NOT a.id in ${JSON.stringify(remove).replace(/\"/g,"")}
+                        AND NOT b.id in ${JSON.stringify(remove).replace(/\"/g,"")}
                     `
-                }
+                //for (const ind in remove) {
+                    //vars[`remove_${ind}`] = remove[ind]
+                    
+                //}
                  
             }
             query_part = query_part + `RETURN p, nodes(p) as n, relationships(p) as r`
@@ -213,17 +215,20 @@ const enrichment = async ({
         // remove has precedence on expand
         // TODO: ensure that expand is checked
         
-        for (const ind in expand) {
-            vars[`expand_${ind}`] = expand[ind]
-            query_list.push( `MATCH p = (c)-[rel]-(d)
-                WHERE c.id = $expand_${ind}
-                RETURN p, nodes(p) as n, relationships(p) as r
-                ORDER BY rel.p_value
-                LIMIT 10
-            `)   
-        }
+        if ((expand || []).length) {
+            for (const ind in expand) {
+                vars[`expand_${ind}`] = expand[ind]
+                // modified to use node ids directly, remove "" manually to fix string->number issue
+                query_list.push( `MATCH p = (c)-[rel]-(d)
+                    WHERE c.id = ${(JSON.stringify(expand[ind]).replace(/\"/g,""))}
+                    RETURN p, nodes(p) as n, relationships(p) as r
+                    ORDER BY rel.p_value
+                    LIMIT 10
+                `)   
+            }
+        }  
+        
         const query = query_list.join(' UNION ')
-        console.log(query)
         const query_params = {limit: expand_limit, ...vars}
         const enrichment_subtypes = {query_terms: searched, result_terms: returned}
         return resolve_results({query, kind_mapper, enrichment_subtypes, query_params, aggr_scores, colors, kind_properties: terms, get_node_color_and_type, arrow_shape})
@@ -239,8 +244,8 @@ const EnrichmentInput = z.object({
     term_degree: z.number().optional(),
     min_lib: z.number().optional(),
     gene_degree: z.number().optional(),
-    remove: z.array(z.string()).optional(),
-    expand: z.array(z.string()).optional(),
+    remove: z.optional(z.array(z.string())),
+    expand: z.optional(z.array(z.string())),
     gene_links: z.array(z.string()).optional(),
     expand_limit: z.number().optional(),
     augment_limit: z.number().optional(),

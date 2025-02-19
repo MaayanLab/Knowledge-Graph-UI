@@ -108,6 +108,8 @@ const Enrichment = async ({
     }, [])
     
     const parsedParams: EnrichmentParams = query_parser.parseServerSide(searchParams.q)
+    //console.log("to remove1", typeof parsedParams.remove[0])
+    
     try {
         parsedParams.libraries = (parsedParams.libraries || []).map(({name, library, limit, term_limit})=>({
             name: name || library,
@@ -135,6 +137,7 @@ const Enrichment = async ({
         let min_z = 100
         let max_z = 0
         let input_desc
+        // console.log("to remove", typeof parsedParams.remove[0])
         if (userListId !==undefined && libraries.length > 0) {
             console.log("Getting description...")
             const desc_request = await fetch(`${process.env.NODE_ENV==="development" ? process.env.NEXT_PUBLIC_HOST_DEV : process.env.NEXT_PUBLIC_HOST}${process.env.NEXT_PUBLIC_PREFIX ? process.env.NEXT_PUBLIC_PREFIX: ""}/api/enrichment/view?userListId=${userListId}`)

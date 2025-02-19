@@ -47,11 +47,9 @@ export const chea_query = async ({
     const genes = {}
     let max_score = 0
     let min_score = 10000
-    console.log("term limit: ", term_limit)
     for (const i of results[library].slice(0,100)) {
 
         if (Object.keys(terms).length >= term_limit) break
-        console.log("terms so far:", Object.keys(terms).length )
 
         const rank = i.Rank
         const chea3label = i.TF

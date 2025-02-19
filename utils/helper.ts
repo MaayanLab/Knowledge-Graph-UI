@@ -136,7 +136,7 @@ export const kind_mapper = ({node, type, enrichment_subtypes, augmented_genes, g
             // node.properties.color = "#ff6169"
             return "Top Ranked TFs"
         } else {
-            return "Search TFs"
+            return "Expanded TFs"
         }
     }
     else if (type !== "Gene") return type

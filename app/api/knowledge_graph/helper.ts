@@ -99,7 +99,7 @@ export const resolve_node_types = async ({
         for (const record of results.records) {
             node_types.push(record.get('node_types'))
         }
-        console.log(node_types.map(i=>(`\`${i}\``)).join("|"))
+        // console.log(node_types.map(i=>(`\`${i}\``)).join("|"))
         return node_types.map(i=>(`\`${i}\``)).join("|")
     }
     catch (error) {
