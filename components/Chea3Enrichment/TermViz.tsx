@@ -50,7 +50,9 @@ const TermViz = ({elements, schema, tooltip_templates_edges, tooltip_templates_n
 			
 		}
 	}
-	const sorted_entries = Object.values(entries).sort((a,b)=>a.score - b.score)
+	// ignore expanded nodes for table and barchart
+	const sorted_entries = Object.values(entries).filter(a=>a.kind !== "Expanded TFs").sort((a,b)=>a.score - b.score)
+	
 	if (sorted_entries.length === 0) return <Typography variant="h5">No Results Found</Typography>
 	else {
 		if (view === 'network' || !view) return (
