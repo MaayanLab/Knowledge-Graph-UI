@@ -3,13 +3,15 @@ env = {
 	"VERSION":'2.2.9',
 	"NEXT_PUBLIC_HOST":'http://localhost:3000',
 	"DOCKERHUB_NAME":'maayanlab',
-	"OFFLINE": False
+	"OFFLINE": False,
+	"NEXT_PUBLIC_PREFIX": ""
 }
 with open('../.env') as o:
 	for line in o:
 		if line.strip() and not line.startswith("#"):
 			key,val = line.strip().split("=")
 			if key in env:
+				print(key)
 				env[key] = val
 
 print(env)	
