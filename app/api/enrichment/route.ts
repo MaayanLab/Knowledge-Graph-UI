@@ -184,7 +184,7 @@ const enrichment = async ({
             returned.push(lib_terms)
         }
         
-        if (gene_links && gene_links.length > 0) {
+        /* if (gene_links && gene_links.length > 0) {
             const geneLinksRelations = schema.edges.reduce((acc, i)=>{
                 if (i.hidden) return [...acc, ...i.match]
                 else return acc
@@ -211,7 +211,8 @@ const enrichment = async ({
             }
             query_part = query_part + `RETURN p, nodes(p) as n, relationships(p) as r`
             query_list.push(query_part)  
-        }
+        } */
+
         // remove has precedence on expand
         // TODO: ensure that expand is checked
         
@@ -219,16 +220,18 @@ const enrichment = async ({
             for (const ind in expand) {
                 vars[`expand_${ind}`] = expand[ind]
                 // modified to use node ids directly, remove "" manually to fix string->number issue
-                query_list.push( `MATCH p = (c)-[rel]-(d)
-                    WHERE c.id = ${(JSON.stringify(expand[ind]).replace(/\"/g,""))}
-                    RETURN p, nodes(p) as n, relationships(p) as r
-                    ORDER BY rel.p_value
+                query_list.push( `MATCH p = (c)--(d)
+                    WHERE (c.id = ${(JSON.stringify(expand[ind]).replace(/\"/g,""))} 
+                        AND NOT c.id in ${JSON.stringify(remove).replace(/\"/g,"")} 
+                        AND NOT d.id in ${JSON.stringify(remove).replace(/\"/g,"")} )
+                    UNWIND relationships(p) as reln WITH nodes(p) as n, reln, p ORDER BY reln.z_score DESC WITH COLLECT {RETURN reln} as r, n, p RETURN n, r, p
                     LIMIT 10
                 `)   
             }
         }  
         
         const query = query_list.join(' UNION ')
+        console.log(query)
         const query_params = {limit: expand_limit, ...vars}
         const enrichment_subtypes = {query_terms: searched, result_terms: returned}
         return resolve_results({query, kind_mapper, enrichment_subtypes, query_params, aggr_scores, colors, kind_properties: terms, get_node_color_and_type, arrow_shape})
