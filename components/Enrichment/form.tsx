@@ -546,9 +546,6 @@ const GeneSetForm = ({
                 { fullWidth &&
                     <Grid item xs={12} md={6}>
                         <Grid container spacing={1} justifyContent="flex-end">
-                            {/* <Grid item xs={12}>
-                                <EnrichrTermSearch setInput={setInput}/>
-                            </Grid> */}
                             <Grid item xs={12}>
                                 <Typography variant={'subtitle2'}>
                                     Select libraries to include
@@ -559,6 +556,10 @@ const GeneSetForm = ({
                                     disableLibraryLimit={disableLibraryLimit || true}
                                 />
                             </Grid>
+                            <Grid item xs={12}>
+                                <EnrichrTermSearch setInput={setInput}/>
+                            </Grid>
+                            
                         </Grid>    
                     </Grid>
                 }
