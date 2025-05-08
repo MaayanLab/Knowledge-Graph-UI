@@ -42,7 +42,7 @@ const NetworkTable = ({data, schema}: {data: NetworkSchema, schema: UISchema}) =
 			// Process nodes first
 			for (const d of data.nodes) {
 				const properties = d.data
-				const {kind, relation, source, target, label, "Unnamed: 0": _, ...rest} = d.data
+				const {kind, relation, source, target, label, ...rest} = d.data
 				const key = `node_${kind}`
 				
 				if (kind && typeof kind === 'string') {
@@ -139,7 +139,7 @@ const NetworkTable = ({data, schema}: {data: NetworkSchema, schema: UISchema}) =
 			// Process edges
 			for (const d of data.edges) {
 				const properties = d.data
-				const {kind, relation, source, target, label, "Unnamed: 0": _, ...rest} = d.data
+				const {kind, relation, source, target, label, ...rest} = d.data
 				if (properties.id === undefined) properties.id = `${source}_${target}`
 				const key = `edge_${relation}`
 				
@@ -255,6 +255,9 @@ const NetworkTable = ({data, schema}: {data: NetworkSchema, schema: UISchema}) =
 								scrollButtons="auto"
 								onChange={(e, val)=>setTab(val)}
 								aria-label="tab"
+								sx={{
+									'& .MuiTab-root.Mui-selected': {color: '#336699',}
+								}}
 							>
 							{tabs.map(k=>(
 								<Tab value={k} aria-label="left aligned" key={`tab-${k}`} label={k.replace('node_', '').replace('edge_', '') + (k.startsWith('node_') ? ' nodes' : ' edges')}/>
