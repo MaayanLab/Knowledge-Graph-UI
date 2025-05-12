@@ -172,7 +172,14 @@ const checkedIcon = <CheckBoxIcon fontSize="small" />;
                                       {option}
                                     </li>
                                   )}
-                                sx={{ width: '100%' }}
+                                sx={{ width: '100%',
+                                        '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                                          borderColor: '#336699',
+                                        },
+                                        '& .MuiInputLabel-root.Mui-focused': {
+                                          color: '#336699',
+                                        },
+                                }}
                                 onChange={(e, r)=>{
                                     if (end || (!end && r.length <= 5)) {
                                         const {filter: f, ...rest} = searchParams
